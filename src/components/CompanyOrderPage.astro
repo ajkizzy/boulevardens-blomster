@@ -283,7 +283,7 @@ const uiText = isEnglish
 <script define:vars={{ locale, uiText }}>
   const cart = new Map();
 
-  function setQty(id: string, name: string, price: number, delta: number) {
+  function setQty(id, name, price, delta) {
     const current = cart.get(id);
     const nextQty = (current?.qty ?? 0) + delta;
 
@@ -295,14 +295,14 @@ const uiText = isEnglish
     cart.set(id, { id, name, price, qty: nextQty });
   }
 
-  function formatPrice(kr: number) {
+  function formatPrice(kr) {
     return `${new Intl.NumberFormat('da-DK', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(kr)} kr`;
   }
 
-  function syncCardUI(id: string) {
+  function syncCardUI(id) {
     const qty = cart.get(id)?.qty ?? 0;
     const card = document.querySelector(`.bouquet-card[data-id="${id}"]`);
 
@@ -423,8 +423,8 @@ const uiText = isEnglish
   });
 
   document.querySelectorAll('input[name="payment"]').forEach((input) => {
-    input.addEventListener('change', (event) => {
-      const value = event.target.value;
+    input.addEventListener('change', () => {
+      const value = input.value;
       document.getElementById('invoice-email-field')?.classList.toggle('hidden', value !== 'faktura');
     });
   });
