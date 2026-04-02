@@ -25,6 +25,8 @@ interface CheckoutRequestLineItem {
 interface CheckoutRequestBody {
   lineItems?: CheckoutRequestLineItem[];
   address?: string;
+  deliveryDate?: string;
+  deliveryClock?: string;
   deliveryTime?: string;
   cardText?: string;
   phone?: string;
@@ -144,6 +146,46 @@ function metadataValue(value: string): string {
   return value.slice(0, 500);
 }
 
+function isWeekdayDate(value: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return false;
+  }
+
+  const date = new Date(`${value}T12:00:00`);
+
+  if (Number.isNaN(date.getTime())) {
+    return false;
+  }
+
+  const day = date.getDay();
+  return day !== 0 && day !== 6;
+}
+
+function isAllowedDeliveryClock(value: string): boolean {
+  const match = /^(\d{2}):(\d{2})$/.exec(value);
+
+  if (!match) {
+    return false;
+  }
+
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+
+  if (!Number.isInteger(hours) || !Number.isInteger(minutes)) {
+    return false;
+  }
+
+  if (![0, 15, 30, 45].includes(minutes)) {
+    return false;
+  }
+
+  if (hours === 9 || hours === 18) {
+    return minutes === 0;
+  }
+
+  return (hours >= 7 && hours < 9) || (hours >= 16 && hours < 18);
+}
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = (await request.json()) as CheckoutRequestBody;
@@ -151,6 +193,8 @@ export const POST: APIRoute = async ({ request }) => {
     const messages = getMessages(locale);
     const payment = body.payment?.trim() || '';
     const customer = buildCustomer(body);
+    const deliveryDate = body.deliveryDate?.trim() || '';
+    const deliveryClock = body.deliveryClock?.trim() || '';
 
     if (
       !customer.address ||
@@ -159,6 +203,10 @@ export const POST: APIRoute = async ({ request }) => {
       !customer.email ||
       !payment
     ) {
+      return json({ error: messages.required }, 400);
+    }
+
+    if (!isWeekdayDate(deliveryDate) || !isAllowedDeliveryClock(deliveryClock)) {
       return json({ error: messages.required }, 400);
     }
 

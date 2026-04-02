@@ -18,6 +18,26 @@ const {
 } = Astro.props;
 
 const isEnglish = locale === 'en';
+const deliveryTimeOptions = [
+  '07:00',
+  '07:15',
+  '07:30',
+  '07:45',
+  '08:00',
+  '08:15',
+  '08:30',
+  '08:45',
+  '09:00',
+  '16:00',
+  '16:15',
+  '16:30',
+  '16:45',
+  '17:00',
+  '17:15',
+  '17:30',
+  '17:45',
+  '18:00',
+];
 const uiText = isEnglish
   ? {
       bouquetsHeading: 'Choose bouquets',
@@ -32,7 +52,8 @@ const uiText = isEnglish
       deliveryDetailsHeading: 'Delivery details',
       deliveryDateLabel: 'Delivery date',
       deliveryTimeLabel: 'Time',
-      deliveryHelp: 'Choose a weekday and a time between 07:00 and 09:00.',
+      deliveryHelp:
+        'Choose a weekday and a time between 07:00-09:00 or 16:00-18:00.',
       submitLabel: 'Proceed to payment',
       submitLoading: 'Sending...',
       successHeading: 'Order received!',
@@ -55,7 +76,8 @@ const uiText = isEnglish
       deliveryDetailsHeading: 'Leveringsoplysninger',
       deliveryDateLabel: 'Leveringsdato',
       deliveryTimeLabel: 'Tidspunkt',
-      deliveryHelp: 'Vælg en hverdag og et tidspunkt mellem 07:00 og 09:00.',
+      deliveryHelp:
+        'Vælg en hverdag og et tidspunkt mellem 07:00-09:00 eller 16:00-18:00.',
       submitLabel: 'Gå til betaling',
       submitLoading: 'Sender...',
       successHeading: 'Bestilling modtaget!',
@@ -206,21 +228,18 @@ const uiText = isEnglish
                       </div>
                       <div>
                         <label class="label-text !text-xs">{isEnglish ? 'Time' : 'Tidspunkt'}</label>
-                        <input
-                          type="time"
-                          name="deliveryClock"
-                          required
-                          min="07:00"
-                          max="09:00"
-                          step="900"
-                          class="input-field !py-2.5"
-                        />
+                        <select name="deliveryClock" required class="input-field !py-2.5">
+                          <option value="">{isEnglish ? 'Choose time' : 'Vælg tidspunkt'}</option>
+                          {deliveryTimeOptions.map((time) => (
+                            <option value={time}>{time}</option>
+                          ))}
+                        </select>
                       </div>
                     </div>
                     <p class="mt-2 text-xs text-gray-500">
                       {isEnglish
-                        ? 'Choose a weekday and a time between 07:00 and 09:00.'
-                        : 'Vælg en hverdag og et tidspunkt mellem 07:00 og 09:00.'}
+                        ? 'Choose a weekday and a time between 07:00-09:00 or 16:00-18:00.'
+                        : 'Vælg en hverdag og et tidspunkt mellem 07:00-09:00 eller 16:00-18:00.'}
                     </p>
                   </div>
                   <div>
@@ -575,6 +594,8 @@ const uiText = isEnglish
 
       const payload = {
         address: String(formData.get('address') || ''),
+        deliveryDate,
+        deliveryClock,
         deliveryTime:
           deliveryDate && deliveryClock
             ? locale === 'en'
