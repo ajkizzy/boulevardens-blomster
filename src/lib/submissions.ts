@@ -10,6 +10,7 @@ import {
 } from '@/lib/config';
 import { sendMail } from '@/lib/mail';
 import { readJsonRecord, saveJsonRecord } from '@/lib/storage';
+import { PRODUCTS, toGrossOre } from '@/lib/stripe';
 
 export interface OrderRecordItem {
   id: string;
@@ -68,6 +69,115 @@ export interface ContactRecord {
   notifications: {
     ownerNotifiedAt?: string;
     customerAcknowledgedAt?: string;
+  };
+}
+
+function buildTotalsFromItems(items: OrderRecordItem[]) {
+  const subtotalExVatOre = items.reduce(
+    (sum, item) => sum + item.lineTotalExVatOre,
+    0,
+  );
+  const totalIncVatOre = items.reduce(
+    (sum, item) => sum + item.lineTotalIncVatOre,
+    0,
+  );
+
+  return {
+    subtotalExVatOre,
+    vatOre: totalIncVatOre - subtotalExVatOre,
+    totalIncVatOre,
+  };
+}
+
+export function serializeOrderItemsForMetadata(items: OrderRecordItem[]): string {
+  return items.map((item) => `${item.id}:${item.qty}`).join('|');
+}
+
+function deserializeOrderItemsFromMetadata(value: string): OrderRecordItem[] {
+  return value
+    .split('|')
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .flatMap((entry) => {
+      const [id, qtyValue] = entry.split(':');
+      const qty = Number(qtyValue);
+      const product = PRODUCTS[id];
+
+      if (!product || !Number.isInteger(qty) || qty <= 0) {
+        return [];
+      }
+
+      const unitPriceExVatOre = product.price;
+      const unitPriceIncVatOre = toGrossOre(unitPriceExVatOre);
+
+      return [
+        {
+          id,
+          name: product.name,
+          qty,
+          unitPriceExVatOre,
+          unitPriceIncVatOre,
+          lineTotalExVatOre: unitPriceExVatOre * qty,
+          lineTotalIncVatOre: unitPriceIncVatOre * qty,
+        },
+      ];
+    });
+}
+
+function getSessionMetadataValue(
+  metadata: Stripe.Metadata | null | undefined,
+  key: string,
+): string {
+  const value = metadata?.[key];
+  return typeof value === 'string' ? value : '';
+}
+
+export function buildRecoveredOrderFromCheckoutSession(
+  session: Stripe.Checkout.Session,
+): OrderRecord | null {
+  const metadata = session.metadata;
+  const orderId = getSessionMetadataValue(metadata, 'orderId');
+  const items = deserializeOrderItemsFromMetadata(
+    getSessionMetadataValue(metadata, 'itemsCompact'),
+  );
+
+  if (!orderId || items.length === 0) {
+    return null;
+  }
+
+  const locale = getSessionMetadataValue(metadata, 'locale') === 'en' ? 'en' : 'da';
+  const email =
+    getSessionMetadataValue(metadata, 'email') ||
+    session.customer_details?.email ||
+    session.customer_email ||
+    '';
+
+  return {
+    id: orderId,
+    locale,
+    createdAt: new Date((session.created || Date.now() / 1000) * 1000).toISOString(),
+    siteOrigin: getSessionMetadataValue(metadata, 'siteOrigin') || undefined,
+    status: 'pending_payment',
+    paymentMethod:
+      getSessionMetadataValue(metadata, 'paymentMethod') ||
+      (locale === 'en' ? 'Online payment' : 'Online betaling'),
+    items,
+    totals: buildTotalsFromItems(items),
+    customer: {
+      address: getSessionMetadataValue(metadata, 'address'),
+      deliveryTime: getSessionMetadataValue(metadata, 'deliveryTime'),
+      cardText: getSessionMetadataValue(metadata, 'cardText'),
+      phone: getSessionMetadataValue(metadata, 'phone'),
+      email,
+      comment: getSessionMetadataValue(metadata, 'comment'),
+      companyCode: getSessionMetadataValue(metadata, 'companyCode'),
+      invoiceEmail: getSessionMetadataValue(metadata, 'invoiceEmail'),
+    },
+    stripe: {
+      checkoutSessionId: session.id,
+      paymentStatus: session.payment_status || 'unpaid',
+    },
+    notifications: {},
   };
 }
 

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import type Stripe from 'stripe';
 import {
+  buildRecoveredOrderFromCheckoutSession,
   getOrderRecord,
   saveOrderRecord,
   sendCustomerOrderAcknowledgement,
@@ -20,11 +21,15 @@ async function handleCompletedCheckout(
     return;
   }
 
-  const order = await getOrderRecord(orderId);
+  let order = await getOrderRecord(orderId);
 
   if (!order) {
-    console.warn(`Webhook received unknown order id ${orderId}.`);
-    return;
+    order = buildRecoveredOrderFromCheckoutSession(session);
+
+    if (!order) {
+      console.warn(`Webhook received unknown order id ${orderId}.`);
+      return;
+    }
   }
 
   await syncOrderPaymentFromSession(order, session);

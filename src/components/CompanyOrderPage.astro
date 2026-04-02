@@ -30,12 +30,16 @@ const uiText = isEnglish
       subtotalLabel: 'Subtotal excl. VAT',
       totalLabel: 'Total incl. VAT',
       deliveryDetailsHeading: 'Delivery details',
+      deliveryDateLabel: 'Delivery date',
+      deliveryTimeLabel: 'Time',
+      deliveryHelp: 'Choose a weekday and a time between 07:00 and 09:00.',
       submitLabel: 'Proceed to payment',
       submitLoading: 'Sending...',
       successHeading: 'Order received!',
       successBody: 'We will send a confirmation to your email shortly.',
       errorGeneric: 'An error occurred. Please try again.',
       noBouquetError: 'Please add at least one bouquet.',
+      weekdayError: 'Please choose a weekday for delivery.',
       mobileCartLabel: 'View basket',
     }
   : {
@@ -49,6 +53,9 @@ const uiText = isEnglish
       subtotalLabel: 'Subtotal ekskl. moms',
       totalLabel: 'Total inkl. moms',
       deliveryDetailsHeading: 'Leveringsoplysninger',
+      deliveryDateLabel: 'Leveringsdato',
+      deliveryTimeLabel: 'Tidspunkt',
+      deliveryHelp: 'Vælg en hverdag og et tidspunkt mellem 07:00 og 09:00.',
       submitLabel: 'Gå til betaling',
       submitLoading: 'Sender...',
       successHeading: 'Bestilling modtaget!',
@@ -192,7 +199,29 @@ const uiText = isEnglish
                   </div>
                   <div>
                     <label class="label-text">{order.form.timeLabel} *</label>
-                    <input type="text" name="deliveryTime" required class="input-field !py-2.5" placeholder={order.form.timePlaceholder} />
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label class="label-text !text-xs">{isEnglish ? 'Delivery date' : 'Leveringsdato'}</label>
+                        <input type="date" name="deliveryDate" required class="input-field !py-2.5" />
+                      </div>
+                      <div>
+                        <label class="label-text !text-xs">{isEnglish ? 'Time' : 'Tidspunkt'}</label>
+                        <input
+                          type="time"
+                          name="deliveryClock"
+                          required
+                          min="07:00"
+                          max="09:00"
+                          step="900"
+                          class="input-field !py-2.5"
+                        />
+                      </div>
+                    </div>
+                    <p class="mt-2 text-xs text-gray-500">
+                      {isEnglish
+                        ? 'Choose a weekday and a time between 07:00 and 09:00.'
+                        : 'Vælg en hverdag og et tidspunkt mellem 07:00 og 09:00.'}
+                    </p>
                   </div>
                   <div>
                     <label class="label-text">{order.form.cardTextLabel}</label>
@@ -280,8 +309,41 @@ const uiText = isEnglish
   }
 </style>
 
-<script define:vars={{ locale, uiText }}>
+<script define:vars={{ locale, uiText, paymentSuccess }}>
   const cart = new Map();
+  const CART_STORAGE_KEY = `boulevardens-blomster-cart-${locale}`;
+
+  function getTodayDateValue() {
+    const now = new Date();
+    const localNow = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+    return localNow.toISOString().split('T')[0];
+  }
+
+  function saveCartState() {
+    try {
+      const snapshot = Array.from(cart.values()).map((item) => ({
+        id: item.id,
+        qty: item.qty,
+      }));
+
+      if (snapshot.length === 0) {
+        localStorage.removeItem(CART_STORAGE_KEY);
+        return;
+      }
+
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(snapshot));
+    } catch (error) {
+      console.warn('Could not save cart state.', error);
+    }
+  }
+
+  function clearCartState() {
+    try {
+      localStorage.removeItem(CART_STORAGE_KEY);
+    } catch (error) {
+      console.warn('Could not clear cart state.', error);
+    }
+  }
 
   function setQty(id, name, price, delta) {
     const current = cart.get(id);
@@ -289,10 +351,12 @@ const uiText = isEnglish
 
     if (nextQty <= 0) {
       cart.delete(id);
+      saveCartState();
       return;
     }
 
     cart.set(id, { id, name, price, qty: nextQty });
+    saveCartState();
   }
 
   function formatPrice(kr) {
@@ -348,7 +412,12 @@ const uiText = isEnglish
 
     const cartList = document.getElementById('cart-list');
 
-    if (!cartList || !hasItems) return;
+    if (!cartList) return;
+
+    if (!hasItems) {
+      cartList.innerHTML = '';
+      return;
+    }
 
     cartList.innerHTML = items
       .map(
@@ -422,6 +491,43 @@ const uiText = isEnglish
     });
   });
 
+  if (paymentSuccess) {
+    clearCartState();
+  } else {
+    try {
+      const rawCartState = localStorage.getItem(CART_STORAGE_KEY);
+      const storedItems = rawCartState ? JSON.parse(rawCartState) : [];
+
+      storedItems.forEach((storedItem) => {
+        if (!storedItem || typeof storedItem.id !== 'string') {
+          return;
+        }
+
+        const qty = Number(storedItem.qty);
+        const card = document.querySelector(`.bouquet-card[data-id="${storedItem.id}"]`);
+        const name = card?.dataset.name;
+        const price = Number(card?.dataset.price);
+
+        if (!card || !name || !Number.isInteger(qty) || qty <= 0 || Number.isNaN(price)) {
+          return;
+        }
+
+        cart.set(storedItem.id, {
+          id: storedItem.id,
+          name,
+          price,
+          qty,
+        });
+        syncCardUI(storedItem.id);
+      });
+
+      renderCart();
+    } catch (error) {
+      console.warn('Could not restore cart state.', error);
+      clearCartState();
+    }
+  }
+
   document.querySelectorAll('input[name="payment"]').forEach((input) => {
     input.addEventListener('change', () => {
       const value = input.value;
@@ -431,6 +537,11 @@ const uiText = isEnglish
 
   const form = document.getElementById('order-form');
   const checkoutButton = document.getElementById('checkout-btn');
+  const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
+
+  if (deliveryDateInput) {
+    deliveryDateInput.min = getTodayDateValue();
+  }
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -449,9 +560,27 @@ const uiText = isEnglish
 
     try {
       const formData = new FormData(form);
+      const deliveryDate = String(formData.get('deliveryDate') || '');
+      const deliveryClock = String(formData.get('deliveryClock') || '');
+      const selectedDate = deliveryDate ? new Date(`${deliveryDate}T12:00:00`) : null;
+      const selectedDay = selectedDate ? selectedDate.getDay() : null;
+
+      if (selectedDay === 0 || selectedDay === 6) {
+        throw new Error(
+          locale === 'en'
+            ? 'Please choose a weekday for delivery.'
+            : 'Vælg venligst en hverdag til levering.',
+        );
+      }
+
       const payload = {
         address: String(formData.get('address') || ''),
-        deliveryTime: String(formData.get('deliveryTime') || ''),
+        deliveryTime:
+          deliveryDate && deliveryClock
+            ? locale === 'en'
+              ? `${deliveryDate} at ${deliveryClock}`
+              : `${deliveryDate} kl. ${deliveryClock}`
+            : '',
         cardText: String(formData.get('cardText') || ''),
         phone: String(formData.get('phone') || ''),
         email: String(formData.get('email') || ''),
@@ -484,6 +613,7 @@ const uiText = isEnglish
 
       if (result.success) {
         const cartPanel = document.getElementById('cart-panel');
+        clearCartState();
 
         if (cartPanel) {
           cartPanel.innerHTML = `

@@ -3,6 +3,7 @@ import type Stripe from 'stripe';
 import type { Locale } from '@/lib/i18n';
 import { getOrderPagePath, getRequestOrigin } from '@/lib/config';
 import {
+  serializeOrderItemsForMetadata,
   createOrderRecord,
   saveOrderRecord,
   sendCustomerOrderAcknowledgement,
@@ -139,6 +140,10 @@ function buildCustomer(body: CheckoutRequestBody): OrderRecordCustomer {
   };
 }
 
+function metadataValue(value: string): string {
+  return value.slice(0, 500);
+}
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = (await request.json()) as CheckoutRequestBody;
@@ -250,7 +255,17 @@ export const POST: APIRoute = async ({ request }) => {
       metadata: {
         orderId: order.id,
         locale,
-        paymentMethod: paymentLabel,
+        paymentMethod: metadataValue(paymentLabel),
+        siteOrigin: metadataValue(origin),
+        itemsCompact: metadataValue(serializeOrderItemsForMetadata(items)),
+        address: metadataValue(customer.address),
+        deliveryTime: metadataValue(customer.deliveryTime),
+        phone: metadataValue(customer.phone),
+        email: metadataValue(customer.email),
+        invoiceEmail: metadataValue(customer.invoiceEmail),
+        companyCode: metadataValue(customer.companyCode),
+        cardText: metadataValue(customer.cardText),
+        comment: metadataValue(customer.comment),
       },
     });
 

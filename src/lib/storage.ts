@@ -1,9 +1,10 @@
+import os from 'node:os';
 import path from 'node:path';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import type { ErrnoException } from 'node:fs';
 import { get, put } from '@vercel/blob';
 
-const LOCAL_DATA_DIR = path.join(process.cwd(), '.data');
+const LOCAL_DATA_DIR = path.join(os.tmpdir(), 'boulevardens-blomster-data');
 
 function hasBlobStorage(): boolean {
   return Boolean(import.meta.env.BLOB_READ_WRITE_TOKEN);
@@ -16,13 +17,20 @@ export async function saveJsonRecord<T>(
   const body = JSON.stringify(data, null, 2);
 
   if (hasBlobStorage()) {
-    await put(pathname, body, {
-      access: 'private',
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      contentType: 'application/json; charset=utf-8',
-    });
-    return;
+    try {
+      await put(pathname, body, {
+        access: 'private',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        contentType: 'application/json; charset=utf-8',
+      });
+      return;
+    } catch (error) {
+      console.error(
+        `Blob write failed for ${pathname}. Falling back to temporary local storage.`,
+        error,
+      );
+    }
   }
 
   const filePath = path.join(LOCAL_DATA_DIR, pathname);
@@ -32,17 +40,22 @@ export async function saveJsonRecord<T>(
 
 export async function readJsonRecord<T>(pathname: string): Promise<T | null> {
   if (hasBlobStorage()) {
-    const result = await get(pathname, {
-      access: 'private',
-      useCache: false,
-    });
+    try {
+      const result = await get(pathname, {
+        access: 'private',
+        useCache: false,
+      });
 
-    if (!result || result.statusCode !== 200 || !result.stream) {
-      return null;
+      if (result && result.statusCode === 200 && result.stream) {
+        const body = await new Response(result.stream).text();
+        return JSON.parse(body) as T;
+      }
+    } catch (error) {
+      console.error(
+        `Blob read failed for ${pathname}. Falling back to temporary local storage.`,
+        error,
+      );
     }
-
-    const body = await new Response(result.stream).text();
-    return JSON.parse(body) as T;
   }
 
   try {
