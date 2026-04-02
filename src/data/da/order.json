@@ -1,0 +1,84 @@
+{
+  "heading": "Firma Bestilling",
+  "intro": "Lad dine kollegaer og virksomhedens atmosfære blomstre med skønhed og glæde. Bestil lokalt hos Boulevardens Blomster og vær med til at fejre de gode øjeblikke med stil og elegance.",
+  "deliveryNote": "Gratis levering og blomsterkort med tekst gælder kun virksomheder og deres ansatte i Taastrup kommune med levering i tidsrummet kl. 07-09 på hverdage.",
+  "deliveryNoteLabel": "OBS:",
+  "contactNote": "For større bestillinger og andre henvendelser, kontakt os venligst på:",
+  "contactEmail": "kontakt@boulevardensblomster.dk",
+  "contactPhone": "61517400",
+  "bouquets": [
+    {
+      "id": "bare-fordi",
+      "name": "Bare fordi...",
+      "description": "Spontan glæde med blomster for intet andet formål end at bringe smil og varme til en særlig person.",
+      "price": 199,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "velkommen-tilbage",
+      "name": "Velkommen tilbage!",
+      "description": "En varm velkomst med blomster for at fejre tilbagevendelsen og sprede glæde i fællesskab.",
+      "price": 299,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "tillykke",
+      "name": "Tillykke!",
+      "description": "Fejr hver glædelig milepæl med vores festlige blomsterbuketter, der udtrykker lykke og begejstring.",
+      "price": 249,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "kaerlighed",
+      "name": "Kærlighed",
+      "description": "Vores kærlighedsbuketter stråler med lidenskab og hengivenhed, perfekt til at udtrykke de kærlige følelser.",
+      "price": 299,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "saeson-kompakt",
+      "name": "Sæsonens blomster - kompakt",
+      "description": "Sæsonens farverige blomster, der er en fryd for øjet til alle anledninger. Vi sikrer skønheden i kompakt format.",
+      "price": 249,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "saeson-hojluftig",
+      "name": "Sæsonens blomster - højluftig",
+      "description": "Sæsonens farverige blomster, der er en fryd for øjet til alle anledninger. Vi sikrer skønheden i højluftig format.",
+      "price": 249,
+      "currency": "DKK",
+      "exVat": true
+    }
+  ],
+  "form": {
+    "bouquetLabel": "Buket (vælg imellem...)",
+    "addressLabel": "Leveringsadresse (OBS, kun i Taastrup)",
+    "timeLabel": "Leveringstidspunkt",
+    "timePlaceholder": "F.eks.: 08-02-2024 kl. 08.00",
+    "cardTextLabel": "Valgfrit: Tilføj tekst til kort (gratis - maks 50 ord)",
+    "phoneLabel": "Tlf.",
+    "emailLabel": "Email",
+    "commentLabel": "Kommentar til bestilling (valgfrit)",
+    "companyCodeLabel": "Firmakode (kontakt os, hvis I ikke har firmakode)",
+    "paymentLabel": "Betaling",
+    "paymentOptions": [
+      { "id": "mobilepay", "label": "MobilePay" },
+      { "id": "kort", "label": "Kortbetaling (Visa / Mastercard)" },
+      { "id": "faktura", "label": "Faktura (sendes på firma mail)" }
+    ],
+    "invoiceEmailLabel": "Hvis Faktura valgt, indsæt venligst firma mail.",
+    "submit": "Send bestilling",
+    "confirmationNote": "Du modtager en bekræftelse på email. Ved faktura sender vi betalingsoplysninger manuelt.",
+    "successHeading": "Tak for din bestilling",
+    "successBody": "Vi har modtaget din bestilling og sender en bekræftelse på email.",
+    "cancelledHeading": "Betalingen blev ikke gennemført",
+    "cancelledBody": "Du kan gennemgå bestillingen igen og prøve betalingen på ny."
+  },
+  "priceLabel": "kr ekskl. moms"
+}

@@ -1,0 +1,23 @@
+{
+  "hero": {
+    "heading": "Velkommen til Boulevardens Blomster",
+    "subheading": "Håndlavede blomsterarrangementer med personligt præg — til enhver anledning.",
+    "cta1": { "label": "Se vores udvalg", "href": "/da/services" },
+    "cta2": { "label": "Firma Bestilling", "href": "/da/firma-bestilling" }
+  },
+  "intro": {
+    "heading": "Boulevardens Blomster",
+    "text": "Velkommen til vores blomsterbutik på Høje Taastrup Boulevard, hvor vi står klar til at kreere blomsterarrangementer med dine personlige præg og til enhver anledning.\n\nVi har altid færdigpakket gavekurve klar i butikken til både små som større begivenheder. På vores hylder finder du talrige unikke potter og krukker, eftersøgt chokolade og vin til enhver smag som kan udgøre netop din gavekurv.\n\nVi tilbyder alt indenfor binderi: Buketter, brudebuketter, borddekorationer, kirkepynt, kistedekorationer, båredekorationer, bårebuketter, kranse, oasishjerter, oasiskors og gravpynt.",
+    "deliveryNote": "I tidsrummet kl. 16–18 kan vi også levere i Taastrup kommune."
+  },
+  "serviceHighlights": {
+    "heading": "Vores services",
+    "items": [
+      { "title": "Buketter", "description": "Smukke blomsterbuketter i alle farver og former.", "anchor": "buketter" },
+      { "title": "Bryllup", "description": "Gør jeres store dag uforglemmelig med blomster.", "anchor": "bryllup" },
+      { "title": "Begravelse", "description": "Respektfulde og smukke arrangementer.", "anchor": "begravelse" },
+      { "title": "Højtider", "description": "Blomster og pynt til alle årets højtider.", "anchor": "hojtider" },
+      { "title": "Gavekurve", "description": "Unikke gavekurve med chokolade, vin og blomster.", "anchor": "gavekurve" }
+    ]
+  }
+}

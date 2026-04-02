@@ -1,0 +1,16 @@
+---
+import CompanyOrderPage from '@/components/CompanyOrderPage.astro';
+import { loadContent } from '@/lib/i18n';
+
+const locale = 'en';
+const order = loadContent<any>(locale, 'order');
+const paymentSuccess = Astro.url.searchParams.get('success') === 'true';
+const paymentCancelled = Astro.url.searchParams.get('cancelled') === 'true';
+---
+
+<CompanyOrderPage
+  locale={locale}
+  order={order}
+  paymentSuccess={paymentSuccess}
+  paymentCancelled={paymentCancelled}
+/>

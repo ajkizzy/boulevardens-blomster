@@ -1,0 +1,17 @@
+{
+  "heading": "Kontakt os",
+  "subheading": "Vi ser frem til at høre fra dig.",
+  "form": {
+    "name": "Navn",
+    "email": "Email",
+    "message": "Meddelelse",
+    "submit": "Send",
+    "namePlaceholder": "Dit fulde navn",
+    "emailPlaceholder": "din@email.dk",
+    "messagePlaceholder": "Skriv din besked her...",
+    "successHeading": "Tak for din besked",
+    "successBody": "Vi har modtaget din henvendelse og sender en bekræftelse på email.",
+    "error": "Der opstod en fejl. Prøv venligst igen."
+  },
+  "mapHeading": "Find os"
+}

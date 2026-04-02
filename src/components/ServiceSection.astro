@@ -1,0 +1,47 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  text: string;
+  image: string;
+  reverse?: boolean;
+  holidayNote?: string;
+  holidayNoteHeading?: string;
+}
+
+const { id, title, text, image, reverse = false, holidayNote, holidayNoteHeading } = Astro.props;
+const paragraphs = text.split('\n\n').filter(Boolean);
+---
+
+<section id={id} class="scroll-mt-24 py-16 sm:py-20 border-b border-gray-100 last:border-b-0">
+  <div class="container-narrow mx-auto px-4 sm:px-6 lg:px-8">
+    <div class:list={[
+      "grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center",
+      reverse && "lg:[direction:rtl] lg:*:[direction:ltr]"
+    ]}>
+      <!-- Image -->
+      <div class="relative">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200 shadow-lg">
+          <!-- TODO: Replace with actual image for this service -->
+          <div class="w-full h-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+            <span class="text-6xl opacity-50">🌸</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div>
+        <h3 class="font-heading text-2xl sm:text-3xl font-bold text-gray-900 mb-6">{title}</h3>
+        <div class="space-y-4 text-gray-600 leading-relaxed">
+          {paragraphs.map(p => <p>{p}</p>)}
+        </div>
+        {holidayNote && (
+          <div class="mt-6 p-4 bg-primary-50 rounded-lg border border-primary-100">
+            {holidayNoteHeading && <h4 class="font-heading font-semibold text-primary-800 mb-1">{holidayNoteHeading}</h4>}
+            <p class="text-sm text-primary-700">{holidayNote}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

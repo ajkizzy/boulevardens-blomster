@@ -1,0 +1,25 @@
+---
+interface Props {
+  heading: string;
+  subheading?: string;
+  align?: 'left' | 'center';
+  id?: string;
+}
+
+const { heading, subheading, align = 'center', id } = Astro.props;
+---
+
+<div id={id} class:list={[
+  "mb-10 sm:mb-12 scroll-mt-24",
+  align === 'center' ? 'text-center' : ''
+]}>
+  <h2 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900">
+    {heading}
+  </h2>
+  {subheading && (
+    <p class="mt-3 text-lg text-gray-600 max-w-2xl" class:list={[align === 'center' && 'mx-auto']}>
+      {subheading}
+    </p>
+  )}
+  <div class:list={["mt-4 w-16 h-1 bg-primary-600 rounded-full", align === 'center' ? 'mx-auto' : '']} />
+</div>

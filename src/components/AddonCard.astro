@@ -1,0 +1,23 @@
+---
+interface Props {
+  name: string;
+  price: number;
+  priceLabel: string;
+  id: string;
+}
+
+const { name, price, priceLabel, id } = Astro.props;
+---
+
+<div class="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex items-center gap-4" data-addon-id={id}>
+  <!-- TODO: Replace with actual addon image -->
+  <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-warm-200 to-warm-100 flex-shrink-0 flex items-center justify-center">
+    <span class="text-2xl opacity-40">🍫</span>
+  </div>
+  <div class="flex-1 min-w-0">
+    <h5 class="font-medium text-gray-900 text-sm truncate">{name}</h5>
+    <p class="text-sm font-semibold text-primary-700 mt-0.5">
+      {price},00 <span class="text-xs font-normal text-gray-500">{priceLabel}</span>
+    </p>
+  </div>
+</div>

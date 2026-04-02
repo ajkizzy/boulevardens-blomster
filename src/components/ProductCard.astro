@@ -1,0 +1,23 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  price: number;
+  priceLabel: string;
+  id: string;
+}
+
+const { name, description, price, priceLabel, id } = Astro.props;
+---
+
+<div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5 flex flex-col" data-product-id={id}>
+  <!-- TODO: Replace with actual product image -->
+  <div class="aspect-[4/3] rounded-lg overflow-hidden bg-gradient-to-br from-accent-50 to-primary-50 mb-4 flex items-center justify-center">
+    <span class="text-4xl opacity-40">💐</span>
+  </div>
+  <h4 class="font-heading font-semibold text-gray-900">{name}</h4>
+  <p class="mt-1 text-sm text-gray-600 leading-relaxed flex-1">{description}</p>
+  <p class="mt-3 text-lg font-semibold text-primary-700">
+    {price},00 <span class="text-sm font-normal text-gray-500">{priceLabel}</span>
+  </p>
+</div>

@@ -1,0 +1,29 @@
+---
+import { loadContent } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const site = loadContent<any>(locale, 'site');
+---
+
+<div class="bg-primary-50 rounded-xl p-6 sm:p-8 border border-primary-100">
+  <h3 class="font-heading text-xl font-semibold text-primary-800 mb-4">{site.hours.title}</h3>
+  <dl class="space-y-3 text-sm">
+    <div class="flex justify-between items-center">
+      <dt class="text-gray-700">{site.hours.weekdays.label}</dt>
+      <dd class="font-semibold text-gray-900">{site.hours.weekdays.time}</dd>
+    </div>
+    <div class="flex justify-between items-center">
+      <dt class="text-gray-700">{site.hours.saturday.label}</dt>
+      <dd class="font-semibold text-gray-900">{site.hours.saturday.time}</dd>
+    </div>
+    <div class="flex justify-between items-center">
+      <dt class="text-gray-700">{site.hours.sunday.label}</dt>
+      <dd class="font-semibold text-gray-900">{site.hours.sunday.time}</dd>
+    </div>
+  </dl>
+</div>

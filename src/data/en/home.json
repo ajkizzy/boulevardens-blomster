@@ -1,0 +1,23 @@
+{
+  "hero": {
+    "heading": "Welcome to Boulevardens Blomster",
+    "subheading": "Handcrafted floral arrangements with a personal touch — for every occasion.",
+    "cta1": { "label": "Explore Our Services", "href": "/en/services" },
+    "cta2": { "label": "Company Orders", "href": "/en/company-orders" }
+  },
+  "intro": {
+    "heading": "Boulevardens Blomster",
+    "text": "Welcome to our flower shop on Høje Taastrup Boulevard, where we create beautiful floral arrangements with your personal touch for every occasion.\n\nWe always have ready-made gift baskets available in the shop for both small and special events. On our shelves you'll find unique pots and vases, fine chocolates, and wines for every taste to make your perfect gift basket.\n\nWe offer everything in floral design: bouquets, bridal bouquets, table decorations, church decorations, casket arrangements, funeral wreaths, oasis hearts, oasis crosses, and grave ornaments.",
+    "deliveryNote": "Between 4–6 PM we also deliver within the Taastrup municipality."
+  },
+  "serviceHighlights": {
+    "heading": "Our Services",
+    "items": [
+      { "title": "Bouquets", "description": "Beautiful flower bouquets in every colour and shape.", "anchor": "buketter" },
+      { "title": "Weddings", "description": "Make your special day unforgettable with flowers.", "anchor": "bryllup" },
+      { "title": "Funerals", "description": "Respectful and beautiful arrangements.", "anchor": "begravelse" },
+      { "title": "Holidays", "description": "Flowers and decorations for every season.", "anchor": "hojtider" },
+      { "title": "Gift Baskets", "description": "Unique gift baskets with chocolate, wine, and flowers.", "anchor": "gavekurve" }
+    ]
+  }
+}

@@ -1,0 +1,106 @@
+---
+import Hero from '@/components/Hero.astro';
+import Layout from '@/layouts/Layout.astro';
+import { loadContent } from '@/lib/i18n';
+
+const locale = 'en';
+const site = loadContent<any>(locale, 'site');
+---
+
+<Layout title="Terms & Conditions" locale={locale}>
+  <Hero heading="Terms & Conditions" compact />
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto max-w-4xl space-y-10">
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 text-sm leading-7 text-gray-700">
+        <p>
+          These terms apply to orders placed through the Boulevardens Blomster
+          website. They are a practical baseline for the site and should be
+          reviewed with the business' legal adviser before final production use.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Business information</h2>
+        <p>{site.name}</p>
+        <p>{site.address.street}, {site.address.zip} {site.address.city}</p>
+        <p>VAT / CVR: {site.cvr}</p>
+        <p>Email: {site.email}</p>
+        <p>Phone: {site.phone}</p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Prices and payment</h2>
+        <p>
+          Prices on the company order page are shown in DKK excluding VAT. VAT is
+          added during checkout and is included in the final amount before payment
+          is completed.
+        </p>
+        <p>
+          Online payments are processed through Stripe using the payment methods
+          available at checkout, including card payments and MobilePay.
+        </p>
+        <p>
+          If you choose <strong>Invoice</strong>, Boulevardens Blomster receives the
+          order immediately and sends the invoice manually afterwards.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Order confirmation</h2>
+        <p>
+          After submitting an order through the website, you receive an automatic
+          acknowledgement by email. Online orders are considered completed when
+          payment has been approved. Invoice orders are considered received when
+          Boulevardens Blomster has sent an acknowledgement and later issues the
+          invoice manually.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Delivery</h2>
+        <p>
+          Delivery is made based on the information entered in the order form. The
+          customer is responsible for ensuring that the delivery address, contact
+          details and preferred delivery time are correct.
+        </p>
+        <p>
+          Free delivery and flower card text only apply to businesses and employees
+          in Taastrup municipality within the time window stated on the order page.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Cancellation and complaints</h2>
+        <p>
+          Flowers are perishable goods, and many orders are arranged for a specific
+          occasion. For that reason, a standard 14-day withdrawal right should not
+          generally be expected for these deliveries.
+        </p>
+        <p>
+          If there is an issue with a delivery, please contact Boulevardens
+          Blomster as soon as possible at {site.email} or {site.phone} so the case
+          can be assessed individually.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Liability</h2>
+        <p>
+          Boulevardens Blomster cannot be held responsible for delays or failed
+          deliveries caused by incorrect information from the customer, conditions
+          at the recipient location or circumstances outside the business' reasonable
+          control.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Personal data</h2>
+        <p>
+          Information submitted through contact forms and orders is processed in
+          accordance with the business' privacy policy.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,530 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero.astro';
+import type { Locale } from '@/lib/i18n';
+
+interface Props {
+  locale: Locale;
+  order: any;
+  paymentSuccess?: boolean;
+  paymentCancelled?: boolean;
+}
+
+const {
+  locale,
+  order,
+  paymentSuccess = false,
+  paymentCancelled = false,
+} = Astro.props;
+
+const isEnglish = locale === 'en';
+const uiText = isEnglish
+  ? {
+      bouquetsHeading: 'Choose bouquets',
+      bouquetsSubheading: 'Select one or more, including multiple of the same.',
+      largeOrdersHeading: 'Larger orders?',
+      cartHeading: 'Your basket',
+      cartItemSingular: 'item',
+      cartItemPlural: 'items',
+      emptyState: 'Add a bouquet to get started',
+      subtotalLabel: 'Subtotal excl. VAT',
+      totalLabel: 'Total incl. VAT',
+      deliveryDetailsHeading: 'Delivery details',
+      submitLabel: 'Proceed to payment',
+      submitLoading: 'Sending...',
+      successHeading: 'Order received!',
+      successBody: 'We will send a confirmation to your email shortly.',
+      errorGeneric: 'An error occurred. Please try again.',
+      noBouquetError: 'Please add at least one bouquet.',
+      mobileCartLabel: 'View basket',
+    }
+  : {
+      bouquetsHeading: 'Vælg buketter',
+      bouquetsSubheading: 'Vælg en eller flere, også flere af samme type.',
+      largeOrdersHeading: 'Større bestillinger?',
+      cartHeading: 'Din kurv',
+      cartItemSingular: 'vare',
+      cartItemPlural: 'varer',
+      emptyState: 'Tilføj en buket for at komme i gang',
+      subtotalLabel: 'Subtotal ekskl. moms',
+      totalLabel: 'Total inkl. moms',
+      deliveryDetailsHeading: 'Leveringsoplysninger',
+      submitLabel: 'Gå til betaling',
+      submitLoading: 'Sender...',
+      successHeading: 'Bestilling modtaget!',
+      successBody: 'Vi sender en bekræftelse til din email snarest.',
+      errorGeneric: 'Der opstod en fejl. Prøv venligst igen.',
+      noBouquetError: 'Tilføj mindst en buket for at fortsætte.',
+      mobileCartLabel: 'Se kurv',
+    };
+---
+
+<Layout title={order.heading} locale={locale}>
+  <Hero heading={order.heading} compact />
+
+  {(paymentSuccess || paymentCancelled) && (
+    <div class="bg-white border-b border-gray-100">
+      <div class="container-narrow mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div
+          class:list={[
+            'rounded-2xl border px-5 py-4 text-sm',
+            paymentSuccess
+              ? 'border-primary-100 bg-primary-50 text-primary-800'
+              : 'border-amber-200 bg-amber-50 text-amber-800',
+          ]}
+        >
+          <p class="font-semibold">
+            {paymentSuccess ? order.form.successHeading : order.form.cancelledHeading}
+          </p>
+          <p class="mt-1">
+            {paymentSuccess ? order.form.successBody : order.form.cancelledBody}
+          </p>
+        </div>
+      </div>
+    </div>
+  )}
+
+  <div class="bg-white border-b border-gray-100">
+    <div class="container-narrow mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <p class="text-gray-600 max-w-2xl">{order.intro}</p>
+      <div class="mt-3">
+        <div class="flex items-start gap-2 p-3 bg-amber-50 rounded-lg border border-amber-200 text-sm text-amber-800 max-w-xl">
+          <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span><strong>{order.deliveryNoteLabel}</strong> {order.deliveryNote}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-3 lg:gap-10 xl:gap-14">
+        <div class="lg:col-span-2 space-y-14">
+          <div>
+            <h2 class="font-heading text-2xl font-bold text-gray-900 mb-1">{uiText.bouquetsHeading}</h2>
+            <p class="text-sm text-gray-500 mb-6">{uiText.bouquetsSubheading}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {order.bouquets.map((bouquet: any) => (
+                <div
+                  class="bouquet-card rounded-2xl border-2 border-gray-100 bg-white p-4 transition-all duration-200"
+                  data-id={bouquet.id}
+                  data-name={bouquet.name}
+                  data-price={bouquet.price}
+                >
+                  <div class="aspect-[4/3] rounded-xl bg-gradient-to-br from-accent-50 via-warm-200 to-primary-50 mb-4 flex items-center justify-center relative overflow-hidden">
+                    <span class="text-5xl opacity-30">💐</span>
+                    <div class="qty-badge absolute top-2 right-2 min-w-[28px] h-7 px-1.5 bg-primary-600 rounded-full items-center justify-center text-white text-xs font-bold hidden">
+                      <span class="qty-badge-count">0</span>
+                    </div>
+                  </div>
+                  <h3 class="font-heading font-semibold text-gray-900">{bouquet.name}</h3>
+                  <p class="text-xs text-gray-500 mt-1 leading-relaxed line-clamp-2">{bouquet.description}</p>
+                  <div class="mt-3 flex items-center justify-between gap-3">
+                    <p class="font-semibold text-primary-700 text-sm">{bouquet.price},00 <span class="text-xs font-normal text-gray-400">{order.priceLabel}</span></p>
+                    <div class="flex items-center gap-1">
+                      <button
+                        type="button"
+                        class="qty-dec hidden w-8 h-8 rounded-full border border-gray-200 bg-white hover:border-primary-400 hover:text-primary-700 flex items-center justify-center text-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-400"
+                        aria-label={isEnglish ? 'Remove one' : 'Fjern en'}
+                      >
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>
+                      </button>
+                      <span class="qty-display hidden w-8 text-center text-sm font-semibold text-gray-900">0</span>
+                      <button
+                        type="button"
+                        class="qty-inc w-8 h-8 rounded-full bg-primary-600 hover:bg-primary-700 flex items-center justify-center text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-400"
+                        aria-label={isEnglish ? 'Add one' : 'Tilføj en'}
+                      >
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-primary-50 border border-primary-100 text-sm text-primary-800">
+            <p class="font-medium mb-1">{uiText.largeOrdersHeading}</p>
+            <p>{order.contactNote} <a href={`mailto:${order.contactEmail}`} class="underline hover:no-underline">{order.contactEmail}</a> {isEnglish ? 'or' : 'eller'} <a href={`tel:${order.contactPhone}`} class="underline hover:no-underline">{order.contactPhone}</a></p>
+          </div>
+        </div>
+
+        <div class="lg:col-span-1 mt-12 lg:mt-0">
+          <div class="lg:sticky lg:top-24">
+            <div id="cart-panel" class="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+              <div class="px-5 py-4 bg-primary-700 text-white">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-heading font-semibold text-lg">{uiText.cartHeading}</h3>
+                  <span id="cart-item-count" class="text-sm opacity-80">0 {uiText.cartItemPlural}</span>
+                </div>
+              </div>
+
+              <div id="cart-empty" class="px-5 py-10 text-center text-gray-400">
+                <svg class="w-10 h-10 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-9H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <p class="text-sm">{uiText.emptyState}</p>
+              </div>
+
+              <div id="cart-items" class="hidden divide-y divide-gray-100">
+                <div id="cart-list" class="px-5 py-3 space-y-2.5"></div>
+
+                <div class="px-5 py-4 bg-gray-50">
+                  <div class="flex justify-between text-sm text-gray-500 mb-1">
+                    <span>{uiText.subtotalLabel}</span>
+                    <span id="cart-subtotal">0 kr</span>
+                  </div>
+                  <div class="flex justify-between font-semibold text-gray-900">
+                    <span>{uiText.totalLabel}</span>
+                    <span id="cart-total">0 kr</span>
+                  </div>
+                </div>
+
+                <form id="order-form" class="px-5 py-5 space-y-4">
+                  <h4 class="font-heading font-semibold text-gray-900">{uiText.deliveryDetailsHeading}</h4>
+
+                  <div>
+                    <label class="label-text">{order.form.addressLabel} *</label>
+                    <input type="text" name="address" required class="input-field !py-2.5" placeholder={isEnglish ? 'Street 12, 2630 Høje Taastrup' : 'Vejnavn 12, 2630 Høje Taastrup'} />
+                  </div>
+                  <div>
+                    <label class="label-text">{order.form.timeLabel} *</label>
+                    <input type="text" name="deliveryTime" required class="input-field !py-2.5" placeholder={order.form.timePlaceholder} />
+                  </div>
+                  <div>
+                    <label class="label-text">{order.form.cardTextLabel}</label>
+                    <input type="text" name="cardText" class="input-field !py-2.5" maxlength="250" placeholder={isEnglish ? 'E.g.: Happy Birthday!' : 'Fx: Tillykke med fødselsdagen!'} />
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="label-text">{order.form.phoneLabel} *</label>
+                      <input type="tel" name="phone" required class="input-field !py-2.5" placeholder="12345678" />
+                    </div>
+                    <div>
+                      <label class="label-text">{order.form.emailLabel} *</label>
+                      <input type="email" name="email" required class="input-field !py-2.5" placeholder={isEnglish ? 'your@company.com' : 'din@firma.dk'} />
+                    </div>
+                  </div>
+                  <div>
+                    <label class="label-text">{order.form.companyCodeLabel}</label>
+                    <input type="text" name="companyCode" class="input-field !py-2.5" />
+                  </div>
+                  <div>
+                    <label class="label-text">{order.form.commentLabel}</label>
+                    <textarea name="comment" rows="2" class="input-field !py-2.5 resize-none"></textarea>
+                  </div>
+
+                  <div>
+                    <label class="label-text">{order.form.paymentLabel} *</label>
+                    <div class="space-y-2 mt-1">
+                      {order.form.paymentOptions.map((option: any) => (
+                        <label class="flex items-center gap-2.5 p-2.5 rounded-lg border border-gray-200 hover:border-primary-300 cursor-pointer transition-colors text-sm">
+                          <input type="radio" name="payment" value={option.id} required class="w-3.5 h-3.5 text-primary-600 border-gray-300 focus:ring-primary-500" />
+                          <span class="flex-1 text-gray-700">{option.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div id="invoice-email-field" class="hidden">
+                    <label class="label-text">{order.form.invoiceEmailLabel}</label>
+                    <input type="email" name="invoiceEmail" class="input-field !py-2.5" placeholder={isEnglish ? 'invoice@company.com' : 'faktura@firma.dk'} />
+                  </div>
+
+                  <button type="submit" id="checkout-btn" class="btn-primary w-full !py-3.5 !text-sm flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    {uiText.submitLabel}
+                  </button>
+                  <p class="text-center text-xs text-gray-400">{order.form.confirmationNote}</p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="mobile-cart-bar" class="hidden lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-gray-200 shadow-lg px-4 py-3">
+    <button id="mobile-cart-open" class="btn-primary w-full !py-3 flex items-center justify-between">
+      <span class="flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-9H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <span>{uiText.mobileCartLabel}</span>
+      </span>
+      <span id="mobile-cart-total-label" class="font-semibold">0 kr</span>
+    </button>
+  </div>
+</Layout>
+
+<style>
+  .bouquet-card.has-items {
+    @apply border-primary-400 shadow-sm;
+  }
+
+  .bouquet-card.has-items .qty-badge {
+    @apply flex;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<script define:vars={{ locale, uiText }}>
+  interface LineItem {
+    id: string;
+    name: string;
+    price: number;
+    qty: number;
+  }
+
+  const cart = new Map<string, LineItem>();
+
+  function setQty(id: string, name: string, price: number, delta: number) {
+    const current = cart.get(id);
+    const nextQty = (current?.qty ?? 0) + delta;
+
+    if (nextQty <= 0) {
+      cart.delete(id);
+      return;
+    }
+
+    cart.set(id, { id, name, price, qty: nextQty });
+  }
+
+  function formatPrice(kr: number) {
+    return `${new Intl.NumberFormat('da-DK', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(kr)} kr`;
+  }
+
+  function syncCardUI(id: string) {
+    const qty = cart.get(id)?.qty ?? 0;
+    const card = document.querySelector<HTMLElement>(`.bouquet-card[data-id="${id}"]`);
+
+    if (!card) return;
+
+    const dec = card.querySelector<HTMLElement>('.qty-dec');
+    const display = card.querySelector<HTMLElement>('.qty-display');
+    const badge = card.querySelector<HTMLElement>('.qty-badge');
+    const badgeCount = card.querySelector<HTMLElement>('.qty-badge-count');
+
+    dec?.classList.toggle('hidden', qty === 0);
+    display?.classList.toggle('hidden', qty === 0);
+
+    if (display) display.textContent = String(qty);
+
+    card.classList.toggle('has-items', qty > 0);
+    badge?.classList.toggle('hidden', qty === 0);
+
+    if (badgeCount) badgeCount.textContent = String(qty);
+  }
+
+  function renderCart() {
+    const items = Array.from(cart.values());
+    const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
+    const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
+    const total = Math.round(subtotal * 125) / 100;
+    const hasItems = totalQty > 0;
+
+    document.getElementById('cart-empty')?.classList.toggle('hidden', hasItems);
+    document.getElementById('cart-items')?.classList.toggle('hidden', !hasItems);
+    document.getElementById('mobile-cart-bar')?.classList.toggle('hidden', !hasItems);
+
+    const countLabel = `${totalQty} ${totalQty === 1 ? uiText.cartItemSingular : uiText.cartItemPlural}`;
+    const itemCount = document.getElementById('cart-item-count');
+    const subtotalElement = document.getElementById('cart-subtotal');
+    const totalElement = document.getElementById('cart-total');
+    const mobileTotal = document.getElementById('mobile-cart-total-label');
+
+    if (itemCount) itemCount.textContent = countLabel;
+    if (subtotalElement) subtotalElement.textContent = formatPrice(subtotal);
+    if (totalElement) totalElement.textContent = formatPrice(total);
+    if (mobileTotal) mobileTotal.textContent = formatPrice(total);
+
+    const cartList = document.getElementById('cart-list');
+
+    if (!cartList || !hasItems) return;
+
+    cartList.innerHTML = items
+      .map(
+        (item) => `
+          <div class="flex items-center justify-between gap-2 py-0.5 text-sm">
+            <div class="flex-1 min-w-0">
+              <p class="font-medium text-gray-900 truncate">${item.name}</p>
+              <p class="text-xs text-gray-400">${item.qty} × ${formatPrice(item.price)}</p>
+            </div>
+            <div class="flex items-center gap-1 flex-shrink-0">
+              <button type="button" class="cart-dec w-6 h-6 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-400 hover:border-red-200 transition-colors" data-id="${item.id}">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>
+              </button>
+              <span class="w-5 text-center font-semibold text-gray-800 text-xs">${item.qty}</span>
+              <button type="button" class="cart-inc w-6 h-6 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-primary-600 hover:border-primary-300 transition-colors" data-id="${item.id}">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+              </button>
+              <span class="ml-1 font-semibold text-gray-700 text-xs w-16 text-right">${formatPrice(item.price * item.qty)}</span>
+            </div>
+          </div>
+        `,
+      )
+      .join('');
+
+    cartList.querySelectorAll<HTMLElement>('.cart-dec').forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.id;
+        const item = id ? cart.get(id) : null;
+
+        if (!id || !item) return;
+
+        setQty(id, item.name, item.price, -1);
+        syncCardUI(id);
+        renderCart();
+      });
+    });
+
+    cartList.querySelectorAll<HTMLElement>('.cart-inc').forEach((button) => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.id;
+        const item = id ? cart.get(id) : null;
+
+        if (!id || !item) return;
+
+        setQty(id, item.name, item.price, 1);
+        syncCardUI(id);
+        renderCart();
+      });
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('.bouquet-card').forEach((card) => {
+    const id = card.dataset.id;
+    const name = card.dataset.name;
+    const price = Number(card.dataset.price);
+
+    if (!id || !name || Number.isNaN(price)) return;
+
+    card.querySelector('.qty-inc')?.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setQty(id, name, price, 1);
+      syncCardUI(id);
+      renderCart();
+    });
+
+    card.querySelector('.qty-dec')?.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setQty(id, name, price, -1);
+      syncCardUI(id);
+      renderCart();
+    });
+  });
+
+  document.querySelectorAll<HTMLInputElement>('input[name="payment"]').forEach((input) => {
+    input.addEventListener('change', (event) => {
+      const value = (event.target as HTMLInputElement).value;
+      document.getElementById('invoice-email-field')?.classList.toggle('hidden', value !== 'faktura');
+    });
+  });
+
+  const form = document.getElementById('order-form') as HTMLFormElement | null;
+  const checkoutButton = document.getElementById('checkout-btn') as HTMLButtonElement | null;
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const items = Array.from(cart.values());
+
+    if (items.length === 0) {
+      alert(uiText.noBouquetError);
+      return;
+    }
+
+    if (checkoutButton) {
+      checkoutButton.disabled = true;
+      checkoutButton.innerHTML = `<svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg> ${uiText.submitLoading}`;
+    }
+
+    try {
+      const formData = new FormData(form);
+      const payload = {
+        address: String(formData.get('address') || ''),
+        deliveryTime: String(formData.get('deliveryTime') || ''),
+        cardText: String(formData.get('cardText') || ''),
+        phone: String(formData.get('phone') || ''),
+        email: String(formData.get('email') || ''),
+        companyCode: String(formData.get('companyCode') || ''),
+        comment: String(formData.get('comment') || ''),
+        payment: String(formData.get('payment') || ''),
+        invoiceEmail: String(formData.get('invoiceEmail') || ''),
+        locale,
+        lineItems: items.map((item) => ({
+          id: item.id,
+          qty: item.qty,
+        })),
+      };
+
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || uiText.errorGeneric);
+      }
+
+      if (result.url) {
+        window.location.href = result.url;
+        return;
+      }
+
+      if (result.success) {
+        const cartPanel = document.getElementById('cart-panel');
+
+        if (cartPanel) {
+          cartPanel.innerHTML = `
+            <div class="p-10 text-center">
+              <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-primary-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <h3 class="font-heading text-xl font-bold text-gray-900 mb-2">${uiText.successHeading}</h3>
+              <p class="text-gray-500 text-sm">${uiText.successBody}</p>
+            </div>
+          `;
+        }
+
+        document.getElementById('mobile-cart-bar')?.classList.add('hidden');
+        return;
+      }
+
+      throw new Error(result.error || uiText.errorGeneric);
+    } catch (error) {
+      alert(error instanceof Error && error.message ? error.message : uiText.errorGeneric);
+
+      if (checkoutButton) {
+        checkoutButton.disabled = false;
+        checkoutButton.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg> ${uiText.submitLabel}`;
+      }
+    }
+  });
+
+  document.getElementById('mobile-cart-open')?.addEventListener('click', () => {
+    document.getElementById('order-form')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  });
+</script>

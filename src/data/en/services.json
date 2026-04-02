@@ -1,0 +1,38 @@
+{
+  "heading": "Our Services",
+  "subheading": "We offer everything in floral design — for life's big and small moments.",
+  "sections": [
+    {
+      "id": "buketter",
+      "title": "Bouquets",
+      "text": "We invite you to visit us and discover our beautiful selection of flower bouquets in a variety of colours and shapes. Treat yourself or a loved one to an elegant bouquet from Boulevardens Blomster — we have something for every taste!",
+      "image": "/images/buketter.jpg"
+    },
+    {
+      "id": "bryllup",
+      "title": "Weddings",
+      "text": "A wedding is a joyful occasion that will be remembered forever.\n\nWe are here to make your special day even more memorable with our selection of beautiful congratulatory bouquets and elegant table decorations for both the reception and dinner.\n\nOur long-stemmed red roses are perfect for the morning gift, and of course our most meaningful flower — the bridal bouquet. Let us help create unforgettable moments on your big day.",
+      "image": "/images/bryllup.jpg"
+    },
+    {
+      "id": "begravelse",
+      "title": "Funerals",
+      "text": "Losing a loved one is always a difficult experience, and while flowers cannot take away the grief, they can contribute to a beautiful and respectful farewell.\n\nAt Boulevardens Blomster, we approach funeral arrangements with particular care, and we go to great lengths to ensure that our casket bouquets, wreaths, and grave decorations meet the highest standards of quality, value, and delivery. We understand the importance of creating a meaningful and beautiful farewell during a difficult time.",
+      "image": "/images/begravelse.jpg"
+    },
+    {
+      "id": "hojtider",
+      "title": "Holidays",
+      "text": "Holidays, celebrations, special occasions — there are many throughout the year, but they all share one thing: we decorate and celebrate with family and friends.\n\nBoulevaardens Blomster has everything for the right occasion!\n\nOn Valentine's Day, the entire shop is adorned with red roses and red hearts.\n\nAt Easter, everything is yellow, and all things bright find their way into bouquets and plantings.\n\nMother's Day is a classic — a perfect opportunity to say what we often forget in everyday life: that Mum is the best in the world. The shop overflows with bouquets in every colour and shape.\n\nChristmas is the biggest celebration of all. Our beautiful Christmas decorations come out and the crystal ornaments go up. We are experts in Christmas decorations and Advent wreaths, and we make sure you can find all the classic Christmas items with us.\nBoulevaardens Blomster has the cosiest Christmas room.",
+      "image": "/images/hojtider.jpg",
+      "holidayNote": "Boulevardens Blomster is open on all holidays.",
+      "holidayNoteHeading": "Holiday Opening Hours"
+    },
+    {
+      "id": "gavekurve",
+      "title": "Gift Baskets",
+      "text": "We invite you to visit us and discover our beautiful selection of gift baskets in various themes and sizes. Treat a loved one to an elegant gift basket from Boulevardens Blomster, or put together the perfect hostess gift — we have something for every taste!",
+      "image": "/images/gavekurve.jpg"
+    }
+  ]
+}

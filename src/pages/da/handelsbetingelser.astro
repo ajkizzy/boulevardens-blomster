@@ -1,0 +1,108 @@
+---
+import Hero from '@/components/Hero.astro';
+import Layout from '@/layouts/Layout.astro';
+import { loadContent } from '@/lib/i18n';
+
+const locale = 'da';
+const site = loadContent<any>(locale, 'site');
+---
+
+<Layout title="Handelsbetingelser" locale={locale}>
+  <Hero heading="Handelsbetingelser" compact />
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto max-w-4xl space-y-10">
+      <div class="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 text-sm leading-7 text-gray-700">
+        <p>
+          Disse handelsbetingelser gælder for bestillinger afgivet via Boulevardens
+          Blomsters website. Teksten er en praktisk baseline til webshoppen og bor
+          gennemgaas med virksomhedens rådgiver, inden siden går endeligt i drift.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Virksomhedsoplysninger</h2>
+        <p>{site.name}</p>
+        <p>{site.address.street}, {site.address.zip} {site.address.city}</p>
+        <p>CVR: {site.cvr}</p>
+        <p>Email: {site.email}</p>
+        <p>Telefon: {site.phone}</p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Priser og betaling</h2>
+        <p>
+          Alle priser på firma-bestillingssiden vises i DKK ekskl. moms. Moms
+          tilføjes ved checkout og fremgår af den samlede pris, inden betalingen
+          gennemføres.
+        </p>
+        <p>
+          Online betalinger gennemføres via Stripe med de betalingsmetoder, der er
+          tilgængelige på checkouttidspunktet, herunder kort og MobilePay.
+        </p>
+        <p>
+          Hvis du vælger <strong>Faktura</strong>, modtager Boulevardens Blomster
+          bestillingen med det samme og sender faktura manuelt efterfølgende.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Ordrebekræftelse</h2>
+        <p>
+          Når du sender en bestilling via websitet, modtager du en automatisk
+          kvittering på email. For online betalinger anses ordren som gennemført,
+          når betalingen er godkendt. For fakturaordrer anses ordren som modtaget,
+          når Boulevardens Blomster har sendt en kvittering og efterfølgende
+          udsteder faktura manuelt.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Levering</h2>
+        <p>
+          Levering sker efter de oplysninger, du indtaster i bestillingen. Kunden
+          er ansvarlig for, at adresse, kontaktoplysninger og ønsket
+          leveringstidspunkt er korrekte.
+        </p>
+        <p>
+          Gratis levering og blomsterkort med tekst gælder kun for virksomheder og
+          ansatte i Taastrup kommune inden for det tidsrum, der er oplyst på
+          bestillingssiden.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Fortrydelse og reklamation</h2>
+        <p>
+          Blomster er letfordærvelige varer, og mange bestillinger bindes eller
+          sammensættes til en konkret anledning. Derfor kan der som udgangspunkt
+          ikke forventes almindelig 14 dages fortrydelsesret på disse leverancer.
+        </p>
+        <p>
+          Hvis der er fejl i leveringen, beder vi dig kontakte Boulevardens
+          Blomster hurtigst muligt på {site.email} eller {site.phone}, så sagen kan
+          vurderes konkret.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Ansvar</h2>
+        <p>
+          Boulevardens Blomster kan ikke holdes ansvarlig for forsinkelser eller
+          manglende levering, hvis det skyldes ukorrekte oplysninger fra kunden,
+          forhold hos modtageren eller forhold uden for virksomhedens rimelige
+          kontrol.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <h2 class="text-2xl font-bold text-gray-900">Persondata</h2>
+        <p>
+          Oplysninger, som afgives i forbindelse med kontaktformularer og
+          bestillinger, behandles i overensstemmelse med virksomhedens
+          privatlivspolitik.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

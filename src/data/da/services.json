@@ -1,0 +1,38 @@
+{
+  "heading": "Vores Services",
+  "subheading": "Vi tilbyder alt inden for blomster og binderi — til livets store og små øjeblikke.",
+  "sections": [
+    {
+      "id": "buketter",
+      "title": "Blomsterbuketter",
+      "text": "Vi inviterer dig til at besøge os og opleve vores udvalg af smukke blomsterbuketter i forskellige farver og former. Forkæl dig selv eller en elsket med en elegant buket fra Boulevardens Blomster — vi har noget for enhver smag!",
+      "image": "/images/buketter.jpg"
+    },
+    {
+      "id": "bryllup",
+      "title": "Bryllup",
+      "text": "Et bryllup er en jublende begivenhed, der vil blive husket for evigt.\n\nVi står til rådighed for at gøre denne særlige lejlighed endnu mere mindeværdig med vores udvalg af smukke lykønskningsbuketter og elegante borddekorationer til både receptionen og middagen.\n\nVores langstilkede røde roser er perfekte til at ledsage morgengaven, og ikke mindst vores mest betydningsfulde blomst — brudebuketten. Lad os bidrage til at skabe uforglemmelige øjeblikke på jeres store dag.",
+      "image": "/images/bryllup.jpg"
+    },
+    {
+      "id": "begravelse",
+      "title": "Begravelse",
+      "text": "At miste en kær person er altid en udfordrende oplevelse, og selvom blomster ikke kan ændre på sorgen, kan de bidrage til en smuk og respektfuld afsked.\n\nHos Boulevardens Blomster anser vi begravelsesarrangementer med særlig alvor, og vi stræber efter at gå langt for at sikre, at vores bårebuketter, kranse og buketter til gravsteder opfylder de højeste standarder, hvad angår kvalitet, pris og levering. Vi forstår vigtigheden af at skabe et betydningsfuldt og smukt farvel i en svær tid.",
+      "image": "/images/begravelse.jpg"
+    },
+    {
+      "id": "hojtider",
+      "title": "Højtider",
+      "text": "Højtider, helligdage, mærkedage. Der er mange af dem, men fælles for dem alle er, at vi pynter op og fejrer dem med familie og venner.\n\nBoulevaardens Blomster har alt til den rigtige anledning!\n\nValentins Dag, pyntes hele butikken med røde roser og røde hjerter.\n\nPåsken er gul, og alt hvad der er gult finder vej til buketter og sammenplantninger.\n\nMors dag, er en klassiker, som mange danskere ser som en god mulighed for, at få sagt det man glemmer i hverdagen — at mor er den bedste i verden. Butikken emmer af buketter i alverdes farver og faconer.\n\nJul er den største højtid, vor smukke julepynt findes frem og krystalkuglerne hænges op. Vi er eksperter i juledekorationer og adventskranse, og vi gør meget ud af, at du skal kunne finde de klassiske julevarer hos os.\nBoulevaardens Blomster har den hyggeligste julestue.",
+      "image": "/images/hojtider.jpg",
+      "holidayNote": "Boulevardens Blomster holder åbent ved alle højtider.",
+      "holidayNoteHeading": "Åbningstider ved helligdage"
+    },
+    {
+      "id": "gavekurve",
+      "title": "Gavekurve",
+      "text": "Vi inviterer dig til at besøge os og opleve vores udvalg af smukke gavekurve i forskellige temaer og størrelser. Forkæl en elsket med en elegant gavekurv fra Boulevardens Blomster eller sammensæt den perfekte værtinde gave — vi har noget for enhver smag!",
+      "image": "/images/gavekurve.jpg"
+    }
+  ]
+}

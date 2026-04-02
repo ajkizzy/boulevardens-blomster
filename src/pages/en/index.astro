@@ -1,0 +1,84 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/components/Hero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import OpeningHours from '@/components/OpeningHours.astro';
+import { loadContent } from '@/lib/i18n';
+
+const locale = 'en';
+const home = loadContent<any>(locale, 'home');
+const site = loadContent<any>(locale, 'site');
+---
+
+<Layout title={home.hero.heading} locale={locale}>
+  <!-- Hero -->
+  <Hero
+    heading={home.hero.heading}
+    subheading={home.hero.subheading}
+    cta1={home.hero.cta1}
+    cta2={home.hero.cta2}
+  />
+
+  <!-- Intro Section -->
+  <section class="section-padding">
+    <div class="container-narrow mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16">
+        <div class="lg:col-span-3">
+          <SectionHeading heading={home.intro.heading} align="left" />
+          <div class="space-y-4 text-gray-600 leading-relaxed">
+            {home.intro.text.split('\n\n').map((p: string) => <p>{p}</p>)}
+          </div>
+          {home.intro.deliveryNote && (
+            <div class="mt-6 p-4 bg-accent-50 rounded-lg border border-accent-100">
+              <p class="text-sm text-accent-800 font-medium">{home.intro.deliveryNote}</p>
+            </div>
+          )}
+        </div>
+        <div class="lg:col-span-2">
+          <OpeningHours locale={locale} />
+          <div class="mt-6 bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+            <h3 class="font-heading font-semibold text-gray-900 mb-3">{site.footer.contactUs}</h3>
+            <div class="space-y-2 text-sm text-gray-600">
+              <p>
+                <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="hover:text-primary-700 transition-colors">
+                  {site.phone}
+                </a>
+              </p>
+              <p>
+                <a href={`mailto:${site.email}`} class="hover:text-primary-700 transition-colors">
+                  {site.email}
+                </a>
+              </p>
+              <p class="text-gray-500">
+                {site.address.street}<br />
+                {site.address.zip} {site.address.city}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Highlights -->
+  <section class="section-padding bg-white">
+    <div class="container-narrow mx-auto">
+      <SectionHeading heading={home.serviceHighlights.heading} />
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {home.serviceHighlights.items.map((item: any) => (
+          <ServiceCard
+            title={item.title}
+            description={item.description}
+            href={`/en/services#${item.anchor}`}
+          />
+        ))}
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/en/company-orders" class="btn-primary !px-8 !py-3.5">
+          {site.nav.order}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

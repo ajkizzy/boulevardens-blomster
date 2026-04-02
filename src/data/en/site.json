@@ -1,0 +1,43 @@
+{
+  "name": "Boulevardens Blomster",
+  "tagline": "Your local flower shop in Høje Taastrup",
+  "phone": "+45 61 51 74 00",
+  "email": "kontakt@boulevardensblomster.dk",
+  "address": {
+    "street": "Høje Taastrup Boulevard 55",
+    "zip": "2630",
+    "city": "Høje Taastrup",
+    "country": "Denmark"
+  },
+  "cvr": "44348365",
+  "social": {
+    "facebook": "https://www.facebook.com/profile.php?id=61553832436383",
+    "instagram": "https://www.instagram.com/boulevardens_blomster/"
+  },
+  "hours": {
+    "title": "Opening Hours",
+    "weekdays": { "label": "Monday-Friday", "time": "9-17.30" },
+    "saturday": { "label": "Saturday", "time": "9-17.30" },
+    "sunday": { "label": "Sundays and holidays", "time": "9-16" }
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "order": "Company Orders"
+  },
+  "serviceDropdown": [
+    { "label": "Bouquets", "anchor": "buketter" },
+    { "label": "Weddings", "anchor": "bryllup" },
+    { "label": "Funerals", "anchor": "begravelse" },
+    { "label": "Holidays", "anchor": "hojtider" },
+    { "label": "Gift Baskets", "anchor": "gavekurve" }
+  ],
+  "footer": {
+    "findUs": "Find Us",
+    "contactUs": "Contact Us",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "heading": "Contact Us",
+  "subheading": "We look forward to hearing from you.",
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Send",
+    "namePlaceholder": "Your full name",
+    "emailPlaceholder": "your@email.com",
+    "messagePlaceholder": "Write your message here...",
+    "successHeading": "Thank you for your message",
+    "successBody": "We have received your enquiry and will send a confirmation by email.",
+    "error": "An error occurred. Please try again."
+  },
+  "mapHeading": "Find Us"
+}

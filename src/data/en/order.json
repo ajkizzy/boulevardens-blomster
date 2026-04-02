@@ -1,0 +1,84 @@
+{
+  "heading": "Company Orders",
+  "intro": "Let your colleagues and workplace bloom with beauty and joy. Order locally from Boulevardens Blomster and celebrate the good moments with style and elegance.",
+  "deliveryNote": "Free delivery and flower card with text applies only to businesses and their employees in Taastrup municipality, with delivery between 07-09 on weekdays.",
+  "deliveryNoteLabel": "Please note:",
+  "contactNote": "For larger orders and other enquiries, please contact us at:",
+  "contactEmail": "kontakt@boulevardensblomster.dk",
+  "contactPhone": "61517400",
+  "bouquets": [
+    {
+      "id": "bare-fordi",
+      "name": "Just Because...",
+      "description": "Spontaneous joy with flowers for no other reason than to bring a smile and warmth to someone special.",
+      "price": 199,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "velkommen-tilbage",
+      "name": "Welcome Back!",
+      "description": "A warm welcome with flowers to celebrate the return and spread joy together.",
+      "price": 299,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "tillykke",
+      "name": "Congratulations!",
+      "description": "Celebrate every happy milestone with our festive bouquets that express happiness and excitement.",
+      "price": 249,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "kaerlighed",
+      "name": "Love",
+      "description": "Our love bouquets radiate passion and devotion, perfect for expressing your heartfelt feelings.",
+      "price": 299,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "saeson-kompakt",
+      "name": "Seasonal Flowers - Compact",
+      "description": "Colourful seasonal flowers that are a delight for every occasion. We ensure beauty in a compact format.",
+      "price": 249,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
+      "id": "saeson-hojluftig",
+      "name": "Seasonal Flowers - Airy",
+      "description": "Colourful seasonal flowers that are a delight for every occasion. We ensure beauty in a tall, airy format.",
+      "price": 249,
+      "currency": "DKK",
+      "exVat": true
+    }
+  ],
+  "form": {
+    "bouquetLabel": "Bouquet (choose from...)",
+    "addressLabel": "Delivery address (Taastrup area only)",
+    "timeLabel": "Delivery time",
+    "timePlaceholder": "e.g.: 08-02-2024 at 08:00",
+    "cardTextLabel": "Optional: Add text for card (free - max 50 words)",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "commentLabel": "Order comments (optional)",
+    "companyCodeLabel": "Company code (contact us if you don't have one)",
+    "paymentLabel": "Payment",
+    "paymentOptions": [
+      { "id": "mobilepay", "label": "MobilePay" },
+      { "id": "kort", "label": "Card payment (Visa / Mastercard)" },
+      { "id": "faktura", "label": "Invoice (sent to company email)" }
+    ],
+    "invoiceEmailLabel": "If Invoice selected, please enter company email.",
+    "submit": "Place Order",
+    "confirmationNote": "You will receive an email confirmation. For invoice orders we send payment details manually.",
+    "successHeading": "Thank you for your order",
+    "successBody": "We have received your order and will send a confirmation by email.",
+    "cancelledHeading": "The payment was not completed",
+    "cancelledBody": "You can review the order and try the payment again."
+  },
+  "priceLabel": "DKK excl. VAT"
+}

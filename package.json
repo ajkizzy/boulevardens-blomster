@@ -1,0 +1,20 @@
+{
+  "name": "boulevardens-blomster",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "@astrojs/vercel": "^9.0.5",
+    "@vercel/blob": "^2.3.3",
+    "astro": "^5.7.10",
+    "nodemailer": "^8.0.4",
+    "stripe": "^17.5.0",
+    "tailwindcss": "^3.4.17"
+  }
+}
