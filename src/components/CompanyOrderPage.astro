@@ -281,14 +281,7 @@ const uiText = isEnglish
 </style>
 
 <script define:vars={{ locale, uiText }}>
-  interface LineItem {
-    id: string;
-    name: string;
-    price: number;
-    qty: number;
-  }
-
-  const cart = new Map<string, LineItem>();
+  const cart = new Map();
 
   function setQty(id: string, name: string, price: number, delta: number) {
     const current = cart.get(id);
@@ -311,14 +304,14 @@ const uiText = isEnglish
 
   function syncCardUI(id: string) {
     const qty = cart.get(id)?.qty ?? 0;
-    const card = document.querySelector<HTMLElement>(`.bouquet-card[data-id="${id}"]`);
+    const card = document.querySelector(`.bouquet-card[data-id="${id}"]`);
 
     if (!card) return;
 
-    const dec = card.querySelector<HTMLElement>('.qty-dec');
-    const display = card.querySelector<HTMLElement>('.qty-display');
-    const badge = card.querySelector<HTMLElement>('.qty-badge');
-    const badgeCount = card.querySelector<HTMLElement>('.qty-badge-count');
+    const dec = card.querySelector('.qty-dec');
+    const display = card.querySelector('.qty-display');
+    const badge = card.querySelector('.qty-badge');
+    const badgeCount = card.querySelector('.qty-badge-count');
 
     dec?.classList.toggle('hidden', qty === 0);
     display?.classList.toggle('hidden', qty === 0);
@@ -380,7 +373,7 @@ const uiText = isEnglish
       )
       .join('');
 
-    cartList.querySelectorAll<HTMLElement>('.cart-dec').forEach((button) => {
+    cartList.querySelectorAll('.cart-dec').forEach((button) => {
       button.addEventListener('click', () => {
         const id = button.dataset.id;
         const item = id ? cart.get(id) : null;
@@ -393,7 +386,7 @@ const uiText = isEnglish
       });
     });
 
-    cartList.querySelectorAll<HTMLElement>('.cart-inc').forEach((button) => {
+    cartList.querySelectorAll('.cart-inc').forEach((button) => {
       button.addEventListener('click', () => {
         const id = button.dataset.id;
         const item = id ? cart.get(id) : null;
@@ -407,7 +400,7 @@ const uiText = isEnglish
     });
   }
 
-  document.querySelectorAll<HTMLElement>('.bouquet-card').forEach((card) => {
+  document.querySelectorAll('.bouquet-card').forEach((card) => {
     const id = card.dataset.id;
     const name = card.dataset.name;
     const price = Number(card.dataset.price);
@@ -429,15 +422,15 @@ const uiText = isEnglish
     });
   });
 
-  document.querySelectorAll<HTMLInputElement>('input[name="payment"]').forEach((input) => {
+  document.querySelectorAll('input[name="payment"]').forEach((input) => {
     input.addEventListener('change', (event) => {
-      const value = (event.target as HTMLInputElement).value;
+      const value = event.target.value;
       document.getElementById('invoice-email-field')?.classList.toggle('hidden', value !== 'faktura');
     });
   });
 
-  const form = document.getElementById('order-form') as HTMLFormElement | null;
-  const checkoutButton = document.getElementById('checkout-btn') as HTMLButtonElement | null;
+  const form = document.getElementById('order-form');
+  const checkoutButton = document.getElementById('checkout-btn');
 
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();

@@ -94,7 +94,7 @@ const site = loadContent<any>(locale, 'site');
 </Layout>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const form = document.getElementById('contact-form');
   const status = document.getElementById('contact-form-status');
 
   form?.addEventListener('submit', async (event) => {
@@ -102,7 +102,7 @@ const site = loadContent<any>(locale, 'site');
 
     if (!status) return;
 
-    const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    const submitButton = form.querySelector('button[type="submit"]');
     const successHeading = form.dataset.successHeading || '';
     const successBody = form.dataset.successBody || '';
     const errorMessage = form.dataset.error || 'An error occurred. Please try again.';
