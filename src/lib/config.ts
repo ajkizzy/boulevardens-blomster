@@ -8,7 +8,20 @@ export const DEFAULT_SITE_URL =
   import.meta.env.SITE_URL || 'https://boulevardensblomster.dk';
 
 export function getRequestOrigin(request: Request): string {
-  return new URL(request.url).origin;
+  const forwardedHost = request.headers.get('x-forwarded-host');
+  const forwardedProto = request.headers.get('x-forwarded-proto') || 'https';
+
+  if (forwardedHost) {
+    return `${forwardedProto}://${forwardedHost}`;
+  }
+
+  const url = new URL(request.url);
+
+  if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') {
+    return DEFAULT_SITE_URL;
+  }
+
+  return url.origin;
 }
 
 export function getOrderPagePath(locale: Locale): string {
