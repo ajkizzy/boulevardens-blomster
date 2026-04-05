@@ -27,7 +27,7 @@ const { title = site.name, description = site.tagline } = Astro.props;
   </head>
   <body class="min-h-screen flex flex-col">
     <Header locale={currentLocale} />
-    <main class="flex-1">
+    <main class="flex-1 pt-2 sm:pt-4">
       <slot />
     </main>
     <Footer locale={currentLocale} />

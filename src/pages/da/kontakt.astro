@@ -14,39 +14,43 @@ const site = loadContent<any>(locale, 'site');
 
   <section class="section-padding">
     <div class="container-narrow mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-        <!-- Map & Info -->
-        <div class="space-y-8">
-          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200 shadow-lg">
-            <iframe
-              src="https://www.openstreetmap.org/export/embed.html?bbox=12.24%2C55.64%2C12.28%2C55.66&layer=mapnik&marker=55.6505%2C12.2614"
-              class="w-full h-full border-0"
-              loading="lazy"
-              title="Map"
-            ></iframe>
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[0.92fr,1.08fr]">
+        <div class="space-y-6">
+          <div class="surface-panel p-4 sm:p-5">
+            <div class="overflow-hidden rounded-[1.5rem] shadow-ambient">
+              <iframe
+                src="https://www.openstreetmap.org/export/embed.html?bbox=12.24%2C55.64%2C12.28%2C55.66&layer=mapnik&marker=55.6505%2C12.2614"
+                class="aspect-[4/3] w-full border-0"
+                loading="lazy"
+                title="Map"
+              ></iframe>
+            </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <h3 class="font-heading font-semibold text-gray-900 mb-3">{contact.mapHeading}</h3>
-              <address class="not-italic text-sm text-gray-600 space-y-1">
-                <p class="font-medium text-gray-900">Boulevardens Blomster</p>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div class="editorial-card p-6">
+              <p class="eyebrow">Besøg os</p>
+              <h3 class="mt-5 font-heading text-3xl text-surface-ink">{contact.mapHeading}</h3>
+              <address class="mt-5 not-italic space-y-2 text-sm text-surface-ink/68">
+                <p class="font-semibold text-surface-ink">Boulevardens Blomster</p>
                 <p>{site.address.street}</p>
                 <p>{site.address.zip} {site.address.city}</p>
                 <p>{site.address.country}</p>
-                <p class="text-gray-500 mt-2">CVR: {site.cvr}</p>
+                <p class="pt-3 text-xs uppercase tracking-[0.18em] text-surface-ink/46">CVR {site.cvr}</p>
               </address>
             </div>
-            <div>
-              <h3 class="font-heading font-semibold text-gray-900 mb-3">{site.footer.contactUs}</h3>
-              <div class="text-sm text-gray-600 space-y-2">
+
+            <div class="editorial-card p-6">
+              <p class="eyebrow">Kontakt</p>
+              <h3 class="mt-5 font-heading text-3xl text-surface-ink">{site.footer.contactUs}</h3>
+              <div class="mt-5 space-y-3 text-sm text-surface-ink/68">
                 <p>
-                  <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="hover:text-primary-700 transition-colors font-medium">
+                  <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
                     {site.phone}
                   </a>
                 </p>
                 <p>
-                  <a href={`mailto:${site.email}`} class="hover:text-primary-700 transition-colors">
+                  <a href={`mailto:${site.email}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
                     {site.email}
                   </a>
                 </p>
@@ -57,36 +61,34 @@ const site = loadContent<any>(locale, 'site');
           <OpeningHours locale={locale} />
         </div>
 
-        <!-- Contact Form -->
-        <div>
-          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-            <h2 class="font-heading text-2xl font-bold text-gray-900 mb-6">{contact.heading}</h2>
-            <div id="contact-form-status" class="hidden mb-5 rounded-xl border border-primary-100 bg-primary-50 px-4 py-3 text-sm text-primary-800"></div>
-            <form
-              id="contact-form"
-              class="space-y-5"
-              data-locale={locale}
-              data-success-heading={contact.form.successHeading}
-              data-success-body={contact.form.successBody}
-              data-error={contact.form.error}
-            >
-              <div>
-                <label for="name" class="label-text">{contact.form.name} *</label>
-                <input type="text" id="name" name="name" required class="input-field" placeholder={contact.form.namePlaceholder} />
-              </div>
-              <div>
-                <label for="email" class="label-text">{contact.form.email} *</label>
-                <input type="email" id="email" name="email" required class="input-field" placeholder={contact.form.emailPlaceholder} />
-              </div>
-              <div>
-                <label for="message" class="label-text">{contact.form.message} *</label>
-                <textarea id="message" name="message" required rows="5" class="input-field resize-y" placeholder={contact.form.messagePlaceholder}></textarea>
-              </div>
-              <button type="submit" class="btn-primary w-full !py-3.5">
-                {contact.form.submit}
-              </button>
-            </form>
-          </div>
+        <div class="editorial-card p-6 sm:p-8">
+          <p class="eyebrow">Skriv til os</p>
+          <h2 class="mt-5 font-heading text-4xl text-surface-ink">{contact.heading}</h2>
+          <div id="contact-form-status" class="hidden mb-5 mt-6 rounded-[1.25rem] bg-primary-50 px-4 py-3 text-sm text-primary-700"></div>
+          <form
+            id="contact-form"
+            class="mt-6 space-y-5"
+            data-locale={locale}
+            data-success-heading={contact.form.successHeading}
+            data-success-body={contact.form.successBody}
+            data-error={contact.form.error}
+          >
+            <div>
+              <label for="name" class="label-text">{contact.form.name} *</label>
+              <input type="text" id="name" name="name" required class="input-field" placeholder={contact.form.namePlaceholder} />
+            </div>
+            <div>
+              <label for="email" class="label-text">{contact.form.email} *</label>
+              <input type="email" id="email" name="email" required class="input-field" placeholder={contact.form.emailPlaceholder} />
+            </div>
+            <div>
+              <label for="message" class="label-text">{contact.form.message} *</label>
+              <textarea id="message" name="message" required rows="6" class="input-field resize-y" placeholder={contact.form.messagePlaceholder}></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full !py-3.5">
+              {contact.form.submit}
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -132,11 +134,11 @@ const site = loadContent<any>(locale, 'site');
 
       form.reset();
       status.className =
-        'mb-5 rounded-xl border border-primary-100 bg-primary-50 px-4 py-3 text-sm text-primary-800';
+        'mb-5 mt-6 rounded-[1.25rem] bg-primary-50 px-4 py-3 text-sm text-primary-700';
       status.innerHTML = `<p class="font-semibold">${successHeading}</p><p class="mt-1">${successBody}</p>`;
     } catch (error) {
       status.className =
-        'mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700';
+        'mb-5 mt-6 rounded-[1.25rem] bg-secondary-100 px-4 py-3 text-sm text-secondary-700';
       status.textContent =
         error instanceof Error && error.message ? error.message : errorMessage;
     } finally {

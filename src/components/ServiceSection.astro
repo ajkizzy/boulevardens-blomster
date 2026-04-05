@@ -9,36 +9,53 @@ interface Props {
   holidayNoteHeading?: string;
 }
 
-const { id, title, text, image, reverse = false, holidayNote, holidayNoteHeading } = Astro.props;
+const {
+  id,
+  title,
+  text,
+  image,
+  reverse = false,
+  holidayNote,
+  holidayNoteHeading,
+} = Astro.props;
 const paragraphs = text.split('\n\n').filter(Boolean);
+const isEnglish = Astro.url.pathname.startsWith('/en');
+const eyebrow = isEnglish ? 'Service' : 'Service';
 ---
 
-<section id={id} class="scroll-mt-24 py-16 sm:py-20 border-b border-gray-100 last:border-b-0">
-  <div class="container-narrow mx-auto px-4 sm:px-6 lg:px-8">
+<section id={id} class="scroll-mt-28 px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+  <div class="container-narrow mx-auto">
     <div class:list={[
-      "grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center",
+      "surface-panel grid grid-cols-1 gap-10 overflow-hidden px-6 py-8 sm:px-8 sm:py-10 lg:grid-cols-[0.42fr,0.58fr] lg:gap-16 lg:px-10",
       reverse && "lg:[direction:rtl] lg:*:[direction:ltr]"
     ]}>
-      <!-- Image -->
-      <div class="relative">
-        <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-200 shadow-lg">
-          <!-- TODO: Replace with actual image for this service -->
-          <div class="w-full h-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
-            <span class="text-6xl opacity-50">🌸</span>
-          </div>
+      <div class="relative min-h-[320px]">
+        <div class="absolute -left-4 top-0 h-full w-full rounded-[2rem] bg-gradient-to-br from-primary-100 via-surface-raised to-secondary-100 shadow-ambient lg:w-[88%]"></div>
+        <div class="absolute bottom-6 right-0 flex h-[74%] w-[72%] items-center justify-center rounded-[2rem] bg-gradient-to-br from-primary-500 to-primary-300 text-[5rem] text-white/20 lg:text-[6rem]">
+          <span aria-hidden="true">✿</span>
         </div>
+        {holidayNoteHeading && (
+          <div class="absolute left-6 top-6 rounded-full bg-surface-raised px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-600 shadow-ambient">
+            {holidayNoteHeading}
+          </div>
+        )}
+        {image && (
+          <div class="absolute bottom-0 left-8 rounded-[1.4rem] bg-surface-raised px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-surface-ink/52 shadow-ambient">
+            {image}
+          </div>
+        )}
       </div>
 
-      <!-- Content -->
       <div>
-        <h3 class="font-heading text-2xl sm:text-3xl font-bold text-gray-900 mb-6">{title}</h3>
-        <div class="space-y-4 text-gray-600 leading-relaxed">
-          {paragraphs.map(p => <p>{p}</p>)}
+        <p class="eyebrow">{eyebrow}</p>
+        <h3 class="mt-6 font-heading text-3xl font-semibold leading-tight tracking-[-0.02em] text-surface-ink sm:text-4xl">{title}</h3>
+        <div class="mt-6 space-y-4 leading-relaxed text-surface-ink/70">
+          {paragraphs.map((p) => <p>{p}</p>)}
         </div>
         {holidayNote && (
-          <div class="mt-6 p-4 bg-primary-50 rounded-lg border border-primary-100">
-            {holidayNoteHeading && <h4 class="font-heading font-semibold text-primary-800 mb-1">{holidayNoteHeading}</h4>}
-            <p class="text-sm text-primary-700">{holidayNote}</p>
+          <div class="mt-8 rounded-[1.4rem] bg-surface-raised p-5 shadow-ambient">
+            {holidayNoteHeading && <h4 class="font-heading text-xl text-surface-ink">{holidayNoteHeading}</h4>}
+            <p class="mt-2 text-sm leading-relaxed text-surface-ink/68">{holidayNote}</p>
           </div>
         )}
       </div>

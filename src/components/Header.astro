@@ -12,122 +12,178 @@ const nav = getNavLinks(locale);
 const currentPath = Astro.url.pathname;
 const daPath = getPathForLocale(currentPath, locale, 'da');
 const enPath = getPathForLocale(currentPath, locale, 'en');
+const studioLabel = locale === 'en' ? 'Florist studio' : 'Blomsteratelier';
 ---
 
-<header class="bg-white/95 backdrop-blur-sm border-b border-gray-100 sticky top-0 z-50">
-  <div class="container-narrow mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20">
-      <!-- Logo -->
-      <a href={nav.home.href} class="flex items-center gap-2 group">
-        <span class="text-xl sm:text-2xl font-heading font-semibold text-primary-800 group-hover:text-primary-600 transition-colors">
-          Boulevardens Blomster
-        </span>
-      </a>
-
-      <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-1">
-        <a href={nav.home.href}
-           class:list={["nav-link", { "nav-link-active": currentPath === nav.home.href || currentPath === nav.home.href + '/' }]}>
-          {nav.home.label}
-        </a>
-        <a href={nav.about.href}
-           class:list={["nav-link", { "nav-link-active": currentPath.includes(nav.about.href) }]}>
-          {nav.about.label}
+<header class="sticky top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
+  <div class="container-narrow mx-auto">
+    <div class="glass-panel rounded-[1.75rem] px-5 py-4 sm:px-6">
+      <div class="flex items-center justify-between gap-4">
+        <a href={nav.home.href} class="group min-w-0">
+          <div class="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-surface-ink/45">
+            {studioLabel}
+          </div>
+          <span class="block truncate text-xl font-heading font-semibold text-primary-700 transition-colors group-hover:text-primary-500 sm:text-[1.7rem]">
+            Boulevardens Blomster
+          </span>
         </a>
 
-        <!-- Services dropdown -->
-        <div class="relative group">
-          <a href={nav.services.href}
-             class:list={["nav-link inline-flex items-center gap-1", { "nav-link-active": currentPath.includes(nav.services.href) }]}>
-            {nav.services.label}
-            <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
+        <nav class="hidden lg:flex items-center gap-7">
+          <a href={nav.home.href}
+             class:list={["nav-link", { "nav-link-active": currentPath === nav.home.href || currentPath === nav.home.href + '/' }]}>
+            {nav.home.label}
           </a>
-          <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-            <div class="bg-white rounded-lg shadow-lg border border-gray-100 py-2 min-w-[200px]">
+          <a href={nav.about.href}
+             class:list={["nav-link", { "nav-link-active": currentPath.includes(nav.about.href) }]}>
+            {nav.about.label}
+          </a>
+          <div class="relative group">
+            <a href={nav.services.href}
+               class:list={["nav-link inline-flex items-center gap-1.5", { "nav-link-active": currentPath.includes(nav.services.href) }]}>
+              {nav.services.label}
+              <svg class="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+            <div class="absolute left-0 top-full hidden pt-4 group-hover:block">
+              <div class="glass-panel min-w-[220px] rounded-[1.4rem] px-3 py-3">
+                {site.serviceDropdown.map((item: any) => (
+                  <a href={`${nav.services.href}#${item.anchor}`}
+                     class="block rounded-xl px-4 py-3 text-sm font-medium text-surface-ink/72 transition-colors hover:bg-surface-raised hover:text-primary-600">
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          <a href={nav.contact.href}
+             class:list={["nav-link", { "nav-link-active": currentPath.includes(nav.contact.href) }]}>
+            {nav.contact.label}
+          </a>
+          <a href={nav.order.href} class="btn-primary !px-5 !py-2.5 !text-xs">
+            {nav.order.label}
+          </a>
+          <div class="ml-1 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.18em] text-surface-ink/52">
+            {locale === 'da'
+              ? <span class="language-link language-link-active">DA</span>
+              : <a href={daPath} class="language-link">DA</a>
+            }
+            {locale === 'en'
+              ? <span class="language-link language-link-active">EN</span>
+              : <a href={enPath} class="language-link">EN</a>
+            }
+          </div>
+        </nav>
+
+        <button id="mobile-menu-btn" class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full bg-surface-low text-primary-600" aria-label="Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden lg:hidden pt-5">
+        <div class="editorial-card p-4">
+          <nav class="flex flex-col gap-1">
+            <a href={nav.home.href} class="mobile-nav-link">{nav.home.label}</a>
+            <a href={nav.about.href} class="mobile-nav-link">{nav.about.label}</a>
+            <a href={nav.services.href} class="mobile-nav-link">{nav.services.label}</a>
+            <div class="grid gap-1 pl-4">
               {site.serviceDropdown.map((item: any) => (
                 <a href={`${nav.services.href}#${item.anchor}`}
-                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-colors">
+                   class="mobile-nav-link !py-2 text-sm text-surface-ink/60">
                   {item.label}
                 </a>
               ))}
             </div>
-          </div>
+            <a href={nav.contact.href} class="mobile-nav-link">{nav.contact.label}</a>
+            <a href={nav.order.href} class="mobile-nav-link !text-primary-600">{nav.order.label}</a>
+            <div class="mt-3 flex items-center gap-5 px-3 text-xs font-semibold uppercase tracking-[0.18em] text-surface-ink/52">
+              {locale === 'da'
+                ? <span class="language-link language-link-active">DA</span>
+                : <a href={daPath} class="language-link">DA</a>
+              }
+              {locale === 'en'
+                ? <span class="language-link language-link-active">EN</span>
+                : <a href={enPath} class="language-link">EN</a>
+              }
+            </div>
+          </nav>
         </div>
-
-        <a href={nav.contact.href}
-           class:list={["nav-link", { "nav-link-active": currentPath.includes(nav.contact.href) }]}>
-          {nav.contact.label}
-        </a>
-        <a href={nav.order.href}
-           class="ml-2 btn-primary !py-2 !px-4 !text-xs">
-          {nav.order.label}
-        </a>
-
-        <!-- Language switcher -->
-        <div class="ml-4 flex items-center gap-1 text-xs font-medium text-gray-500">
-          {locale === 'da'
-            ? <span class="text-primary-700 font-semibold">DA</span>
-            : <a href={daPath} class="hover:text-gray-700">DA</a>
-          }
-          <span class="text-gray-300">|</span>
-          {locale === 'en'
-            ? <span class="text-primary-700 font-semibold">EN</span>
-            : <a href={enPath} class="hover:text-gray-700">EN</a>
-          }
-        </div>
-      </nav>
-
-      <!-- Mobile menu button -->
-      <button id="mobile-menu-btn" class="lg:hidden p-2 text-gray-600 hover:text-gray-900" aria-label="Menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Mobile Nav -->
-    <div id="mobile-menu" class="lg:hidden hidden pb-4">
-      <nav class="flex flex-col gap-1">
-        <a href={nav.home.href} class="mobile-nav-link">{nav.home.label}</a>
-        <a href={nav.about.href} class="mobile-nav-link">{nav.about.label}</a>
-        <a href={nav.services.href} class="mobile-nav-link">{nav.services.label}</a>
-        <div class="pl-4 flex flex-col gap-1">
-          {site.serviceDropdown.map((item: any) => (
-            <a href={`${nav.services.href}#${item.anchor}`}
-               class="mobile-nav-link text-gray-500 !text-xs">
-              {item.label}
-            </a>
-          ))}
-        </div>
-        <a href={nav.contact.href} class="mobile-nav-link">{nav.contact.label}</a>
-        <a href={nav.order.href} class="mobile-nav-link font-semibold text-primary-700">{nav.order.label}</a>
-        <div class="flex items-center gap-2 px-3 pt-2 text-xs font-medium text-gray-500">
-          {locale === 'da'
-            ? <span class="text-primary-700 font-semibold">DA</span>
-            : <a href={daPath} class="hover:text-gray-700">DA</a>
-          }
-          <span class="text-gray-300">|</span>
-          {locale === 'en'
-            ? <span class="text-primary-700 font-semibold">EN</span>
-            : <a href={enPath} class="hover:text-gray-700">EN</a>
-          }
-        </div>
-      </nav>
+      </div>
     </div>
   </div>
 </header>
 
 <style>
   .nav-link {
-    @apply px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-700 rounded-md transition-colors;
+    position: relative;
+    padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(26, 28, 25, 0.68);
+    transition: color 180ms ease;
   }
+
+  .nav-link:hover {
+    color: #526349;
+  }
+
   .nav-link-active {
-    @apply text-primary-700 bg-primary-50;
+    color: #1a1c19;
   }
+
+  .nav-link-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.15rem;
+    height: 2px;
+    border-radius: 9999px;
+    background: rgba(82, 99, 73, 0.9);
+  }
+
   .mobile-nav-link {
-    @apply px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-primary-700 hover:bg-primary-50 rounded-md transition-colors;
+    display: block;
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(26, 28, 25, 0.72);
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .mobile-nav-link:hover {
+    background: #f4f4ef;
+    color: #526349;
+  }
+
+  .language-link {
+    position: relative;
+    padding-bottom: 0.5rem;
+    transition: color 180ms ease;
+  }
+
+  .language-link:hover {
+    color: #1a1c19;
+  }
+
+  .language-link-active {
+    color: #1a1c19;
+  }
+
+  .language-link-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.02rem;
+    height: 2px;
+    border-radius: 9999px;
+    background: rgba(82, 99, 73, 0.72);
   }
 </style>
 

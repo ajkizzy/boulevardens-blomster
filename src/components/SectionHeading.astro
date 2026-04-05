@@ -7,19 +7,24 @@ interface Props {
 }
 
 const { heading, subheading, align = 'center', id } = Astro.props;
+const eyebrow = Astro.url.pathname.startsWith('/en')
+  ? 'Curated floristry'
+  : 'Kurateret floristik';
 ---
 
 <div id={id} class:list={[
-  "mb-10 sm:mb-12 scroll-mt-24",
+  "mb-12 sm:mb-14 scroll-mt-28",
   align === 'center' ? 'text-center' : ''
 ]}>
-  <h2 class="font-heading text-3xl sm:text-4xl font-bold text-gray-900">
+  <span class:list={["eyebrow", align === 'center' ? 'justify-center' : '']}>
+    {eyebrow}
+  </span>
+  <h2 class="mt-6 font-heading text-4xl font-semibold leading-tight tracking-[-0.02em] text-surface-ink sm:text-5xl">
     {heading}
   </h2>
   {subheading && (
-    <p class="mt-3 text-lg text-gray-600 max-w-2xl" class:list={[align === 'center' && 'mx-auto']}>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-surface-ink/68" class:list={[align === 'center' && 'mx-auto']}>
       {subheading}
     </p>
   )}
-  <div class:list={["mt-4 w-16 h-1 bg-primary-600 rounded-full", align === 'center' ? 'mx-auto' : '']} />
 </div>
