@@ -1,16 +1,16 @@
 {
   "heading": "Firma Bestilling",
-  "intro": "Lad dine kollegaer og virksomhedens atmosfære blomstre med skønhed og glæde. Bestil lokalt hos Boulevardens Blomster og vær med til at fejre de gode øjeblikke med stil og elegance.",
+  "intro": "Lad dine kollegaer og arbejdspladsen blomstre med blomster til både hverdag og særlige anledninger. Bestil lokalt hos Boulevardens Blomster, og gør det nemt at sende en venlig hilsen.",
   "deliveryNote": "Gratis levering og blomsterkort med tekst gælder kun virksomheder og deres ansatte i Taastrup Kommune.",
   "deliveryNoteLabel": "OBS:",
-  "contactNote": "For større bestillinger og andre henvendelser, kontakt os venligst på:",
+  "contactNote": "Ved større bestillinger og andre henvendelser kan du kontakte os på:",
   "contactEmail": "kontakt@boulevardensblomster.dk",
   "contactPhone": "61517400",
   "bouquets": [
     {
       "id": "bare-fordi",
       "name": "Bare fordi...",
-      "description": "Spontan glæde med blomster for intet andet formål end at bringe smil og varme til en særlig person.",
+      "description": "Spontan glæde med blomster sendt for at bringe smil og varme til en særlig person.",
       "price": 199,
       "currency": "DKK",
       "exVat": true
@@ -18,7 +18,7 @@
     {
       "id": "velkommen-tilbage",
       "name": "Velkommen tilbage!",
-      "description": "En varm velkomst med blomster for at fejre tilbagevendelsen og sprede glæde i fællesskab.",
+      "description": "En varm velkomst med blomster for at fejre tilbagekomsten og sprede glæde i fællesskabet.",
       "price": 299,
       "currency": "DKK",
       "exVat": true
@@ -26,7 +26,7 @@
     {
       "id": "tillykke",
       "name": "Tillykke!",
-      "description": "Fejr hver glædelig milepæl med vores festlige blomsterbuketter, der udtrykker lykke og begejstring.",
+      "description": "Fejr glade milepæle med en buket, der udtrykker lykke og begejstring.",
       "price": 249,
       "currency": "DKK",
       "exVat": true
@@ -34,7 +34,7 @@
     {
       "id": "kaerlighed",
       "name": "Kærlighed",
-      "description": "Vores kærlighedsbuketter stråler med lidenskab og hengivenhed, perfekt til at udtrykke de kærlige følelser.",
+      "description": "En varm og kærlig buket, der passer, når følelserne skal vises på en enkel og smuk måde.",
       "price": 299,
       "currency": "DKK",
       "exVat": true
@@ -42,7 +42,7 @@
     {
       "id": "saeson-kompakt",
       "name": "Sæsonens blomster - kompakt",
-      "description": "Sæsonens farverige blomster, der er en fryd for øjet til alle anledninger. Vi sikrer skønheden i kompakt format.",
+      "description": "Sæsonens farverige blomster samlet i en kompakt buket, der passer til mange anledninger.",
       "price": 249,
       "currency": "DKK",
       "exVat": true
@@ -50,7 +50,7 @@
     {
       "id": "saeson-hojluftig",
       "name": "Sæsonens blomster - højluftig",
-      "description": "Sæsonens farverige blomster, der er en fryd for øjet til alle anledninger. Vi sikrer skønheden i højluftig format.",
+      "description": "Sæsonens farverige blomster i en høj og luftig buket, der giver et let og indbydende udtryk.",
       "price": 249,
       "currency": "DKK",
       "exVat": true
@@ -62,6 +62,8 @@
     "timeLabel": "Leveringstidspunkt",
     "timePlaceholder": "F.eks.: 08-02-2024 kl. 08.00",
     "cardTextLabel": "Valgfrit: Tilføj tekst til kort (gratis - maks 50 ord)",
+    "contactNameLabel": "Kontaktperson",
+    "companyNameLabel": "Virksomhedens navn",
     "phoneLabel": "Tlf.",
     "emailLabel": "Email",
     "commentLabel": "Kommentar til bestilling (valgfrit)",
@@ -72,7 +74,7 @@
       { "id": "kort", "label": "Kortbetaling (Visa / Mastercard)" },
       { "id": "faktura", "label": "Faktura (sendes på firma mail)" }
     ],
-    "invoiceEmailLabel": "Hvis Faktura valgt, indsæt venligst firma mail.",
+    "invoiceEmailLabel": "Hvis Faktura er valgt, indsæt venligst firmaets email.",
     "submit": "Send bestilling",
     "confirmationNote": "Du modtager en bekræftelse på email. Ved faktura sender vi betalingsoplysninger manuelt.",
     "successHeading": "Tak for din bestilling",

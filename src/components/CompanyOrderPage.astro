@@ -38,44 +38,46 @@ const deliveryTimeOptions = [
   '17:45',
   '18:00',
 ];
+
 const uiText = isEnglish
   ? {
-      bouquetsHeading: 'Choose bouquets',
-      bouquetsSubheading: 'Select one or more, including multiple of the same.',
-      largeOrdersHeading: 'Larger orders?',
-      cartHeading: 'Your basket',
+      stepOneTitle: 'Choose bouquets',
+      stepOneBody: 'Pick one or more bouquets for the order.',
+      stepTwoTitle: 'Delivery and greeting',
+      stepTwoBody: 'Add address, delivery time, and your card message.',
+      stepThreeTitle: 'Company and contact',
+      stepThreeBody: 'Add contact details and choose payment method.',
+      largeOrdersHeading: 'Need help?',
+      cartHeading: 'Order overview',
       cartItemSingular: 'item',
       cartItemPlural: 'items',
-      emptyState: 'Add a bouquet to get started',
+      emptyState: 'Add a bouquet to see the order overview.',
       subtotalLabel: 'Subtotal excl. VAT',
       totalLabel: 'Total incl. VAT',
-      deliveryDetailsHeading: 'Delivery details',
-      deliveryDateLabel: 'Delivery date',
-      deliveryTimeLabel: 'Time',
       deliveryHelp:
         'Choose a weekday and a time between 07:00-09:00 or 16:00-18:00.',
-      submitLabel: 'Proceed to payment',
+      submitLabel: 'Go to payment',
       submitLoading: 'Sending...',
       successHeading: 'Order received!',
       successBody: 'We will send a confirmation to your email shortly.',
       errorGeneric: 'An error occurred. Please try again.',
       noBouquetError: 'Please add at least one bouquet.',
-      weekdayError: 'Please choose a weekday for delivery.',
-      mobileCartLabel: 'View basket',
+      mobileCartLabel: 'View order',
     }
   : {
-      bouquetsHeading: 'Vælg buketter',
-      bouquetsSubheading: 'Vælg en eller flere, også flere af samme type.',
-      largeOrdersHeading: 'Større bestillinger?',
-      cartHeading: 'Din kurv',
+      stepOneTitle: 'Vælg blomster',
+      stepOneBody: 'Vælg en eller flere buketter til bestillingen.',
+      stepTwoTitle: 'Levering og hilsen',
+      stepTwoBody: 'Tilføj adresse, leveringstid og korttekst.',
+      stepThreeTitle: 'Virksomhed og kontakt',
+      stepThreeBody: 'Tilføj kontaktoplysninger og vælg betaling.',
+      largeOrdersHeading: 'Brug for hjælp?',
+      cartHeading: 'Ordreoversigt',
       cartItemSingular: 'vare',
       cartItemPlural: 'varer',
-      emptyState: 'Tilføj en buket for at komme i gang',
+      emptyState: 'Tilføj en buket for at se ordreoversigten.',
       subtotalLabel: 'Subtotal ekskl. moms',
       totalLabel: 'Total inkl. moms',
-      deliveryDetailsHeading: 'Leveringsoplysninger',
-      deliveryDateLabel: 'Leveringsdato',
-      deliveryTimeLabel: 'Tidspunkt',
       deliveryHelp:
         'Vælg en hverdag og et tidspunkt mellem 07:00-09:00 eller 16:00-18:00.',
       submitLabel: 'Gå til betaling',
@@ -84,12 +86,12 @@ const uiText = isEnglish
       successBody: 'Vi sender en bekræftelse til din email snarest.',
       errorGeneric: 'Der opstod en fejl. Prøv venligst igen.',
       noBouquetError: 'Tilføj mindst en buket for at fortsætte.',
-      mobileCartLabel: 'Se kurv',
+      mobileCartLabel: 'Se ordre',
     };
 ---
 
 <Layout title={order.heading} locale={locale}>
-  <Hero heading={order.heading} compact />
+  <Hero heading={order.heading} subheading={order.intro} compact />
 
   {(paymentSuccess || paymentCancelled) && (
     <div class="px-4 sm:px-6 lg:px-8">
@@ -113,48 +115,48 @@ const uiText = isEnglish
     </div>
   )}
 
-  <div class="px-4 sm:px-6 lg:px-8">
-    <div class="container-narrow mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <div class="surface-panel px-6 py-6 sm:px-8">
-        <p class="max-w-2xl text-surface-ink/70">{order.intro}</p>
-      </div>
-      <div class="mt-3">
-        <div class="flex max-w-xl items-start gap-2 rounded-[1.3rem] bg-surface-low p-4 text-sm text-surface-ink/72 shadow-ambient">
-          <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span><strong>{order.deliveryNoteLabel}</strong> {order.deliveryNote}</span>
-        </div>
+  <section class="px-4 pb-4 sm:px-6 lg:px-8">
+    <div class="container-narrow mx-auto">
+      <div class="rounded-[1.35rem] bg-surface-low px-5 py-4 text-sm text-surface-ink/72 shadow-ambient">
+        <span><strong>{order.deliveryNoteLabel}</strong> {order.deliveryNote}</span>
       </div>
     </div>
-  </div>
+  </section>
 
-  <section class="section-padding">
+  <section class="section-padding pt-4">
     <div class="container-narrow mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="lg:grid lg:grid-cols-3 lg:gap-10 xl:gap-14">
-        <div class="lg:col-span-2 space-y-14">
-          <div>
-            <p class="eyebrow">{isEnglish ? 'Bouquet selection' : 'Buketudvalg'}</p>
-            <h2 class="mb-2 mt-5 font-heading text-4xl text-surface-ink">{uiText.bouquetsHeading}</h2>
-            <p class="mb-6 text-sm text-surface-ink/58">{uiText.bouquetsSubheading}</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div id="order-flow" class="grid gap-8 lg:grid-cols-[1.18fr,0.82fr] lg:items-start">
+        <div class="space-y-6">
+          <section class="surface-panel px-6 py-6 sm:px-8 sm:py-8">
+            <div class="step-head">
+              <span class="step-number">1</span>
+              <div>
+                <h2 class="font-heading text-3xl text-surface-ink sm:text-4xl">{uiText.stepOneTitle}</h2>
+                <p class="mt-2 text-sm text-surface-ink/62">{uiText.stepOneBody}</p>
+              </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {order.bouquets.map((bouquet: any) => (
                 <div
-                  class="bouquet-card editorial-card relative overflow-hidden p-4 transition-all duration-300 sm:p-5"
+                  class="bouquet-card surface-item relative overflow-hidden p-4 transition-all duration-300 sm:p-5"
                   data-id={bouquet.id}
                   data-name={bouquet.name}
                   data-price={bouquet.price}
                 >
-                  <div class="aspect-[4/3] mb-4 flex items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-secondary-100 via-surface-raised to-primary-100 relative">
+                  <div class="relative mb-4 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-secondary-100 via-surface-raised to-primary-100">
                     <span class="text-5xl opacity-30">💐</span>
-                    <div class="qty-badge absolute top-3 right-3 min-w-[28px] h-7 px-1.5 bg-primary-600 rounded-full items-center justify-center text-white text-xs font-bold hidden shadow-ambient">
+                    <div class="qty-badge absolute right-3 top-3 hidden min-w-[28px] items-center justify-center rounded-full bg-primary-600 px-1.5 text-xs font-bold text-white shadow-ambient">
                       <span class="qty-badge-count">0</span>
                     </div>
                   </div>
                   <h3 class="font-heading text-2xl text-surface-ink">{bouquet.name}</h3>
-                  <p class="mt-2 text-xs leading-relaxed text-surface-ink/58 line-clamp-2">{bouquet.description}</p>
-                  <div class="mt-3 flex items-center justify-between gap-3">
-                    <p class="text-sm font-semibold text-primary-600">{bouquet.price},00 <span class="text-xs font-normal text-surface-ink/46">{order.priceLabel}</span></p>
+                  <p class="mt-2 line-clamp-2 text-xs leading-relaxed text-surface-ink/58">{bouquet.description}</p>
+                  <div class="mt-4 flex items-center justify-between gap-3">
+                    <p class="text-sm font-semibold text-primary-600">
+                      {bouquet.price},00
+                      <span class="text-xs font-normal text-surface-ink/46">{order.priceLabel}</span>
+                    </p>
                     <div class="flex items-center gap-1">
                       <button
                         type="button"
@@ -176,127 +178,143 @@ const uiText = isEnglish
                 </div>
               ))}
             </div>
+          </section>
+
+          <form id="order-form" class="space-y-6">
+            <section class="surface-panel px-6 py-6 sm:px-8 sm:py-8">
+              <div class="step-head">
+                <span class="step-number">2</span>
+                <div>
+                  <h2 class="font-heading text-3xl text-surface-ink sm:text-4xl">{uiText.stepTwoTitle}</h2>
+                  <p class="mt-2 text-sm text-surface-ink/62">{uiText.stepTwoBody}</p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-5 sm:grid-cols-2">
+                <div class="sm:col-span-2">
+                  <label class="label-text">{order.form.addressLabel} *</label>
+                  <input type="text" name="address" required class="input-field !py-2.5" placeholder={isEnglish ? 'Street 12, 2630 Høje Taastrup' : 'Vejnavn 12, 2630 Høje Taastrup'} />
+                </div>
+                <div>
+                  <label class="label-text">{isEnglish ? 'Delivery date' : 'Leveringsdato'} *</label>
+                  <input type="date" name="deliveryDate" required class="input-field !py-2.5" />
+                </div>
+                <div>
+                  <label class="label-text">{isEnglish ? 'Time' : 'Tidspunkt'} *</label>
+                  <select name="deliveryClock" required class="input-field !py-2.5">
+                    <option value="">{isEnglish ? 'Choose time' : 'Vælg tidspunkt'}</option>
+                    {deliveryTimeOptions.map((time) => (
+                      <option value={time}>{time}</option>
+                    ))}
+                  </select>
+                </div>
+                <div class="sm:col-span-2">
+                  <p class="text-xs text-surface-ink/52">{uiText.deliveryHelp}</p>
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="label-text">{order.form.cardTextLabel}</label>
+                  <input type="text" name="cardText" class="input-field !py-2.5" maxlength="250" placeholder={isEnglish ? 'E.g.: Happy Birthday!' : 'Fx: Tillykke med fødselsdagen!'} />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="label-text">{order.form.commentLabel}</label>
+                  <textarea name="comment" rows="3" class="input-field !py-2.5 resize-y"></textarea>
+                </div>
+              </div>
+            </section>
+
+            <section class="surface-panel px-6 py-6 sm:px-8 sm:py-8">
+              <div class="step-head">
+                <span class="step-number">3</span>
+                <div>
+                  <h2 class="font-heading text-3xl text-surface-ink sm:text-4xl">{uiText.stepThreeTitle}</h2>
+                  <p class="mt-2 text-sm text-surface-ink/62">{uiText.stepThreeBody}</p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label class="label-text">{order.form.contactNameLabel || (isEnglish ? 'Contact person' : 'Kontaktperson')} *</label>
+                  <input type="text" name="contactName" required class="input-field !py-2.5" placeholder={isEnglish ? 'Full name' : 'Fulde navn'} />
+                </div>
+                <div>
+                  <label class="label-text">{order.form.companyNameLabel || (isEnglish ? 'Company name' : 'Virksomhedens navn')} *</label>
+                  <input type="text" name="companyName" required class="input-field !py-2.5" placeholder={isEnglish ? 'Company name' : 'Virksomhedens navn'} />
+                </div>
+                <div>
+                  <label class="label-text">{order.form.phoneLabel} *</label>
+                  <input type="tel" name="phone" required class="input-field !py-2.5" placeholder="12345678" />
+                </div>
+                <div>
+                  <label class="label-text">{order.form.emailLabel} *</label>
+                  <input type="email" name="email" required class="input-field !py-2.5" placeholder={isEnglish ? 'your@company.com' : 'din@firma.dk'} />
+                </div>
+                <div>
+                  <label class="label-text">{order.form.companyCodeLabel}</label>
+                  <input type="text" name="companyCode" class="input-field !py-2.5" />
+                </div>
+                <div id="invoice-email-field" class="hidden">
+                  <label class="label-text">{order.form.invoiceEmailLabel}</label>
+                  <input type="email" name="invoiceEmail" class="input-field !py-2.5" placeholder={isEnglish ? 'invoice@company.com' : 'faktura@firma.dk'} />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="label-text">{order.form.paymentLabel} *</label>
+                  <div class="mt-2 grid gap-3">
+                    {order.form.paymentOptions.map((option: any) => (
+                      <label class="payment-option flex cursor-pointer items-center gap-3 rounded-[1rem] bg-surface-raised px-4 py-3 text-sm text-surface-ink/76 transition-colors hover:bg-white">
+                        <input type="radio" name="payment" value={option.id} required class="h-3.5 w-3.5 text-primary-600 border-gray-300 focus:ring-primary-500" />
+                        <span class="flex-1">{option.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          </form>
+        </div>
+
+        <aside class="space-y-4 lg:sticky lg:top-24">
+          <div id="cart-panel" class="surface-panel overflow-hidden px-6 py-6">
+            <div>
+              <h3 class="font-heading text-3xl text-surface-ink">{uiText.cartHeading}</h3>
+              <span id="cart-item-count" class="mt-2 block text-sm text-surface-ink/54">0 {uiText.cartItemPlural}</span>
+            </div>
+
+            <div id="cart-empty" class="py-10 text-center text-surface-ink/38">
+              <svg class="mx-auto mb-3 w-10 h-10 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-9H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <p class="text-sm">{uiText.emptyState}</p>
+            </div>
+
+            <div id="cart-items" class="hidden">
+              <div id="cart-list" class="space-y-2.5"></div>
+
+              <div class="mt-5 rounded-[1.25rem] bg-surface-raised p-4">
+                <div class="mb-1 flex justify-between text-sm text-surface-ink/56">
+                  <span>{uiText.subtotalLabel}</span>
+                  <span id="cart-subtotal">0 kr</span>
+                </div>
+                <div class="flex justify-between font-semibold text-surface-ink">
+                  <span>{uiText.totalLabel}</span>
+                  <span id="cart-total">0 kr</span>
+                </div>
+              </div>
+
+              <button type="submit" form="order-form" id="checkout-btn" class="btn-primary mt-5 w-full !py-3.5 !text-sm flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                {uiText.submitLabel}
+              </button>
+              <p class="mt-3 text-center text-xs text-surface-ink/42">{order.form.confirmationNote}</p>
+            </div>
           </div>
 
           <div class="surface-panel p-5 text-sm text-surface-ink/72">
             <p class="mb-1 font-medium text-primary-600">{uiText.largeOrdersHeading}</p>
-            <p>{order.contactNote} <a href={`mailto:${order.contactEmail}`} class="underline hover:no-underline">{order.contactEmail}</a> {isEnglish ? 'or' : 'eller'} <a href={`tel:${order.contactPhone}`} class="underline hover:no-underline">{order.contactPhone}</a></p>
+            <p>{order.contactNote} <a href={`mailto:${order.contactEmail}`} class="break-all underline hover:no-underline sm:break-words [overflow-wrap:anywhere]">{order.contactEmail}</a> {isEnglish ? 'or' : 'eller'} <a href={`tel:${order.contactPhone}`} class="underline hover:no-underline">{order.contactPhone}</a></p>
           </div>
-        </div>
-
-        <div class="lg:col-span-1 mt-12 lg:mt-0">
-          <div class="lg:sticky lg:top-24">
-            <div id="cart-panel" class="editorial-card overflow-hidden">
-              <div class="px-5 py-4 text-white" style="background-image:linear-gradient(135deg,#526349 0%,#90a384 100%);">
-                <div class="flex items-center justify-between">
-                  <h3 class="font-heading font-semibold text-lg">{uiText.cartHeading}</h3>
-                  <span id="cart-item-count" class="text-sm opacity-80">0 {uiText.cartItemPlural}</span>
-                </div>
-              </div>
-
-              <div id="cart-empty" class="px-5 py-10 text-center text-surface-ink/38">
-                <svg class="w-10 h-10 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-9H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                <p class="text-sm">{uiText.emptyState}</p>
-              </div>
-
-              <div id="cart-items" class="hidden">
-                <div id="cart-list" class="px-5 py-3 space-y-2.5"></div>
-
-                <div class="bg-surface-low px-5 py-4">
-                  <div class="mb-1 flex justify-between text-sm text-surface-ink/56">
-                    <span>{uiText.subtotalLabel}</span>
-                    <span id="cart-subtotal">0 kr</span>
-                  </div>
-                  <div class="flex justify-between font-semibold text-surface-ink">
-                    <span>{uiText.totalLabel}</span>
-                    <span id="cart-total">0 kr</span>
-                  </div>
-                </div>
-
-                <form id="order-form" class="px-5 py-5 space-y-4">
-                  <h4 class="font-heading text-2xl text-surface-ink">{uiText.deliveryDetailsHeading}</h4>
-
-                  <div>
-                    <label class="label-text">{order.form.addressLabel} *</label>
-                    <input type="text" name="address" required class="input-field !py-2.5" placeholder={isEnglish ? 'Street 12, 2630 Høje Taastrup' : 'Vejnavn 12, 2630 Høje Taastrup'} />
-                  </div>
-                  <div>
-                    <label class="label-text">{order.form.timeLabel} *</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label class="label-text !text-xs">{isEnglish ? 'Delivery date' : 'Leveringsdato'}</label>
-                        <input type="date" name="deliveryDate" required class="input-field !py-2.5" />
-                      </div>
-                      <div>
-                        <label class="label-text !text-xs">{isEnglish ? 'Time' : 'Tidspunkt'}</label>
-                        <select name="deliveryClock" required class="input-field !py-2.5">
-                          <option value="">{isEnglish ? 'Choose time' : 'Vælg tidspunkt'}</option>
-                          {deliveryTimeOptions.map((time) => (
-                            <option value={time}>{time}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                    <p class="mt-2 text-xs text-surface-ink/52">
-                      {isEnglish
-                        ? 'Choose a weekday and a time between 07:00-09:00 or 16:00-18:00.'
-                        : 'Vælg en hverdag og et tidspunkt mellem 07:00-09:00 eller 16:00-18:00.'}
-                    </p>
-                  </div>
-                  <div>
-                    <label class="label-text">{order.form.cardTextLabel}</label>
-                    <input type="text" name="cardText" class="input-field !py-2.5" maxlength="250" placeholder={isEnglish ? 'E.g.: Happy Birthday!' : 'Fx: Tillykke med fødselsdagen!'} />
-                  </div>
-                  <div class="grid grid-cols-2 gap-3">
-                    <div>
-                      <label class="label-text">{order.form.phoneLabel} *</label>
-                      <input type="tel" name="phone" required class="input-field !py-2.5" placeholder="12345678" />
-                    </div>
-                    <div>
-                      <label class="label-text">{order.form.emailLabel} *</label>
-                      <input type="email" name="email" required class="input-field !py-2.5" placeholder={isEnglish ? 'your@company.com' : 'din@firma.dk'} />
-                    </div>
-                  </div>
-                  <div>
-                    <label class="label-text">{order.form.companyCodeLabel}</label>
-                    <input type="text" name="companyCode" class="input-field !py-2.5" />
-                  </div>
-                  <div>
-                    <label class="label-text">{order.form.commentLabel}</label>
-                    <textarea name="comment" rows="2" class="input-field !py-2.5 resize-none"></textarea>
-                  </div>
-
-                  <div>
-                    <label class="label-text">{order.form.paymentLabel} *</label>
-                    <div class="space-y-2 mt-1">
-                      {order.form.paymentOptions.map((option: any) => (
-                        <label class="flex cursor-pointer items-center gap-2.5 rounded-xl bg-surface-low p-3 text-sm text-surface-ink/76 transition-colors hover:bg-surface-raised">
-                          <input type="radio" name="payment" value={option.id} required class="h-3.5 w-3.5 text-primary-600 border-gray-300 focus:ring-primary-500" />
-                          <span class="flex-1">{option.label}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div id="invoice-email-field" class="hidden">
-                    <label class="label-text">{order.form.invoiceEmailLabel}</label>
-                    <input type="email" name="invoiceEmail" class="input-field !py-2.5" placeholder={isEnglish ? 'invoice@company.com' : 'faktura@firma.dk'} />
-                  </div>
-
-                  <button type="submit" id="checkout-btn" class="btn-primary w-full !py-3.5 !text-sm flex items-center justify-center gap-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    {uiText.submitLabel}
-                  </button>
-                  <p class="text-center text-xs text-surface-ink/42">{order.form.confirmationNote}</p>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+        </aside>
       </div>
     </div>
   </section>
@@ -315,13 +333,39 @@ const uiText = isEnglish
 </Layout>
 
 <style>
+  .surface-item {
+    background: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 12px 40px rgba(26, 28, 25, 0.06);
+  }
+
+  .step-head {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    display: inline-flex;
+    width: 2.2rem;
+    height: 2.2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: #526349;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
   .bouquet-card.has-items {
     box-shadow: 0 18px 44px rgba(26, 28, 25, 0.1);
     transform: translateY(-2px);
   }
 
   .bouquet-card.has-items .qty-badge {
-    @apply flex;
+    display: flex;
   }
 
   .bouquet-card.has-items .qty-inc {
@@ -449,17 +493,17 @@ const uiText = isEnglish
     cartList.innerHTML = items
       .map(
         (item) => `
-          <div class="flex items-center justify-between gap-2 rounded-[1rem] bg-surface-low px-3 py-2 text-sm">
-            <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between gap-2 rounded-[1rem] bg-surface-raised px-3 py-2 text-sm">
+            <div class="min-w-0 flex-1">
               <p class="truncate font-medium text-surface-ink">${item.name}</p>
               <p class="text-xs text-surface-ink/44">${item.qty} × ${formatPrice(item.price)}</p>
             </div>
             <div class="flex flex-shrink-0 items-center gap-1">
-              <button type="button" class="cart-dec flex h-6 w-6 items-center justify-center rounded-full bg-surface-raised text-surface-ink/50 transition-colors hover:bg-secondary-100 hover:text-secondary-600" data-id="${item.id}">
+              <button type="button" class="cart-dec flex h-6 w-6 items-center justify-center rounded-full bg-surface-low text-surface-ink/50 transition-colors hover:bg-secondary-100 hover:text-secondary-600" data-id="${item.id}">
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>
               </button>
               <span class="w-5 text-center text-xs font-semibold text-surface-ink">${item.qty}</span>
-              <button type="button" class="cart-inc flex h-6 w-6 items-center justify-center rounded-full bg-surface-raised text-surface-ink/50 transition-colors hover:bg-primary-100 hover:text-primary-600" data-id="${item.id}">
+              <button type="button" class="cart-inc flex h-6 w-6 items-center justify-center rounded-full bg-surface-low text-surface-ink/50 transition-colors hover:bg-primary-100 hover:text-primary-600" data-id="${item.id}">
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
               </button>
               <span class="ml-1 w-16 text-right text-xs font-semibold text-surface-ink/72">${formatPrice(item.price * item.qty)}</span>
@@ -600,19 +644,21 @@ const uiText = isEnglish
         );
       }
 
-      const payload = {
-        address: String(formData.get('address') || ''),
-        deliveryDate,
-        deliveryClock,
+        const payload = {
+          address: String(formData.get('address') || ''),
+          deliveryDate,
+          deliveryClock,
         deliveryTime:
           deliveryDate && deliveryClock
             ? locale === 'en'
               ? `${deliveryDate} at ${deliveryClock}`
               : `${deliveryDate} kl. ${deliveryClock}`
             : '',
-        cardText: String(formData.get('cardText') || ''),
-        phone: String(formData.get('phone') || ''),
-        email: String(formData.get('email') || ''),
+          cardText: String(formData.get('cardText') || ''),
+          contactName: String(formData.get('contactName') || ''),
+          companyName: String(formData.get('companyName') || ''),
+          phone: String(formData.get('phone') || ''),
+          email: String(formData.get('email') || ''),
         companyCode: String(formData.get('companyCode') || ''),
         comment: String(formData.get('comment') || ''),
         payment: String(formData.get('payment') || ''),
@@ -641,19 +687,23 @@ const uiText = isEnglish
       }
 
       if (result.success) {
-        const cartPanel = document.getElementById('cart-panel');
         clearCartState();
+        cart.clear();
 
-        if (cartPanel) {
-          cartPanel.innerHTML = `
-            <div class="p-10 text-center">
-              <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary-100">
-                <svg class="w-8 h-8 text-primary-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
+        const orderFlow = document.getElementById('order-flow');
+
+        if (orderFlow) {
+          orderFlow.innerHTML = `
+            <div class="lg:col-span-2">
+              <div class="surface-panel p-10 text-center">
+                <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary-100">
+                  <svg class="w-8 h-8 text-primary-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <h3 class="mb-2 font-heading text-2xl font-bold text-surface-ink">${uiText.successHeading}</h3>
+                <p class="text-sm text-surface-ink/58">${uiText.successBody}</p>
               </div>
-              <h3 class="mb-2 font-heading text-xl font-bold text-surface-ink">${uiText.successHeading}</h3>
-              <p class="text-sm text-surface-ink/58">${uiText.successBody}</p>
             </div>
           `;
         }
@@ -674,7 +724,7 @@ const uiText = isEnglish
   });
 
   document.getElementById('mobile-cart-open')?.addEventListener('click', () => {
-    document.getElementById('order-form')?.scrollIntoView({
+    document.getElementById('cart-panel')?.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
     });

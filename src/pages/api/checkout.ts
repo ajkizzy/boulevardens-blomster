@@ -29,6 +29,8 @@ interface CheckoutRequestBody {
   deliveryClock?: string;
   deliveryTime?: string;
   cardText?: string;
+  contactName?: string;
+  companyName?: string;
   phone?: string;
   email?: string;
   comment?: string;
@@ -134,6 +136,8 @@ function buildCustomer(body: CheckoutRequestBody): OrderRecordCustomer {
     address: body.address?.trim() || '',
     deliveryTime: body.deliveryTime?.trim() || '',
     cardText: body.cardText?.trim() || '',
+    contactName: body.contactName?.trim() || '',
+    companyName: body.companyName?.trim() || '',
     phone: body.phone?.trim() || '',
     email: body.email?.trim() || '',
     comment: body.comment?.trim() || '',
@@ -199,6 +203,8 @@ export const POST: APIRoute = async ({ request }) => {
     if (
       !customer.address ||
       !customer.deliveryTime ||
+      !customer.contactName ||
+      !customer.companyName ||
       !customer.phone ||
       !customer.email ||
       !payment
@@ -308,6 +314,8 @@ export const POST: APIRoute = async ({ request }) => {
         itemsCompact: metadataValue(serializeOrderItemsForMetadata(items)),
         address: metadataValue(customer.address),
         deliveryTime: metadataValue(customer.deliveryTime),
+        contactName: metadataValue(customer.contactName),
+        companyName: metadataValue(customer.companyName),
         phone: metadataValue(customer.phone),
         email: metadataValue(customer.email),
         invoiceEmail: metadataValue(customer.invoiceEmail),

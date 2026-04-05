@@ -1,7 +1,7 @@
 {
   "heading": "Company Orders",
-  "intro": "Let your colleagues and workplace bloom with beauty and joy. Order locally from Boulevardens Blomster and celebrate the good moments with style and elegance.",
-  "deliveryNote": "Free delivery and flower card with text applies only to businesses and their employees in Taastrup municipality, with delivery between 07-09 on weekdays.",
+  "intro": "Let your colleagues and workplace bloom with flowers for both everyday moments and special occasions. Order locally from Boulevardens Blomster and make it easy to send a thoughtful greeting.",
+  "deliveryNote": "Free delivery and a flower card with text apply only to businesses and their employees in Taastrup Municipality.",
   "deliveryNoteLabel": "Please note:",
   "contactNote": "For larger orders and other enquiries, please contact us at:",
   "contactEmail": "kontakt@boulevardensblomster.dk",
@@ -10,7 +10,7 @@
     {
       "id": "bare-fordi",
       "name": "Just Because...",
-      "description": "Spontaneous joy with flowers for no other reason than to bring a smile and warmth to someone special.",
+      "description": "A spontaneous bouquet sent simply to bring a smile and some warmth to someone special.",
       "price": 199,
       "currency": "DKK",
       "exVat": true
@@ -18,7 +18,7 @@
     {
       "id": "velkommen-tilbage",
       "name": "Welcome Back!",
-      "description": "A warm welcome with flowers to celebrate the return and spread joy together.",
+      "description": "A warm welcome bouquet to celebrate someone's return and lift the mood at work.",
       "price": 299,
       "currency": "DKK",
       "exVat": true
@@ -26,7 +26,7 @@
     {
       "id": "tillykke",
       "name": "Congratulations!",
-      "description": "Celebrate every happy milestone with our festive bouquets that express happiness and excitement.",
+      "description": "Celebrate happy milestones with a bouquet that feels festive and easy to give.",
       "price": 249,
       "currency": "DKK",
       "exVat": true
@@ -34,7 +34,7 @@
     {
       "id": "kaerlighed",
       "name": "Love",
-      "description": "Our love bouquets radiate passion and devotion, perfect for expressing your heartfelt feelings.",
+      "description": "A warm and caring bouquet for the moments when feelings should be shown in a simple, beautiful way.",
       "price": 299,
       "currency": "DKK",
       "exVat": true
@@ -42,7 +42,7 @@
     {
       "id": "saeson-kompakt",
       "name": "Seasonal Flowers - Compact",
-      "description": "Colourful seasonal flowers that are a delight for every occasion. We ensure beauty in a compact format.",
+      "description": "Colourful seasonal flowers gathered in a compact bouquet that suits many occasions.",
       "price": 249,
       "currency": "DKK",
       "exVat": true
@@ -50,7 +50,7 @@
     {
       "id": "saeson-hojluftig",
       "name": "Seasonal Flowers - Airy",
-      "description": "Colourful seasonal flowers that are a delight for every occasion. We ensure beauty in a tall, airy format.",
+      "description": "Colourful seasonal flowers in a tall and airy bouquet with an inviting feel.",
       "price": 249,
       "currency": "DKK",
       "exVat": true
@@ -62,6 +62,8 @@
     "timeLabel": "Delivery time",
     "timePlaceholder": "e.g.: 08-02-2024 at 08:00",
     "cardTextLabel": "Optional: Add text for card (free - max 50 words)",
+    "contactNameLabel": "Contact person",
+    "companyNameLabel": "Company name",
     "phoneLabel": "Phone",
     "emailLabel": "Email",
     "commentLabel": "Order comments (optional)",
@@ -72,7 +74,7 @@
       { "id": "kort", "label": "Card payment (Visa / Mastercard)" },
       { "id": "faktura", "label": "Invoice (sent to company email)" }
     ],
-    "invoiceEmailLabel": "If Invoice selected, please enter company email.",
+    "invoiceEmailLabel": "If Invoice is selected, please enter the company email.",
     "submit": "Place Order",
     "confirmationNote": "You will receive an email confirmation. For invoice orders we send payment details manually.",
     "successHeading": "Thank you for your order",

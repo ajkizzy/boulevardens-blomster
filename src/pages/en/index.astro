@@ -21,7 +21,7 @@ const site = loadContent<any>(locale, 'site');
 
   <section class="section-padding pt-6">
     <div class="container-narrow mx-auto">
-      <div class="surface-panel px-6 py-8 sm:px-8 sm:py-10 lg:grid lg:grid-cols-[1.12fr,0.88fr] lg:gap-12 lg:px-10">
+      <div class="surface-panel px-6 py-8 sm:px-8 sm:py-10 lg:grid lg:grid-cols-[1.12fr,0.88fr] lg:items-start lg:gap-12 lg:px-10">
         <div>
           <SectionHeading heading={home.intro.heading} align="left" />
           <div class="space-y-5 text-base leading-relaxed text-surface-ink/70">
@@ -36,18 +36,16 @@ const site = loadContent<any>(locale, 'site');
 
         <div class="mt-10 space-y-6 lg:mt-0">
           <OpeningHours locale={locale} />
-          <div class="editorial-card relative overflow-hidden p-6 sm:p-7">
-            <div class="absolute -right-10 top-0 h-28 w-28 rounded-full bg-secondary-100/60 blur-3xl"></div>
-            <p class="eyebrow">Contact</p>
-            <h3 class="mt-5 font-heading text-3xl text-surface-ink">{site.footer.contactUs}</h3>
+          <div class="surface-panel p-6 sm:p-7">
+            <h3 class="font-heading text-3xl text-surface-ink">{site.footer.contactUs}</h3>
             <div class="mt-5 space-y-3 text-sm text-surface-ink/68">
               <p>
                 <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
                   {site.phone}
                 </a>
               </p>
-              <p>
-                <a href={`mailto:${site.email}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
+              <p class="min-w-0">
+                <a href={`mailto:${site.email}`} class="break-all font-semibold text-surface-ink transition-colors hover:text-primary-600 sm:break-words [overflow-wrap:anywhere]">
                   {site.email}
                 </a>
               </p>
@@ -64,28 +62,23 @@ const site = loadContent<any>(locale, 'site');
 
   <section class="section-padding">
     <div class="container-narrow mx-auto">
-      <div class="grid gap-10 lg:grid-cols-[0.9fr,1.1fr] lg:items-end">
-        <div>
-          <SectionHeading heading={home.serviceHighlights.heading} align="left" />
-          <p class="max-w-md text-base leading-relaxed text-surface-ink/68">
-            We approach every bouquet and event with a slower, more editorial sensibility rooted in Scandinavian calm.
-          </p>
-          <div class="mt-8">
-            <a href="/en/company-orders" class="btn-primary !px-8 !py-3.5">
-              {site.nav.order}
-            </a>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          {home.serviceHighlights.items.map((item: any) => (
-            <ServiceCard
-              title={item.title}
-              description={item.description}
-              href={`/en/services#${item.anchor}`}
-            />
-          ))}
-        </div>
+      <SectionHeading heading={home.serviceHighlights.heading} align="left" />
+      <p class="max-w-3xl text-base leading-relaxed text-surface-ink/68">
+        We make bouquets, flower gifts, and business arrangements for everyday use and special occasions.
+      </p>
+      <div class="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
+        {home.serviceHighlights.items.map((item: any) => (
+          <ServiceCard
+            title={item.title}
+            description={item.description}
+            href={`/en/services#${item.anchor}`}
+          />
+        ))}
+      </div>
+      <div class="mt-8">
+        <a href="/en/company-orders" class="btn-primary !px-8 !py-3.5 !text-base">
+          {site.nav.order}
+        </a>
       </div>
     </div>
   </section>

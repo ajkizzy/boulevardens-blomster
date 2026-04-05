@@ -14,7 +14,7 @@ const site = loadContent<any>(locale, 'site');
 
   <section class="section-padding">
     <div class="container-narrow mx-auto">
-      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[0.92fr,1.08fr]">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[0.86fr,1fr] lg:items-start">
         <div class="space-y-6">
           <div class="surface-panel p-4 sm:p-5">
             <div class="overflow-hidden rounded-[1.5rem] shadow-ambient">
@@ -27,10 +27,9 @@ const site = loadContent<any>(locale, 'site');
             </div>
           </div>
 
-          <div class="grid gap-6 sm:grid-cols-2">
-            <div class="editorial-card p-6">
-              <p class="eyebrow">Visit us</p>
-              <h3 class="mt-5 font-heading text-3xl text-surface-ink">{contact.mapHeading}</h3>
+          <div class="grid items-start gap-6 sm:grid-cols-2">
+            <div class="surface-panel self-start p-6">
+              <h3 class="font-heading text-3xl text-surface-ink">{contact.mapHeading}</h3>
               <address class="mt-5 not-italic space-y-2 text-sm text-surface-ink/68">
                 <p class="font-semibold text-surface-ink">Boulevardens Blomster</p>
                 <p>{site.address.street}</p>
@@ -40,17 +39,16 @@ const site = loadContent<any>(locale, 'site');
               </address>
             </div>
 
-            <div class="editorial-card p-6">
-              <p class="eyebrow">Contact</p>
-              <h3 class="mt-5 font-heading text-3xl text-surface-ink">{site.footer.contactUs}</h3>
+            <div class="surface-panel self-start p-6">
+              <h3 class="font-heading text-3xl text-surface-ink">{site.footer.contactUs}</h3>
               <div class="mt-5 space-y-3 text-sm text-surface-ink/68">
                 <p>
                   <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
                     {site.phone}
                   </a>
                 </p>
-                <p>
-                  <a href={`mailto:${site.email}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
+                <p class="min-w-0">
+                  <a href={`mailto:${site.email}`} class="break-all font-semibold text-surface-ink transition-colors hover:text-primary-600 sm:break-words [overflow-wrap:anywhere]">
                     {site.email}
                   </a>
                 </p>
@@ -61,9 +59,8 @@ const site = loadContent<any>(locale, 'site');
           <OpeningHours locale={locale} />
         </div>
 
-        <div class="editorial-card p-6 sm:p-8">
-          <p class="eyebrow">Send a note</p>
-          <h2 class="mt-5 font-heading text-4xl text-surface-ink">{contact.heading}</h2>
+        <div class="surface-panel self-start p-6 sm:p-8">
+          <h2 class="font-heading text-4xl text-surface-ink">{contact.heading}</h2>
           <div id="contact-form-status" class="hidden mb-5 mt-6 rounded-[1.25rem] bg-primary-50 px-4 py-3 text-sm text-primary-700"></div>
           <form
             id="contact-form"
@@ -83,7 +80,7 @@ const site = loadContent<any>(locale, 'site');
             </div>
             <div>
               <label for="message" class="label-text">{contact.form.message} *</label>
-              <textarea id="message" name="message" required rows="6" class="input-field resize-y" placeholder={contact.form.messagePlaceholder}></textarea>
+              <textarea id="message" name="message" required rows="5" class="input-field min-h-[10rem] resize-y [overflow-wrap:anywhere]" placeholder={contact.form.messagePlaceholder}></textarea>
             </div>
             <button type="submit" class="btn-primary w-full !py-3.5">
               {contact.form.submit}

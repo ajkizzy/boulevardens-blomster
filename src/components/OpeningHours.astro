@@ -8,24 +8,22 @@ interface Props {
 
 const { locale } = Astro.props;
 const site = loadContent<any>(locale, 'site');
-const eyebrow = locale === 'en' ? 'Open hours' : 'Åbningstider';
 ---
 
-<div class="surface-panel p-6 sm:p-8">
-  <p class="eyebrow">{eyebrow}</p>
-  <h3 class="mt-5 font-heading text-3xl text-surface-ink">{site.hours.title}</h3>
+<div class="surface-panel w-full min-w-0 p-6 sm:p-8">
+  <h3 class="font-heading text-[2rem] text-surface-ink sm:text-3xl">{site.hours.title}</h3>
   <dl class="mt-6 space-y-4 text-sm">
-    <div class="flex justify-between items-center">
-      <dt class="text-surface-ink/66">{site.hours.weekdays.label}</dt>
-      <dd class="font-semibold text-surface-ink">{site.hours.weekdays.time}</dd>
+    <div class="grid grid-cols-[minmax(0,1fr),auto] items-start gap-3">
+      <dt class="min-w-0 text-surface-ink/66">{site.hours.weekdays.label}</dt>
+      <dd class="whitespace-nowrap font-semibold text-surface-ink">{site.hours.weekdays.time}</dd>
     </div>
-    <div class="flex justify-between items-center">
-      <dt class="text-surface-ink/66">{site.hours.saturday.label}</dt>
-      <dd class="font-semibold text-surface-ink">{site.hours.saturday.time}</dd>
+    <div class="grid grid-cols-[minmax(0,1fr),auto] items-start gap-3">
+      <dt class="min-w-0 text-surface-ink/66">{site.hours.saturday.label}</dt>
+      <dd class="whitespace-nowrap font-semibold text-surface-ink">{site.hours.saturday.time}</dd>
     </div>
-    <div class="flex justify-between items-center">
-      <dt class="text-surface-ink/66">{site.hours.sunday.label}</dt>
-      <dd class="font-semibold text-surface-ink">{site.hours.sunday.time}</dd>
+    <div class="grid grid-cols-[minmax(0,1fr),auto] items-start gap-3">
+      <dt class="min-w-0 text-surface-ink/66">{site.hours.sunday.label}</dt>
+      <dd class="whitespace-nowrap font-semibold text-surface-ink">{site.hours.sunday.time}</dd>
     </div>
   </dl>
 </div>

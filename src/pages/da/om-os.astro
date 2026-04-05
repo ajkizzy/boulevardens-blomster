@@ -17,7 +17,7 @@ const about = loadContent<any>(locale, 'about');
         <div class="surface-panel relative min-h-[360px] overflow-hidden p-6 sm:p-8">
           <div class="absolute -right-10 top-8 h-40 w-40 rounded-full bg-secondary-100/70 blur-3xl"></div>
           <div class="absolute left-6 top-6 rounded-full bg-surface-raised px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-600 shadow-ambient">
-            Håndbundet floristik
+            Håndbundne buketter
           </div>
           <div class="absolute bottom-6 left-6 right-12 top-20 rounded-[2rem] bg-gradient-to-br from-primary-100 via-surface-raised to-secondary-100 shadow-ambient"></div>
           <div class="absolute bottom-0 right-0 flex h-[66%] w-[62%] items-center justify-center rounded-[2rem] bg-gradient-to-br from-primary-500 to-primary-300 text-[6rem] text-white/20">
@@ -25,7 +25,7 @@ const about = loadContent<any>(locale, 'about');
           </div>
         </div>
 
-        <div class="editorial-card p-6 sm:p-8">
+        <div class="surface-panel p-6 sm:p-8">
           <p class="eyebrow">Om os</p>
           <h2 class="mt-5 font-heading text-4xl leading-tight text-surface-ink">{about.intro.heading}</h2>
           <div class="mt-6 space-y-5 text-base leading-relaxed text-surface-ink/70">
@@ -47,7 +47,7 @@ const about = loadContent<any>(locale, 'about');
           </div>
         </div>
         <div class="mt-8 space-y-6 lg:mt-0">
-          <div class="editorial-card min-h-[280px] overflow-hidden p-6">
+          <div class="surface-panel min-h-[280px] overflow-hidden p-6">
             <div class="h-full rounded-[1.75rem] bg-gradient-to-br from-secondary-100 via-surface-raised to-accent-100"></div>
           </div>
           <OpeningHours locale={locale} />

@@ -26,6 +26,8 @@ export interface OrderRecordCustomer {
   address: string;
   deliveryTime: string;
   cardText: string;
+  contactName: string;
+  companyName: string;
   phone: string;
   email: string;
   comment: string;
@@ -167,6 +169,8 @@ export function buildRecoveredOrderFromCheckoutSession(
       address: getSessionMetadataValue(metadata, 'address'),
       deliveryTime: getSessionMetadataValue(metadata, 'deliveryTime'),
       cardText: getSessionMetadataValue(metadata, 'cardText'),
+      contactName: getSessionMetadataValue(metadata, 'contactName'),
+      companyName: getSessionMetadataValue(metadata, 'companyName'),
       phone: getSessionMetadataValue(metadata, 'phone'),
       email,
       comment: getSessionMetadataValue(metadata, 'comment'),
@@ -223,6 +227,8 @@ function orderLocaleText(locale: Locale) {
         totalLabel: 'Total incl. VAT',
         deliveryLabel: 'Delivery time',
         addressLabel: 'Delivery address',
+        contactNameLabel: 'Contact person',
+        companyNameLabel: 'Company name',
         commentLabel: 'Comment',
         companyCodeLabel: 'Company code',
         invoiceEmailLabel: 'Invoice email',
@@ -263,6 +269,8 @@ function orderLocaleText(locale: Locale) {
         totalLabel: 'Total inkl. moms',
         deliveryLabel: 'Leveringstidspunkt',
         addressLabel: 'Leveringsadresse',
+        contactNameLabel: 'Kontaktperson',
+        companyNameLabel: 'Virksomhed',
         commentLabel: 'Kommentar',
         companyCodeLabel: 'Firmakode',
         invoiceEmailLabel: 'Faktura-email',
@@ -335,6 +343,8 @@ function renderOrderDetailsHtml(order: OrderRecord): string {
       <p><strong>${text.paymentLabel}:</strong> ${escapeHtml(order.paymentMethod)}</p>
       <p><strong>${text.addressLabel}:</strong> ${escapeHtml(order.customer.address)}</p>
       <p><strong>${text.deliveryLabel}:</strong> ${escapeHtml(order.customer.deliveryTime)}</p>
+      <p><strong>${text.contactNameLabel}:</strong> ${escapeHtml(order.customer.contactName)}</p>
+      <p><strong>${text.companyNameLabel}:</strong> ${escapeHtml(order.customer.companyName)}</p>
       <p><strong>${text.phoneLabel}:</strong> ${escapeHtml(order.customer.phone)}</p>
       <p><strong>${text.emailLabel}:</strong> ${escapeHtml(order.customer.email)}</p>
       <p><strong>${text.invoiceEmailLabel}:</strong> ${escapeHtml(invoiceEmail)}</p>
@@ -365,6 +375,8 @@ function renderOrderDetailsText(order: OrderRecord): string {
     `${text.paymentLabel}: ${order.paymentMethod}`,
     `${text.addressLabel}: ${order.customer.address}`,
     `${text.deliveryLabel}: ${order.customer.deliveryTime}`,
+    `${text.contactNameLabel}: ${order.customer.contactName}`,
+    `${text.companyNameLabel}: ${order.customer.companyName}`,
     `${text.phoneLabel}: ${order.customer.phone}`,
     `${text.emailLabel}: ${order.customer.email}`,
     `${text.invoiceEmailLabel}: ${order.customer.invoiceEmail || order.customer.email}`,
