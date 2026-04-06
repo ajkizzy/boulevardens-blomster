@@ -23,6 +23,15 @@ const infoLinks = [
   { label: site.footer.privacy, href: privacyHref },
   { label: site.footer.terms, href: termsHref },
 ];
+const footerHours = locale === 'en'
+  ? [
+      { label: 'Mon-Sat', time: site.hours.weekdays.time },
+      { label: 'Sun & holidays', time: site.hours.sunday.time },
+    ]
+  : [
+      { label: 'Mandag-lørdag', time: site.hours.weekdays.time },
+      { label: 'Søndag og helligdage', time: site.hours.sunday.time },
+    ];
 ---
 
 <footer class="px-4 pb-8 pt-10 sm:px-6 lg:px-8">
@@ -107,7 +116,12 @@ const infoLinks = [
               </p>
               <p>{site.address.street}</p>
               <p>{site.address.zip} {site.address.city}</p>
-              <p>{site.hours.title}: {site.hours.weekdays.time}</p>
+              <div class="space-y-1">
+                <p class="font-semibold text-surface-ink">{site.hours.title}</p>
+                {footerHours.map((entry) => (
+                  <p>{entry.label}: {entry.time}</p>
+                ))}
+              </div>
               <p>
                 <a href={nav.contact.href} class="font-semibold text-primary-600 transition-colors hover:text-primary-500">
                   {site.footer.contactUs}
@@ -179,7 +193,12 @@ const infoLinks = [
             </p>
             <p>{site.address.street}</p>
             <p>{site.address.zip} {site.address.city}</p>
-            <p>{site.hours.title}: {site.hours.weekdays.time}</p>
+            <div class="space-y-1">
+              <p class="font-semibold text-surface-ink">{site.hours.title}</p>
+              {footerHours.map((entry) => (
+                <p>{entry.label}: {entry.time}</p>
+              ))}
+            </div>
             <p>
               <a href={nav.contact.href} class="font-semibold text-primary-600 transition-colors hover:text-primary-500">
                 {site.footer.contactUs}
