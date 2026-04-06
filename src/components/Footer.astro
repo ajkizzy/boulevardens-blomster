@@ -1,5 +1,5 @@
 ---
-import { loadContent } from '@/lib/i18n';
+import { loadContent, getNavLinks } from '@/lib/i18n';
 import { getPrivacyPagePath, getTermsPagePath } from '@/lib/config';
 import type { Locale } from '@/lib/i18n';
 
@@ -9,23 +9,32 @@ interface Props {
 
 const { locale } = Astro.props;
 const site = loadContent<any>(locale, 'site');
+const nav = getNavLinks(locale);
 const termsHref = getTermsPagePath(locale);
 const privacyHref = getPrivacyPagePath(locale);
+
 const footerText = locale === 'en'
   ? 'Flowers for everyday moments, special days, and businesses.'
   : 'Blomster til hverdag, mærkedage og virksomheder.';
+
+const serviceLinks = site.serviceDropdown.filter((item: any) => item.anchor !== 'gavekurve');
+const infoLinks = [
+  { label: nav.about.label, href: nav.about.href },
+  { label: site.footer.privacy, href: privacyHref },
+  { label: site.footer.terms, href: termsHref },
+];
 ---
 
-<footer class="px-4 pb-6 pt-10 sm:px-6 lg:px-8">
+<footer class="px-4 pb-8 pt-10 sm:px-6 lg:px-8">
   <div class="container-narrow mx-auto">
     <div class="surface-panel overflow-hidden px-6 py-10 sm:px-10 sm:py-12">
-      <div class="grid items-start gap-6 md:grid-cols-2 xl:grid-cols-[1.08fr,0.95fr,0.78fr,0.82fr]">
-        <div class="min-w-0 rounded-[1.5rem] bg-surface-raised p-6 shadow-ambient sm:p-7">
+      <div class="border-b border-surface-ink/8 pb-8 sm:pb-10">
+        <div class="max-w-md">
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">Boulevardens Blomster</p>
-          <h3 class="mt-4 font-heading text-3xl leading-tight text-surface-ink">
+          <h3 class="mt-4 font-heading text-3xl leading-tight text-surface-ink sm:text-[3.2rem]">
             {footerText}
           </h3>
-          <p class="mt-4 max-w-md text-sm leading-relaxed text-surface-ink/68">{site.tagline}</p>
+          <p class="mt-4 max-w-sm text-sm leading-relaxed text-surface-ink/68">{site.tagline}</p>
           <div class="mt-6 flex gap-3">
             <a
               href={site.social.facebook}
@@ -47,38 +56,44 @@ const footerText = locale === 'en'
             </a>
           </div>
         </div>
+      </div>
 
-        <div class="min-w-0 self-start rounded-[1.5rem] bg-surface-raised px-6 py-6 shadow-ambient">
-          <h4 class="font-heading text-[1.9rem] text-surface-ink">{site.hours.title}</h4>
-          <dl class="mt-5 space-y-4 text-sm text-surface-ink/68">
-            <div class="grid grid-cols-[minmax(0,1fr),auto] gap-4">
-              <dt class="min-w-0">{site.hours.weekdays.label}</dt>
-              <dd class="whitespace-nowrap font-semibold text-surface-ink">{site.hours.weekdays.time}</dd>
-            </div>
-            <div class="grid grid-cols-[minmax(0,1fr),auto] gap-4">
-              <dt class="min-w-0">{site.hours.saturday.label}</dt>
-              <dd class="whitespace-nowrap font-semibold text-surface-ink">{site.hours.saturday.time}</dd>
-            </div>
-            <div class="grid grid-cols-[minmax(0,1fr),auto] gap-4">
-              <dt class="min-w-0">{site.hours.sunday.label}</dt>
-              <dd class="whitespace-nowrap font-semibold text-surface-ink">{site.hours.sunday.time}</dd>
-            </div>
-          </dl>
+      <div class="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-[1fr,1fr,1.15fr]">
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
+            {locale === 'en' ? 'Our services' : 'Vores services'}
+          </h4>
+          <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
+            {serviceLinks.map((item: any) => (
+              <p>
+                <a href={`${nav.services.href}#${item.anchor}`} class="transition-colors hover:text-primary-600">
+                  {item.label}
+                </a>
+              </p>
+            ))}
+          </div>
         </div>
 
-        <div class="min-w-0 self-start rounded-[1.5rem] bg-surface-raised px-6 py-6 shadow-ambient">
-          <h4 class="font-heading text-[1.9rem] text-surface-ink">{site.footer.findUs}</h4>
-          <address class="mt-5 not-italic space-y-2 text-sm text-surface-ink/68">
-            <p>{site.address.street}</p>
-            <p>{site.address.zip} {site.address.city}</p>
-            <p>{site.address.country}</p>
-            <p class="pt-3 text-xs uppercase tracking-[0.18em] text-surface-ink/46">CVR {site.cvr}</p>
-          </address>
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
+            {locale === 'en' ? 'Information' : 'Information'}
+          </h4>
+          <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
+            {infoLinks.map((item) => (
+              <p>
+                <a href={item.href} class="transition-colors hover:text-primary-600">
+                  {item.label}
+                </a>
+              </p>
+            ))}
+          </div>
         </div>
 
-        <div class="min-w-0 self-start rounded-[1.5rem] bg-surface-raised px-6 py-6 shadow-ambient">
-          <h4 class="font-heading text-[1.9rem] text-surface-ink">{site.footer.contactUs}</h4>
-          <div class="mt-5 space-y-3 text-sm text-surface-ink/68">
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
+            {site.footer.contactUs}
+          </h4>
+          <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
             <p>
               <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
                 {site.phone}
@@ -89,16 +104,20 @@ const footerText = locale === 'en'
                 {site.email}
               </a>
             </p>
+            <p>{site.address.street}</p>
+            <p>{site.address.zip} {site.address.city}</p>
+            <p>{site.hours.title}: {site.hours.weekdays.time}</p>
+            <p>
+              <a href={nav.contact.href} class="font-semibold text-primary-600 transition-colors hover:text-primary-500">
+                {site.footer.contactUs}
+              </a>
+            </p>
           </div>
         </div>
       </div>
 
-      <div class="mt-8 flex flex-col gap-3 text-xs text-surface-ink/52 sm:flex-row sm:items-center sm:justify-between">
+      <div class="mt-10 border-t border-surface-ink/8 pt-6 text-center text-xs text-surface-ink/52">
         <p>&copy; {new Date().getFullYear()} Boulevardens Blomster</p>
-        <div class="flex flex-wrap items-center gap-4">
-          <a href={termsHref} class="transition-colors hover:text-surface-ink">{site.footer.terms}</a>
-          <a href={privacyHref} class="transition-colors hover:text-surface-ink">{site.footer.privacy}</a>
-        </div>
       </div>
     </div>
   </div>
