@@ -1,6 +1,5 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import OpeningHours from '@/components/OpeningHours.astro';
 import { loadContent } from '@/lib/i18n';
 
 const locale = 'en';
@@ -67,11 +66,10 @@ const introLead = about.intro.text.split('\n\n')[0];
             {about.story.text.split('\n\n').map((p: string) => <p>{p}</p>)}
           </div>
         </div>
-        <div class="mt-8 space-y-6 lg:mt-0">
-          <div class="surface-panel min-h-[280px] overflow-hidden p-6">
+        <div class="mt-8 lg:mt-0">
+          <div class="surface-panel min-h-[520px] overflow-hidden p-6">
             <div class="h-full rounded-[1.75rem] bg-gradient-to-br from-secondary-100 via-surface-raised to-accent-100"></div>
           </div>
-          <OpeningHours locale={locale} />
         </div>
       </div>
     </div>
