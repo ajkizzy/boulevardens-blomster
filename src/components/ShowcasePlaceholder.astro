@@ -1,0 +1,77 @@
+---
+interface Props {
+  title: string;
+  eyebrow?: string;
+  note?: string;
+  size?: 'hero' | 'wide' | 'landscape' | 'portrait' | 'square';
+  tone?: 'sage' | 'rose' | 'amber' | 'stone' | 'olive';
+  align?: 'bottom-left' | 'bottom-right' | 'center';
+}
+
+const {
+  title,
+  eyebrow,
+  note,
+  size = 'landscape',
+  tone = 'sage',
+  align = 'bottom-left',
+} = Astro.props;
+
+const sizeClasses = {
+  hero: 'aspect-[16/10]',
+  wide: 'aspect-[16/8]',
+  landscape: 'aspect-[4/3]',
+  portrait: 'aspect-[4/5]',
+  square: 'aspect-square',
+};
+
+const toneClasses = {
+  sage: 'bg-gradient-to-br from-[#d7e1d0] via-[#f8f5ee] to-[#9db28e]',
+  rose: 'bg-gradient-to-br from-[#f6d8dd] via-[#faf4ef] to-[#d59e8e]',
+  amber: 'bg-gradient-to-br from-[#f5e2b9] via-[#faf4ea] to-[#c39b68]',
+  stone: 'bg-gradient-to-br from-[#d7d6d1] via-[#f6f4ef] to-[#9ea3a2]',
+  olive: 'bg-gradient-to-br from-[#cbd7bf] via-[#f6f4ed] to-[#768d69]',
+};
+
+const alignClasses = {
+  'bottom-left': 'items-end justify-start',
+  'bottom-right': 'items-end justify-end',
+  center: 'items-center justify-center',
+};
+---
+
+<div class:list={[
+  'relative isolate overflow-hidden rounded-[1.8rem] shadow-[0_24px_60px_rgba(26,28,25,0.1)]',
+  sizeClasses[size],
+  toneClasses[tone],
+]}>
+  <div class="absolute inset-0">
+    <div class="absolute -left-10 top-0 h-28 w-28 rounded-full bg-white/55 blur-3xl"></div>
+    <div class="absolute right-4 top-6 h-40 w-40 rounded-full bg-primary-600/18 blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 h-36 w-36 rounded-full bg-secondary-200/30 blur-3xl"></div>
+    <div class="absolute inset-6 rounded-[1.5rem] border border-white/45"></div>
+    <div class="absolute left-[12%] top-[16%] h-[20%] w-[22%] rounded-[1.5rem] bg-white/28 backdrop-blur-sm"></div>
+    <div class="absolute right-[13%] top-[20%] h-[18%] w-[18%] rounded-full bg-primary-600/18"></div>
+    <div class="absolute bottom-[14%] left-[22%] h-[24%] w-[38%] rounded-[2rem] bg-white/20 backdrop-blur-sm"></div>
+    <div class="absolute bottom-[12%] right-[16%] h-[32%] w-[24%] rounded-[2rem] bg-surface-raised/40 backdrop-blur-sm"></div>
+    <div class="absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-surface-ink/22 to-transparent"></div>
+  </div>
+
+  <div class:list={['relative flex h-full p-6 sm:p-8', alignClasses[align]]}>
+    <div class="max-w-[16rem] rounded-[1.35rem] bg-surface-raised/88 px-4 py-3 shadow-[0_16px_40px_rgba(26,28,25,0.14)] backdrop-blur">
+      {eyebrow && (
+        <p class="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-primary-600">
+          {eyebrow}
+        </p>
+      )}
+      <p class="mt-2 font-heading text-2xl leading-tight text-surface-ink">
+        {title}
+      </p>
+      {note && (
+        <p class="mt-2 text-sm leading-relaxed text-surface-ink/66">
+          {note}
+        </p>
+      )}
+    </div>
+  </div>
+</div>

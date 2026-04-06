@@ -113,11 +113,10 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
           <div class="relative">
             <iframe
               src="https://www.openstreetmap.org/export/embed.html?bbox=12.24%2C55.64%2C12.28%2C55.66&layer=mapnik&marker=55.6505%2C12.2614"
-              class="contact-map-frame aspect-[4/3] w-full border-0"
+              class="aspect-[4/3] w-full border-0"
               loading="lazy"
               title={copy.mapButton}
             ></iframe>
-            <div class="pointer-events-none absolute inset-0 bg-surface-ink/8"></div>
             <a
               href={mapHref}
               target="_blank"
@@ -169,12 +168,6 @@ const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
     </div>
   </div>
 </section>
-
-<style>
-  .contact-map-frame {
-    filter: grayscale(1) contrast(0.92) brightness(0.92);
-  }
-</style>
 
 <script>
   const form = document.getElementById('contact-form');
