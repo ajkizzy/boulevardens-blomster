@@ -25,6 +25,7 @@ const text = locale === 'en'
       directContact: 'Contact us directly',
       seeSelection: 'See selection',
       farewellCards: ['Casket flowers', 'Wreaths', 'Sympathy bouquets'],
+      holidayHeading: 'Seasonal highlights',
       holidayCards: ['Mother’s Day', 'Valentine', 'Christmas', 'Easter'],
       holidayIntro: 'We help set the tone for the year’s special days.',
       giftSplit: ['Sweet treats', 'Host gifts'],
@@ -41,6 +42,7 @@ const text = locale === 'en'
       directContact: 'Kontakt os direkte',
       seeSelection: 'Se udvalg',
       farewellCards: ['Kistepynt', 'Kranse', 'Bårebuketter'],
+      holidayHeading: 'Årets Højtider',
       holidayCards: ['Mors Dag', 'Valentine', 'Jul', 'Påske'],
       holidayIntro: 'Vi hjælper med at sætte stemningen omkring årets særlige dage.',
       giftSplit: ['Søde sager', 'Værtindegaver'],
@@ -144,19 +146,19 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
       <section id={holidays.id} class="scroll-mt-28">
         <div class="grid gap-4 lg:grid-cols-[0.76fr,1.24fr] lg:items-end">
           <div>
-            <h2 class="font-heading text-4xl leading-tight text-surface-ink sm:text-[3rem]">{holidays.title}</h2>
+            <h2 class="font-heading text-4xl leading-tight text-surface-ink sm:text-[3rem]">{text.holidayHeading}</h2>
             <p class="mt-4 max-w-lg text-base leading-8 text-surface-ink/72">
               {text.holidayIntro}
             </p>
           </div>
         </div>
 
-        <div class="mt-8 grid gap-4 md:grid-cols-[1.08fr,0.92fr]">
+        <div class="mt-8 grid gap-4 lg:grid-cols-[1.05fr,1fr]">
           <ShowcasePlaceholder title={text.holidayCards[0]} eyebrow={holidays.title} tone="rose" size="portrait" />
-          <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-2">
-            <ShowcasePlaceholder title={text.holidayCards[1]} tone="stone" size="landscape" align="bottom-right" />
-            <ShowcasePlaceholder title={text.holidayCards[2]} tone="olive" size="square" />
-            <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="square" align="bottom-right" />
+          <div class="grid gap-4 sm:grid-cols-2">
+            <ShowcasePlaceholder title={text.holidayCards[1]} tone="stone" size="landscape" />
+            <ShowcasePlaceholder title={text.holidayCards[2]} tone="olive" size="landscape" />
+            <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="landscape" />
             <div class="surface-panel flex items-center rounded-[1.8rem] px-6 py-8">
               <p class="text-sm leading-7 text-surface-ink/68">{holidayCopy}</p>
             </div>
