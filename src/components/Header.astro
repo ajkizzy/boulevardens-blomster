@@ -12,7 +12,6 @@ const nav = getNavLinks(locale);
 const currentPath = Astro.url.pathname;
 const daPath = getPathForLocale(currentPath, locale, 'da');
 const enPath = getPathForLocale(currentPath, locale, 'en');
-const studioLabel = locale === 'en' ? 'Flower shop' : 'Blomsterbutik';
 const allServicesLabel = locale === 'en' ? 'All services' : 'Alle services';
 ---
 
@@ -21,11 +20,9 @@ const allServicesLabel = locale === 'en' ? 'All services' : 'Alle services';
     <div class="glass-panel rounded-[1.75rem] px-5 py-4 sm:px-6">
       <div class="flex items-center justify-between gap-4">
         <a href={nav.home.href} class="group min-w-0">
-          <div class="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-surface-ink/45">
-            {studioLabel}
-          </div>
-          <span class="block truncate text-xl font-heading font-semibold text-primary-700 transition-colors group-hover:text-primary-500 sm:text-[1.7rem]">
-            Boulevardens Blomster
+          <span class="block text-xl font-heading font-semibold leading-[0.95] text-primary-700 transition-colors group-hover:text-primary-500 sm:text-[1.7rem]">
+            <span class="block sm:inline">Boulevardens</span>
+            <span class="block sm:ml-2 sm:inline">Blomster</span>
           </span>
         </a>
 
