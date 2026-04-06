@@ -73,7 +73,7 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
         {services.sections.map((section: any) => (
           <li>
             <a href={`#${section.id}`} class="whitespace-nowrap transition-colors hover:text-primary-600">
-              {section.title}
+              {locale === 'da' && section.id === 'begravelse' ? 'Begravelse' : section.title}
             </a>
           </li>
         ))}

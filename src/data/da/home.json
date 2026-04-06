@@ -15,7 +15,7 @@
     "items": [
       { "title": "Buketter", "description": "Smukke blomsterbuketter i alle farver og former.", "anchor": "buketter" },
       { "title": "Bryllup", "description": "Gør jeres store dag uforglemmelig med blomster.", "anchor": "bryllup" },
-      { "title": "Et Sidste Farvel", "description": "Respektfulde og smukke arrangementer.", "anchor": "begravelse" },
+      { "title": "Begravelse", "description": "Respektfulde og smukke arrangementer.", "anchor": "begravelse" },
       { "title": "Højtider", "description": "Blomster og pynt til alle årets højtider.", "anchor": "hojtider" },
       { "title": "Gavekurve", "description": "Unikke gavekurve med chokolade, vin og blomster.", "anchor": "gavekurve" }
     ]
