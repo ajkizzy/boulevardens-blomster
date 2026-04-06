@@ -1,0 +1,229 @@
+---
+import { loadContent } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const contact = loadContent<any>(locale, 'contact');
+const site = loadContent<any>(locale, 'site');
+
+const copy = locale === 'en'
+  ? {
+      intro:
+        'Let us create something beautiful together. Whether it is for weddings, everyday flowers or company events, we are here to help.',
+      responseBadge: 'We reply within 24 hours',
+      visitHeading: 'Visit us',
+      phoneHeading: 'Phone',
+      emailHeading: 'Email',
+      formHeading: 'Send us a message',
+      formIntro: 'We would love to hear what you have in mind.',
+      mapButton: 'Find us here',
+    }
+  : {
+      intro:
+        'Lad os skabe noget smukt sammen. Uanset om det er til bryllup, hverdag eller firmaevents, er vi her for at hjælpe.',
+      responseBadge: 'Vi svarer altid indenfor 24 timer',
+      visitHeading: 'Besøg os',
+      phoneHeading: 'Telefon',
+      emailHeading: 'Email',
+      formHeading: 'Send os en besked',
+      formIntro: 'Vi glæder os til at høre om dine ønsker.',
+      mapButton: 'Find os her',
+    };
+
+const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `${site.address.street}, ${site.address.zip} ${site.address.city}, ${site.address.country}`,
+)}`;
+---
+
+<section class="section-padding pt-8 sm:pt-12">
+  <div class="container-narrow mx-auto">
+    <div class="mx-auto max-w-3xl text-center">
+      <h1 class="font-heading text-5xl tracking-[-0.03em] text-primary-600 sm:text-6xl">
+        {contact.heading}
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-8 text-surface-ink/72 sm:text-lg">
+        {copy.intro}
+      </p>
+      <div class="mt-6 inline-flex max-w-full items-center gap-3 rounded-full bg-surface-mid px-4 py-2 text-sm text-surface-ink/72 shadow-[0_16px_36px_rgba(26,28,25,0.05)]">
+        <span class="inline-flex h-7 w-7 flex-none items-center justify-center rounded-full bg-primary-600/12 text-primary-600">
+          <svg viewBox="0 0 20 20" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M6.75 10.25l2.1 2.1 4.4-4.7" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M10 2.75l1.85 1.1 2.15.15.8 2 1.55 1.45-.55 2.1.55 2.1-1.55 1.45-.8 2-2.15.15L10 17.25l-1.85-1.1-2.15-.15-.8-2L3.65 12.55l.55-2.1-.55-2.1L5.2 6.9l.8-2 2.15-.15L10 2.75Z" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span>{copy.responseBadge}</span>
+      </div>
+    </div>
+
+    <div class="mt-12 grid gap-6 xl:grid-cols-[0.82fr,1.18fr] xl:items-start">
+      <div class="space-y-5">
+        <div class="editorial-card p-6 sm:p-8">
+          <span class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary-100 text-secondary-700">
+            <svg viewBox="0 0 20 20" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+              <path d="M10 2.5a5.75 5.75 0 0 0-5.75 5.75c0 4.39 5.02 8.64 5.23 8.82a.8.8 0 0 0 1.04 0c.21-.18 5.23-4.43 5.23-8.82A5.75 5.75 0 0 0 10 2.5Zm0 7.78a2.03 2.03 0 1 1 0-4.06 2.03 2.03 0 0 1 0 4.06Z" />
+            </svg>
+          </span>
+          <h2 class="mt-5 font-heading text-3xl text-surface-ink">{copy.visitHeading}</h2>
+          <address class="mt-4 not-italic space-y-2 text-base leading-8 text-surface-ink/72">
+            <p class="font-semibold text-surface-ink">{site.name}</p>
+            <p>{site.address.street}</p>
+            <p>{site.address.zip} {site.address.city}</p>
+            <p>{site.address.country}</p>
+          </address>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div class="editorial-card p-6">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-surface-ink/48">{copy.phoneHeading}</p>
+            <p class="mt-4 text-lg font-semibold text-surface-ink">
+              <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="transition-colors hover:text-primary-600">{site.phone}</a>
+            </p>
+          </div>
+          <div class="editorial-card min-w-0 p-6">
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-surface-ink/48">{copy.emailHeading}</p>
+            <p class="mt-4 text-lg font-semibold text-surface-ink">
+              <a href={`mailto:${site.email}`} class="break-all transition-colors hover:text-primary-600 [overflow-wrap:anywhere]">{site.email}</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="surface-panel p-6 sm:p-8">
+          <h2 class="font-heading text-3xl text-surface-ink">{site.hours.title}</h2>
+          <dl class="mt-6 space-y-4 text-sm sm:text-base">
+            <div class="grid grid-cols-[minmax(0,1fr),auto] items-center gap-4">
+              <dt class="text-surface-ink/72">{site.hours.weekdays.label}</dt>
+              <dd class="font-semibold text-surface-ink">{site.hours.weekdays.time}</dd>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr),auto] items-center gap-4">
+              <dt class="text-surface-ink/72">{site.hours.saturday.label}</dt>
+              <dd class="font-semibold text-surface-ink">{site.hours.saturday.time}</dd>
+            </div>
+            <div class="grid grid-cols-[minmax(0,1fr),auto] items-center gap-4">
+              <dt class="text-surface-ink/72">{site.hours.sunday.label}</dt>
+              <dd class="font-semibold text-surface-ink">{site.hours.sunday.time}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="overflow-hidden rounded-[1.75rem] shadow-ambient">
+          <div class="relative">
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=12.24%2C55.64%2C12.28%2C55.66&layer=mapnik&marker=55.6505%2C12.2614"
+              class="contact-map-frame aspect-[4/3] w-full border-0"
+              loading="lazy"
+              title={copy.mapButton}
+            ></iframe>
+            <div class="pointer-events-none absolute inset-0 bg-surface-ink/8"></div>
+            <a
+              href={mapHref}
+              target="_blank"
+              rel="noreferrer"
+              class="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-xl bg-surface-raised px-4 py-2 text-sm font-semibold text-surface-ink shadow-[0_14px_28px_rgba(26,28,25,0.12)] transition-transform hover:-translate-y-0.5"
+            >
+              {copy.mapButton}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="editorial-card p-6 sm:p-8 lg:p-10">
+        <h2 class="font-heading text-4xl text-surface-ink sm:text-5xl">{copy.formHeading}</h2>
+        <p class="mt-3 text-base leading-8 text-surface-ink/68">{copy.formIntro}</p>
+
+        <div id="contact-form-status" class="hidden mb-5 mt-6 rounded-[1.25rem] bg-primary-50 px-4 py-3 text-sm text-primary-700"></div>
+        <form
+          id="contact-form"
+          class="mt-6 space-y-5"
+          data-locale={locale}
+          data-success-heading={contact.form.successHeading}
+          data-success-body={contact.form.successBody}
+          data-error={contact.form.error}
+        >
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="name" class="label-text">{contact.form.name} *</label>
+              <input type="text" id="name" name="name" required class="input-field" placeholder={contact.form.namePlaceholder} />
+            </div>
+            <div>
+              <label for="email" class="label-text">{contact.form.email} *</label>
+              <input type="email" id="email" name="email" required class="input-field" placeholder={contact.form.emailPlaceholder} />
+            </div>
+          </div>
+          <div>
+            <label for="message" class="label-text">{contact.form.message} *</label>
+            <textarea id="message" name="message" required rows="6" class="input-field min-h-[11rem] resize-y [overflow-wrap:anywhere]" placeholder={contact.form.messagePlaceholder}></textarea>
+          </div>
+          <button type="submit" class="btn-primary w-full justify-center !py-4 text-base">
+            {contact.form.submit}
+            <svg viewBox="0 0 20 20" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M4.5 10h11" stroke-linecap="round" />
+              <path d="m10.5 4.5 5.25 5.5-5.25 5.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-map-frame {
+    filter: grayscale(1) contrast(0.92) brightness(0.92);
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('contact-form-status');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    if (!status || !(form instanceof HTMLFormElement)) return;
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const successHeading = form.dataset.successHeading || '';
+    const successBody = form.dataset.successBody || '';
+    const errorMessage = form.dataset.error || 'Der opstod en fejl. Prøv venligst igen.';
+    const locale = form.dataset.locale || 'da';
+
+    submitButton?.setAttribute('disabled', 'true');
+
+    try {
+      const formData = new FormData(form);
+      const payload = {
+        name: String(formData.get('name') || ''),
+        email: String(formData.get('email') || ''),
+        message: String(formData.get('message') || ''),
+        locale,
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || errorMessage);
+      }
+
+      form.reset();
+      status.className =
+        'mb-5 mt-6 rounded-[1.25rem] bg-primary-50 px-4 py-3 text-sm text-primary-700';
+      status.innerHTML = `<p class="font-semibold">${successHeading}</p><p class="mt-1">${successBody}</p>`;
+    } catch (error) {
+      status.className =
+        'mb-5 mt-6 rounded-[1.25rem] bg-secondary-100 px-4 py-3 text-sm text-secondary-700';
+      status.textContent =
+        error instanceof Error && error.message ? error.message : errorMessage;
+    } finally {
+      submitButton?.removeAttribute('disabled');
+    }
+  });
+</script>
