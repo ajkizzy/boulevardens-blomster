@@ -51,7 +51,6 @@ const text = locale === 'en'
 const heroCopy = bouquets.text.split('\n\n')[0];
 const weddingCopy = weddings.text.split('\n\n').slice(0, 2);
 const funeralCopy = funerals.text.split('\n\n').slice(0, 2);
-const holidayCopy = holidays.text.split('\n\n')[0];
 const giftCopy = gifts.text.split('\n\n').slice(0, 2);
 ---
 
@@ -158,9 +157,8 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
           <div class="grid gap-4 sm:grid-cols-2">
             <ShowcasePlaceholder title={text.holidayCards[1]} tone="stone" size="landscape" />
             <ShowcasePlaceholder title={text.holidayCards[2]} tone="olive" size="landscape" />
-            <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="landscape" />
-            <div class="surface-panel flex items-center rounded-[1.8rem] px-6 py-8">
-              <p class="text-sm leading-7 text-surface-ink/68">{holidayCopy}</p>
+            <div class="sm:col-span-2">
+              <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="wide" />
             </div>
           </div>
         </div>
