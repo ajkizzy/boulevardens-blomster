@@ -23,119 +23,15 @@ const infoLinks = [
   { label: site.footer.privacy, href: privacyHref },
   { label: site.footer.terms, href: termsHref },
 ];
-const footerHours = locale === 'en'
-  ? [
-      { label: 'Mon-Sat', time: site.hours.weekdays.time },
-      { label: 'Sun & holidays', time: site.hours.sunday.time },
-    ]
-  : [
-      { label: 'Man-lør', time: site.hours.weekdays.time },
-      { label: 'Søn- og helligdage', time: site.hours.sunday.time },
-    ];
 ---
 
 <footer class="px-4 pb-8 pt-10 sm:px-6 lg:px-8">
   <div class="container-narrow mx-auto">
-    <div class="surface-panel overflow-hidden px-6 py-10 sm:px-10 sm:py-12 lg:px-10 lg:py-10">
-      <div class="lg:hidden">
-        <div class="border-b border-surface-ink/8 pb-8 sm:pb-10">
-          <div class="max-w-md">
-            <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">Boulevardens Blomster</p>
-            <h3 class="mt-4 font-heading text-3xl leading-tight text-surface-ink sm:text-[3.2rem]">
-              {footerText}
-            </h3>
-            <p class="mt-4 max-w-sm text-sm leading-relaxed text-surface-ink/68">{site.tagline}</p>
-            <div class="mt-6 flex gap-3">
-              <a
-                href={site.social.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-surface text-primary-600 transition-colors hover:bg-primary-100"
-                aria-label="Facebook"
-              >
-                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.77,7.46H14.5v-1.9c0-.9.6-1.1,1-1.1h3V.5h-4.33C10.24.5,9.5,3.44,9.5,5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4Z"/></svg>
-              </a>
-              <a
-                href={site.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-surface text-secondary-500 transition-colors hover:bg-secondary-100"
-                aria-label="Instagram"
-              >
-                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2.16c3.2,0,3.58.01,4.85.07,3.25.15,4.77,1.69,4.92,4.92.06,1.27.07,1.65.07,4.85s-.01,3.58-.07,4.85c-.15,3.23-1.66,4.77-4.92,4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38,3.92,3.9,2.38,7.15,2.23,8.42,2.17,8.8,2.16,12,2.16ZM12,0C8.74,0,8.33.01,7.05.07c-4.27.2-6.78,2.71-6.98,6.98C.01,8.33,0,8.74,0,12s.01,3.67.07,4.95c.2,4.27,2.71,6.78,6.98,6.98,1.28.06,1.69.07,4.95.07s3.67-.01,4.95-.07c4.27-.2,6.78-2.71,6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.27-2.71-6.78-6.98-6.98C15.67.01,15.26,0,12,0Zm0,5.84A6.16,6.16,0,1,0,18.16,12,6.16,6.16,0,0,0,12,5.84ZM12,16a4,4,0,1,1,4-4A4,4,0,0,1,12,16ZM18.41,4.15a1.44,1.44,0,1,0,1.44,1.44A1.44,1.44,0,0,0,18.41,4.15Z"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-[0.95fr,0.95fr,1.1fr] lg:gap-12">
-          <div>
-            <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
-              {locale === 'en' ? 'Our services' : 'Vores services'}
-            </h4>
-            <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
-              {serviceLinks.map((item: any) => (
-                <p>
-                  <a href={`${nav.services.href}#${item.anchor}`} class="transition-colors hover:text-primary-600">
-                    {item.label}
-                  </a>
-                </p>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
-              {locale === 'en' ? 'Information' : 'Information'}
-            </h4>
-            <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
-              {infoLinks.map((item) => (
-                <p>
-                  <a href={item.href} class="transition-colors hover:text-primary-600">
-                    {item.label}
-                  </a>
-                </p>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
-              {site.footer.contactUs}
-            </h4>
-            <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
-              <p>
-                <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
-                  {site.phone}
-                </a>
-              </p>
-              <p class="min-w-0">
-                <a href={`mailto:${site.email}`} class="break-all font-semibold text-surface-ink transition-colors hover:text-primary-600 sm:break-words [overflow-wrap:anywhere]">
-                  {site.email}
-                </a>
-              </p>
-              <p>{site.address.street}</p>
-              <p>{site.address.zip} {site.address.city}</p>
-              <div class="space-y-1 pt-1">
-                <p class="font-semibold text-surface-ink">{site.hours.title}</p>
-                {footerHours.map((entry) => (
-                  <p>{entry.label}: {entry.time}</p>
-                ))}
-              </div>
-              <p>
-                <a href={nav.contact.href} class="font-semibold text-primary-600 transition-colors hover:text-primary-500">
-                  {site.footer.contactUs}
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hidden lg:grid lg:grid-cols-[1.2fr,0.72fr,0.92fr] lg:items-start lg:gap-12">
-        <div class="max-w-xl">
+    <div class="surface-panel overflow-hidden px-6 py-10 sm:px-10 sm:py-12">
+      <div class="border-b border-surface-ink/8 pb-8 sm:pb-10">
+        <div class="max-w-md">
           <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">Boulevardens Blomster</p>
-          <h3 class="mt-4 font-heading text-[3.25rem] leading-[0.95] text-surface-ink">
+          <h3 class="mt-4 font-heading text-3xl leading-tight text-surface-ink sm:text-[3.2rem]">
             {footerText}
           </h3>
           <p class="mt-4 max-w-sm text-sm leading-relaxed text-surface-ink/68">{site.tagline}</p>
@@ -158,6 +54,23 @@ const footerHours = locale === 'en'
             >
               <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2.16c3.2,0,3.58.01,4.85.07,3.25.15,4.77,1.69,4.92,4.92.06,1.27.07,1.65.07,4.85s-.01,3.58-.07,4.85c-.15,3.23-1.66,4.77-4.92,4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85C2.38,3.92,3.9,2.38,7.15,2.23,8.42,2.17,8.8,2.16,12,2.16ZM12,0C8.74,0,8.33.01,7.05.07c-4.27.2-6.78,2.71-6.98,6.98C.01,8.33,0,8.74,0,12s.01,3.67.07,4.95c.2,4.27,2.71,6.78,6.98,6.98,1.28.06,1.69.07,4.95.07s3.67-.01,4.95-.07c4.27-.2,6.78-2.71,6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.27-2.71-6.78-6.98-6.98C15.67.01,15.26,0,12,0Zm0,5.84A6.16,6.16,0,1,0,18.16,12,6.16,6.16,0,0,0,12,5.84ZM12,16a4,4,0,1,1,4-4A4,4,0,0,1,12,16ZM18.41,4.15a1.44,1.44,0,1,0,1.44,1.44A1.44,1.44,0,0,0,18.41,4.15Z"/></svg>
             </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-[1fr,1fr,1.15fr]">
+        <div>
+          <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
+            {locale === 'en' ? 'Our services' : 'Vores services'}
+          </h4>
+          <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
+            {serviceLinks.map((item: any) => (
+              <p>
+                <a href={`${nav.services.href}#${item.anchor}`} class="transition-colors hover:text-primary-600">
+                  {item.label}
+                </a>
+              </p>
+            ))}
           </div>
         </div>
 
@@ -187,18 +100,13 @@ const footerHours = locale === 'en'
               </a>
             </p>
             <p class="min-w-0">
-              <a href={`mailto:${site.email}`} class="break-all font-semibold text-surface-ink transition-colors hover:text-primary-600 [overflow-wrap:anywhere]">
+              <a href={`mailto:${site.email}`} class="break-all font-semibold text-surface-ink transition-colors hover:text-primary-600 sm:break-words [overflow-wrap:anywhere]">
                 {site.email}
               </a>
             </p>
             <p>{site.address.street}</p>
             <p>{site.address.zip} {site.address.city}</p>
-            <div class="space-y-1 pt-1">
-              <p class="font-semibold text-surface-ink">{site.hours.title}</p>
-              {footerHours.map((entry) => (
-                <p>{entry.label}: {entry.time}</p>
-              ))}
-            </div>
+            <p>{site.hours.title}: {site.hours.weekdays.time}</p>
             <p>
               <a href={nav.contact.href} class="font-semibold text-primary-600 transition-colors hover:text-primary-500">
                 {site.footer.contactUs}

@@ -1,31 +1,17 @@
 {
   "heading": "Contact Us",
-  "subheading": "Let us create something beautiful together. Whether it is for a wedding, everyday flowers or company events, we are here to help.",
-  "responseBadge": "We reply within 24 hours",
-  "visitHeading": "Visit us",
-  "phoneHeading": "Phone",
-  "emailHeading": "Email",
-  "mapButton": "Find us here",
+  "subheading": "We look forward to hearing from you.",
   "form": {
-    "title": "Send us a message",
-    "intro": "We would love to hear what you have in mind.",
     "name": "Name",
     "email": "Email",
-    "subject": "Subject",
     "message": "Message",
-    "submit": "Send message",
+    "submit": "Send",
     "namePlaceholder": "Your full name",
     "emailPlaceholder": "your@email.com",
-    "messagePlaceholder": "How can we help you?",
-    "subjectOptions": [
-      "General enquiry",
-      "Company order",
-      "Bouquets and gifts",
-      "Wedding",
-      "Funeral"
-    ],
+    "messagePlaceholder": "Write your message here...",
     "successHeading": "Thank you for your message",
     "successBody": "We have received your enquiry and will send a confirmation by email.",
     "error": "An error occurred. Please try again."
-  }
+  },
+  "mapHeading": "Find Us"
 }

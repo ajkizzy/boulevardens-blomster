@@ -12,7 +12,6 @@ export const prerender = false;
 interface ContactRequestBody {
   name?: string;
   email?: string;
-  subject?: string;
   message?: string;
   locale?: Locale;
 }
@@ -47,9 +46,6 @@ export const POST: APIRoute = async ({ request }) => {
     const messages = getMessages(locale);
     const name = body.name?.trim() || '';
     const email = body.email?.trim() || '';
-    const subject =
-      body.subject?.trim() ||
-      (locale === 'en' ? 'General enquiry' : 'Generel forespørgsel');
     const message = body.message?.trim() || '';
 
     if (!name || !email || !message) {
@@ -60,7 +56,6 @@ export const POST: APIRoute = async ({ request }) => {
       locale,
       name,
       email,
-      subject,
       message,
     });
 
