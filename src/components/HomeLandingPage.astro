@@ -178,6 +178,41 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
   </div>
 </section>
 
+<section class="px-4 pb-10 sm:hidden">
+  <div class="container-narrow mx-auto">
+    <div class="rounded-[1.85rem] bg-surface-raised px-6 py-7 shadow-ambient">
+      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-primary-600">{contactStripCopy.heading}</p>
+      <h2 class="mt-4 font-heading text-[2.35rem] leading-[0.95] text-surface-ink">
+        {home.intro.heading}
+      </h2>
+      <p class="mt-4 text-lg leading-8 text-surface-ink">{contactStripCopy.subheading}</p>
+      <p class="mt-5 text-lg font-semibold text-surface-ink">{site.phone}</p>
+
+      <div class="mt-7 border-t border-surface-ink/8 pt-6">
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-primary-600">{site.hours.title}</p>
+        <div class="mt-4 space-y-4 text-surface-ink">
+          <div>
+            <p class="text-lg">{site.hours.weekdays.label}</p>
+            <p class="mt-1 text-2xl font-semibold">{site.hours.weekdays.time}</p>
+          </div>
+          <div>
+            <p class="text-lg">{site.hours.saturday.label}</p>
+            <p class="mt-1 text-2xl font-semibold">{site.hours.saturday.time}</p>
+          </div>
+          <div>
+            <p class="text-lg">{site.hours.sunday.label}</p>
+            <p class="mt-1 text-2xl font-semibold">{site.hours.sunday.time}</p>
+          </div>
+        </div>
+      </div>
+
+      <a href={contactStripCopy.href} class="btn-primary mt-8 w-full justify-center">
+        {contactStripCopy.button}
+      </a>
+    </div>
+  </div>
+</section>
+
 <section class="px-4 pb-10 sm:px-6 lg:px-8">
   <div class="container-narrow mx-auto">
     <div class="surface-panel px-5 py-5 sm:px-8 sm:py-8 lg:grid lg:grid-cols-[0.9fr,1.1fr] lg:items-center lg:gap-10">
@@ -275,7 +310,7 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
   </div>
 </section>
 
-<section class="px-4 pb-14 sm:px-6 lg:px-8">
+<section class="hidden px-4 pb-14 sm:px-6 lg:block lg:px-8">
   <div class="container-narrow mx-auto rounded-[1.75rem] bg-surface-raised px-5 py-6 shadow-ambient sm:px-8 sm:py-8">
     <div class="grid gap-6 lg:grid-cols-[1.08fr,0.9fr,auto] lg:items-center">
       <div class="min-w-0">
