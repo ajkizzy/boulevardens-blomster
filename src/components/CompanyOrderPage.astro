@@ -190,18 +190,18 @@ const uiText = isEnglish
                 </div>
               </div>
 
-              <div class="mt-6 grid gap-5 sm:grid-cols-2">
+              <div class="order-fields mt-6 grid gap-5 sm:grid-cols-2">
                 <div class="sm:col-span-2">
                   <label class="label-text">{order.form.addressLabel} *</label>
-                  <input type="text" name="address" required class="input-field !py-2.5" placeholder={isEnglish ? 'Street 12, 2630 Høje Taastrup' : 'Vejnavn 12, 2630 Høje Taastrup'} />
+                  <input type="text" name="address" required class="input-field order-input" placeholder={isEnglish ? 'Street 12, 2630 Høje Taastrup' : 'Vejnavn 12, 2630 Høje Taastrup'} />
                 </div>
                 <div>
                   <label class="label-text">{isEnglish ? 'Delivery date' : 'Leveringsdato'} *</label>
-                  <input type="date" name="deliveryDate" required class="input-field !py-2.5" />
+                  <input type="date" name="deliveryDate" required class="input-field order-input" />
                 </div>
                 <div>
                   <label class="label-text">{isEnglish ? 'Time' : 'Tidspunkt'} *</label>
-                  <select name="deliveryClock" required class="input-field !py-2.5">
+                  <select name="deliveryClock" required class="input-field order-input">
                     <option value="">{isEnglish ? 'Choose time' : 'Vælg tidspunkt'}</option>
                     {deliveryTimeOptions.map((time) => (
                       <option value={time}>{time}</option>
@@ -213,11 +213,11 @@ const uiText = isEnglish
                 </div>
                 <div class="sm:col-span-2">
                   <label class="label-text">{order.form.cardTextLabel}</label>
-                  <input type="text" name="cardText" class="input-field !py-2.5" maxlength="250" placeholder={isEnglish ? 'E.g.: Happy Birthday!' : 'Fx: Tillykke med fødselsdagen!'} />
+                  <input type="text" name="cardText" class="input-field order-input" maxlength="250" placeholder={isEnglish ? 'E.g.: Happy Birthday!' : 'Fx: Tillykke med fødselsdagen!'} />
                 </div>
                 <div class="sm:col-span-2">
                   <label class="label-text">{order.form.commentLabel}</label>
-                  <textarea name="comment" rows="3" class="input-field !py-2.5 resize-y"></textarea>
+                  <textarea name="comment" rows="5" class="input-field order-textarea resize-y" placeholder={isEnglish ? 'Anything we should know about the delivery?' : 'Er der noget vi skal vide om leveringen?'}></textarea>
                 </div>
               </div>
             </section>
@@ -231,37 +231,37 @@ const uiText = isEnglish
                 </div>
               </div>
 
-              <div class="mt-6 grid gap-5 sm:grid-cols-2">
+              <div class="order-fields mt-6 grid gap-5 sm:grid-cols-2">
                 <div>
                   <label class="label-text">{order.form.contactNameLabel || (isEnglish ? 'Contact person' : 'Kontaktperson')} *</label>
-                  <input type="text" name="contactName" required class="input-field !py-2.5" placeholder={isEnglish ? 'Full name' : 'Fulde navn'} />
+                  <input type="text" name="contactName" required class="input-field order-input" placeholder={isEnglish ? 'Full name' : 'Fulde navn'} />
                 </div>
                 <div>
                   <label class="label-text">{order.form.companyNameLabel || (isEnglish ? 'Company name' : 'Virksomhedens navn')} *</label>
-                  <input type="text" name="companyName" required class="input-field !py-2.5" placeholder={isEnglish ? 'Company name' : 'Virksomhedens navn'} />
+                  <input type="text" name="companyName" required class="input-field order-input" placeholder={isEnglish ? 'Company name' : 'Virksomhedens navn'} />
                 </div>
                 <div>
                   <label class="label-text">{order.form.phoneLabel} *</label>
-                  <input type="tel" name="phone" required class="input-field !py-2.5" placeholder="12345678" />
+                  <input type="tel" name="phone" required class="input-field order-input" placeholder="12345678" />
                 </div>
                 <div>
                   <label class="label-text">{order.form.emailLabel} *</label>
-                  <input type="email" name="email" required class="input-field !py-2.5" placeholder={isEnglish ? 'your@company.com' : 'din@firma.dk'} />
+                  <input type="email" name="email" required class="input-field order-input" placeholder={isEnglish ? 'your@company.com' : 'din@firma.dk'} />
                 </div>
                 <div>
                   <label class="label-text">{order.form.companyCodeLabel}</label>
-                  <input type="text" name="companyCode" class="input-field !py-2.5" />
+                  <input type="text" name="companyCode" class="input-field order-input" />
                 </div>
                 <div id="invoice-email-field" class="hidden">
                   <label class="label-text">{order.form.invoiceEmailLabel}</label>
-                  <input type="email" name="invoiceEmail" class="input-field !py-2.5" placeholder={isEnglish ? 'invoice@company.com' : 'faktura@firma.dk'} />
+                  <input type="email" name="invoiceEmail" class="input-field order-input" placeholder={isEnglish ? 'invoice@company.com' : 'faktura@firma.dk'} />
                 </div>
                 <div class="sm:col-span-2">
                   <label class="label-text">{order.form.paymentLabel} *</label>
                   <div class="mt-2 grid gap-3">
                     {order.form.paymentOptions.map((option: any) => (
-                      <label class="payment-option flex cursor-pointer items-center gap-3 rounded-[1rem] bg-surface-raised px-4 py-3 text-sm text-surface-ink/76 transition-colors hover:bg-white">
-                        <input type="radio" name="payment" value={option.id} required class="h-3.5 w-3.5 text-primary-600 border-gray-300 focus:ring-primary-500" />
+                      <label class="payment-option flex cursor-pointer items-center gap-3 rounded-[1.2rem] bg-surface-raised px-4 py-4 text-sm text-surface-ink/76 shadow-[0_12px_24px_rgba(26,28,25,0.04)] transition-colors hover:bg-white">
+                        <input type="radio" name="payment" value={option.id} required class="h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500" />
                         <span class="flex-1">{option.label}</span>
                       </label>
                     ))}
@@ -377,6 +377,20 @@ const uiText = isEnglish
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .order-fields .label-text {
+    margin-bottom: 0.65rem;
+  }
+
+  .order-input {
+    min-height: 3.15rem;
+  }
+
+  .order-textarea {
+    min-height: 10rem;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
   }
 </style>
 

@@ -139,42 +139,44 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
 ---
 
 <section class="px-4 pb-10 pt-6 sm:px-6 lg:px-8">
-  <div class="container-narrow mx-auto grid gap-8 lg:grid-cols-[0.82fr,1.18fr] lg:items-center">
-    <div class="min-w-0">
-      <p class="text-sm font-medium tracking-[0.01em] text-surface-ink/64">{heroCopy.eyebrow}</p>
-      <h1 class="mt-6 max-w-[12ch] font-heading text-[3.1rem] leading-[0.92] tracking-[-0.04em] text-surface-ink sm:text-[4.4rem]">
-        {heroCopy.headingMain}
-        <span class="block font-normal italic">{heroCopy.headingAccent}</span>
-      </h1>
-      <p class="mt-5 max-w-xl text-base leading-relaxed text-surface-ink/70 sm:text-lg">
-        {heroCopy.body}
-      </p>
-      <div class="mt-7 flex flex-col gap-3 sm:flex-row">
-        <a href={heroCopy.primaryCta.href} class="btn-primary w-full sm:w-auto">
-          {heroCopy.primaryCta.label}
-        </a>
-        <a href={heroCopy.secondaryCta.href} class="btn-secondary w-full sm:w-auto">
-          {heroCopy.secondaryCta.label}
-        </a>
+  <div class="container-narrow mx-auto">
+    <div class="home-hero-layout">
+      <div class="home-hero-copy min-w-0">
+        <p class="text-sm font-medium tracking-[0.01em] text-surface-ink/64">{heroCopy.eyebrow}</p>
+        <h1 class="mt-5 max-w-[8ch] font-heading text-[3.2rem] leading-[0.9] tracking-[-0.05em] text-surface-ink sm:max-w-[9ch] sm:text-[4.6rem] lg:max-w-[8.5ch] lg:text-[5.25rem]">
+          {heroCopy.headingMain}
+          <span class="block font-normal italic">{heroCopy.headingAccent}</span>
+        </h1>
+        <p class="mt-5 max-w-[22rem] text-base leading-relaxed text-surface-ink/70 sm:max-w-[28rem] sm:text-lg">
+          {heroCopy.body}
+        </p>
+        <div class="mt-7 flex max-w-[22rem] flex-col gap-3 sm:max-w-none sm:flex-row">
+          <a href={heroCopy.primaryCta.href} class="btn-primary w-full sm:w-auto">
+            {heroCopy.primaryCta.label}
+          </a>
+          <a href={heroCopy.secondaryCta.href} class="btn-secondary w-full sm:w-auto">
+            {heroCopy.secondaryCta.label}
+          </a>
+        </div>
       </div>
-    </div>
 
-    <div class="home-hero-frame">
-      <div class="home-hero-scene">
-        <div class="home-hero-wall"></div>
-        <div class="home-hero-table"></div>
-        <div class="home-hero-shadow"></div>
-        <div class="home-hero-vase"></div>
-        <div class="home-hero-stems"></div>
-        <div class="home-bloom home-bloom-a"></div>
-        <div class="home-bloom home-bloom-b"></div>
-        <div class="home-bloom home-bloom-c"></div>
-        <div class="home-bloom home-bloom-d"></div>
-        <div class="home-bloom home-bloom-e"></div>
-        <div class="home-leaf home-leaf-a"></div>
-        <div class="home-leaf home-leaf-b"></div>
-        <div class="home-leaf home-leaf-c"></div>
-        <div class="home-leaf home-leaf-d"></div>
+      <div class="home-hero-frame">
+        <div class="home-hero-scene">
+          <div class="home-hero-wall"></div>
+          <div class="home-hero-table"></div>
+          <div class="home-hero-shadow"></div>
+          <div class="home-hero-vase"></div>
+          <div class="home-hero-stems"></div>
+          <div class="home-bloom home-bloom-a"></div>
+          <div class="home-bloom home-bloom-b"></div>
+          <div class="home-bloom home-bloom-c"></div>
+          <div class="home-bloom home-bloom-d"></div>
+          <div class="home-bloom home-bloom-e"></div>
+          <div class="home-leaf home-leaf-a"></div>
+          <div class="home-leaf home-leaf-b"></div>
+          <div class="home-leaf home-leaf-c"></div>
+          <div class="home-leaf home-leaf-d"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -306,17 +308,34 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
 </section>
 
 <style>
+  .home-hero-layout {
+    position: relative;
+    min-height: 33rem;
+    padding-top: 1.5rem;
+  }
+
+  .home-hero-copy {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 34rem);
+    padding-top: 0.25rem;
+  }
+
   .home-hero-frame {
     position: relative;
     overflow: hidden;
     border-radius: 2rem;
     background: #f1efe9;
     box-shadow: 0 24px 60px rgba(26, 28, 25, 0.12);
+    margin-left: auto;
+    width: min(72vw, 30rem);
+    min-height: 25rem;
+    margin-top: -5.5rem;
   }
 
   .home-hero-scene {
     position: relative;
-    min-height: 24rem;
+    min-height: 25rem;
     overflow: hidden;
     border-radius: 2rem;
   }
@@ -562,6 +581,48 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
 
     .home-story-note {
       max-width: 11rem;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .home-hero-layout {
+      min-height: 38rem;
+      padding-top: 2rem;
+    }
+
+    .home-hero-frame {
+      width: min(68vw, 37rem);
+      min-height: 29rem;
+      margin-top: -9rem;
+    }
+
+    .home-hero-scene {
+      min-height: 29rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .home-hero-layout {
+      min-height: 34rem;
+      padding-top: 0.75rem;
+    }
+
+    .home-hero-copy {
+      width: min(46%, 34rem);
+      padding-top: 2.5rem;
+    }
+
+    .home-hero-frame {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: min(62%, 49rem);
+      min-height: 31rem;
+      margin-top: 0;
+    }
+
+    .home-hero-scene {
+      min-height: 31rem;
     }
   }
 </style>
