@@ -12,7 +12,6 @@ const nav = getNavLinks(locale);
 const currentPath = Astro.url.pathname;
 const daPath = getPathForLocale(currentPath, locale, 'da');
 const enPath = getPathForLocale(currentPath, locale, 'en');
-const allServicesLabel = locale === 'en' ? 'All services' : 'Alle services';
 ---
 
 <header class="sticky top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
@@ -54,12 +53,6 @@ const allServicesLabel = locale === 'en' ? 'All services' : 'Alle services';
             </a>
             <div class="absolute left-0 top-full hidden pt-4 group-hover:block">
               <div class="glass-panel min-w-[240px] rounded-[1.4rem] px-3 py-3">
-                <a
-                  href={nav.services.href}
-                  class="block rounded-xl px-4 py-3 text-sm font-semibold text-surface-ink/78 transition-colors hover:bg-surface-raised hover:text-primary-600"
-                >
-                  {allServicesLabel}
-                </a>
                 {site.serviceDropdown.map((item: any) => (
                   <a
                     href={`${nav.services.href}#${item.anchor}`}
@@ -98,25 +91,30 @@ const allServicesLabel = locale === 'en' ? 'All services' : 'Alle services';
           <nav class="flex flex-col gap-1">
             <a href={nav.home.href} class="mobile-nav-link">{nav.home.label}</a>
             <a href={nav.about.href} class="mobile-nav-link">{nav.about.label}</a>
-            <button
-              id="mobile-services-btn"
-              type="button"
-              class:list={[
-                'mobile-nav-link flex w-full items-center justify-between text-left',
-                { '!text-primary-600': currentPath.includes(nav.services.href) },
-              ]}
-              aria-expanded="false"
-              aria-controls="mobile-services-menu"
-            >
-              <span>{nav.services.label}</span>
-              <svg class="mobile-services-icon h-4 w-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div id="mobile-services-menu" class="hidden grid gap-1 pl-4">
-              <a href={nav.services.href} class="mobile-nav-link !py-2 text-sm text-surface-ink/72">
-                {allServicesLabel}
+            <div class="flex items-center gap-2">
+              <a
+                href={nav.services.href}
+                class:list={[
+                  'mobile-nav-link flex-1',
+                  { '!text-primary-600': currentPath.includes(nav.services.href) },
+                ]}
+              >
+                {nav.services.label}
               </a>
+              <button
+                id="mobile-services-btn"
+                type="button"
+                class="inline-flex h-[46px] w-[46px] flex-shrink-0 items-center justify-center rounded-xl bg-surface-raised text-surface-ink/72 transition-colors hover:bg-surface hover:text-primary-600"
+                aria-expanded="false"
+                aria-controls="mobile-services-menu"
+                aria-label={locale === 'en' ? 'Open services menu' : 'Åbn services-menu'}
+              >
+                <svg class="mobile-services-icon h-4 w-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+            <div id="mobile-services-menu" class="hidden grid gap-1 pl-4">
               {site.serviceDropdown.map((item: any) => (
                 <a
                   href={`${nav.services.href}#${item.anchor}`}
