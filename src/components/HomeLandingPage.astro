@@ -305,27 +305,31 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
 
 <style>
   .home-hero-layout {
-    display: grid;
-    gap: 2rem;
-    align-items: center;
+    position: relative;
+    min-height: 42rem;
   }
 
   .home-hero-copy {
+    position: relative;
+    z-index: 2;
     max-width: 32rem;
+    padding-top: 8rem;
   }
 
   .home-hero-frame {
-    position: relative;
+    position: absolute;
+    right: 0;
+    top: 4rem;
     overflow: hidden;
     border-radius: 2rem;
     background: #f1efe9;
     box-shadow: 0 24px 60px rgba(26, 28, 25, 0.12);
-    width: 100%;
+    width: min(64vw, 19rem);
   }
 
   .home-hero-scene {
     position: relative;
-    min-height: 24rem;
+    min-height: 29rem;
     overflow: hidden;
     border-radius: 2rem;
   }
@@ -576,21 +580,41 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
 
   @media (min-width: 640px) {
     .home-hero-layout {
-      gap: 2.5rem;
+      min-height: 48rem;
+    }
+
+    .home-hero-copy {
+      padding-top: 9rem;
+    }
+
+    .home-hero-frame {
+      top: 2.5rem;
+      width: min(56vw, 24rem);
     }
 
     .home-hero-scene {
-      min-height: 29rem;
+      min-height: 36rem;
     }
   }
 
   @media (min-width: 1024px) {
     .home-hero-layout {
+      display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
       gap: 3rem;
+      align-items: center;
+      min-height: auto;
+    }
+
+    .home-hero-copy {
+      padding-top: 0;
     }
 
     .home-hero-frame {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 100%;
       max-width: 100%;
     }
 
