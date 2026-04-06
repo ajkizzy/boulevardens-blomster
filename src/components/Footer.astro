@@ -70,9 +70,15 @@ const footerHours = locale === 'en'
 
         <div class="mt-8 grid gap-8 sm:grid-cols-2">
           <div>
-            <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
-              {locale === 'en' ? 'Our services' : 'Vores services'}
-            </h4>
+            <a
+              href={nav.services.href}
+              class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary-600 transition-colors hover:text-primary-500"
+            >
+              <span>{locale === 'en' ? 'Our services' : 'Vores services'}</span>
+              <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
             <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
               {serviceLinks.map((item: any) => (
                 <p>
@@ -84,25 +90,16 @@ const footerHours = locale === 'en'
             </div>
           </div>
 
-          <div>
-            <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
-              {locale === 'en' ? 'Information' : 'Information'}
-            </h4>
-            <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
-              {infoLinks.map((item) => (
-                <p>
-                  <a href={item.href} class="transition-colors hover:text-primary-600">
-                    {item.label}
-                  </a>
-                </p>
-              ))}
-            </div>
-          </div>
-
           <div class="sm:col-span-2">
-            <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
-              {site.footer.contactUs}
-            </h4>
+            <a
+              href={nav.contact.href}
+              class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary-600 transition-colors hover:text-primary-500"
+            >
+              <span>{site.footer.contactUs}</span>
+              <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
             <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
               <p>
                 <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
@@ -122,11 +119,21 @@ const footerHours = locale === 'en'
                   <p>{entry.label}: {entry.time}</p>
                 ))}
               </div>
-              <p>
-                <a href={nav.contact.href} class="font-semibold text-primary-600 transition-colors hover:text-primary-500">
-                  {site.footer.contactUs}
-                </a>
-              </p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-600">
+              {locale === 'en' ? 'Information' : 'Information'}
+            </h4>
+            <div class="mt-4 space-y-3 text-sm text-surface-ink/72">
+              {infoLinks.map((item) => (
+                <p>
+                  <a href={item.href} class="transition-colors hover:text-primary-600">
+                    {item.label}
+                  </a>
+                </p>
+              ))}
             </div>
           </div>
         </div>

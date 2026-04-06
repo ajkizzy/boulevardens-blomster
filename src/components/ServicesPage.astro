@@ -28,7 +28,7 @@ const text = locale === 'en'
       holidayHeading: 'Seasonal highlights',
       holidayCards: ['Mother’s Day', 'Valentine', 'Christmas', 'Easter'],
       holidayIntro: 'We help set the tone for the year’s special days.',
-      giftSplit: ['Sweet treats', 'Host gifts'],
+      giftSplit: ['Sweet treats', 'Gift baskets'],
     }
   : {
       badge: 'Skabt med passion',
@@ -45,7 +45,7 @@ const text = locale === 'en'
       holidayHeading: 'Årets Højtider',
       holidayCards: ['Mors Dag', 'Valentine', 'Jul', 'Påske'],
       holidayIntro: 'Vi hjælper med at sætte stemningen omkring årets særlige dage.',
-      giftSplit: ['Søde sager', 'Værtindegaver'],
+      giftSplit: ['Søde sager', 'Gavekurve'],
     };
 
 const heroCopy = bouquets.text.split('\n\n')[0];
@@ -130,10 +130,10 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
         <p class="mx-auto mt-5 max-w-3xl text-sm leading-7 text-surface-ink/60">
           {funeralCopy[1]}
         </p>
-        <div class="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-3">
+        <div class="mx-auto mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
           {text.farewellCards.map((item) => (
-            <div class="editorial-card px-5 py-4">
-              <p class="font-heading text-xl text-surface-ink">{item}</p>
+            <div class="editorial-card rounded-[1.25rem] px-3 py-2.5 sm:px-4 sm:py-3">
+              <p class="font-heading text-[1.05rem] leading-tight text-surface-ink sm:text-lg">{item}</p>
             </div>
           ))}
         </div>
@@ -152,7 +152,44 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
           </div>
         </div>
 
-        <div class="mt-8 grid gap-4 lg:grid-cols-[1.05fr,1fr]">
+        <div class="relative mt-8 lg:hidden">
+          <button
+            type="button"
+            class="mobile-slider-arrow mobile-slider-prev left-1"
+            data-slider-target="holiday-slider"
+            aria-label={locale === 'en' ? 'Previous holiday card' : 'Forrige højtidskort'}
+          >
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <div id="holiday-slider" class="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2">
+            <div class="w-[84%] max-w-[21rem] flex-none snap-center">
+              <ShowcasePlaceholder title={text.holidayCards[0]} eyebrow={holidays.title} tone="rose" size="square" />
+            </div>
+            <div class="w-[84%] max-w-[21rem] flex-none snap-center">
+              <ShowcasePlaceholder title={text.holidayCards[1]} tone="stone" size="square" />
+            </div>
+            <div class="w-[84%] max-w-[21rem] flex-none snap-center">
+              <ShowcasePlaceholder title={text.holidayCards[2]} tone="olive" size="square" />
+            </div>
+            <div class="w-[84%] max-w-[21rem] flex-none snap-center">
+              <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="square" />
+            </div>
+          </div>
+          <button
+            type="button"
+            class="mobile-slider-arrow mobile-slider-next right-1"
+            data-slider-target="holiday-slider"
+            aria-label={locale === 'en' ? 'Next holiday card' : 'Næste højtidskort'}
+          >
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="mt-8 hidden gap-4 lg:grid lg:grid-cols-[1.05fr,1fr]">
           <ShowcasePlaceholder title={text.holidayCards[0]} eyebrow={holidays.title} tone="rose" size="portrait" />
           <div class="grid gap-4 sm:grid-cols-2">
             <div class="sm:col-span-2">
@@ -170,6 +207,9 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
           <div class="mt-5 space-y-4 text-base leading-8 text-surface-ink/72">
             {giftCopy.map((paragraph: string) => <p>{paragraph}</p>)}
           </div>
+          <p class="mt-8 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-600 sm:hidden">
+            {locale === 'en' ? 'Put together with care' : 'Sammensat med omtanke'}
+          </p>
           <div class="mt-8 grid gap-4 sm:grid-cols-2">
             <ShowcasePlaceholder title={text.giftSplit[0]} tone="rose" size="square" />
             <ShowcasePlaceholder title={text.giftSplit[1]} tone="amber" size="square" align="bottom-right" />
@@ -178,7 +218,9 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
             {text.seeSelection}
           </a>
         </div>
-        <ShowcasePlaceholder title={gifts.title} eyebrow={locale === 'en' ? 'Put together with care' : 'Sammensat med omtanke'} tone="stone" size="portrait" align="bottom-right" />
+        <div class="hidden sm:block">
+          <ShowcasePlaceholder title={gifts.title} eyebrow={locale === 'en' ? 'Put together with care' : 'Sammensat med omtanke'} tone="stone" size="portrait" align="bottom-right" />
+        </div>
       </section>
     </div>
   </div>
@@ -193,4 +235,56 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  .mobile-slider-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    display: inline-flex;
+    height: 2.4rem;
+    width: 2.4rem;
+    transform: translateY(-50%);
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: rgba(250, 250, 245, 0.92);
+    color: #526349;
+    box-shadow: 0 10px 24px rgba(26, 28, 25, 0.12);
+    backdrop-filter: blur(10px);
+  }
 </style>
+
+<script>
+  document.querySelectorAll('.mobile-slider-arrow').forEach((button) => {
+    button.addEventListener('click', () => {
+      const targetId = button.getAttribute('data-slider-target');
+      const slider = targetId ? document.getElementById(targetId) : null;
+
+      if (!slider) return;
+
+      const cards = Array.from(slider.children);
+      const cardWidth = Math.round(slider.clientWidth * 0.82);
+      const currentIndex = Math.round(slider.scrollLeft / Math.max(cardWidth, 1));
+      const lastIndex = Math.max(cards.length - 1, 0);
+      const isNext = button.classList.contains('mobile-slider-next');
+
+      let targetIndex = currentIndex + (isNext ? 1 : -1);
+
+      if (targetId === 'holiday-slider') {
+        if (targetIndex > lastIndex) targetIndex = 0;
+        if (targetIndex < 0) targetIndex = lastIndex;
+      } else {
+        targetIndex = Math.max(0, Math.min(lastIndex, targetIndex));
+      }
+
+      const targetCard = cards[targetIndex];
+
+      if (!targetCard) return;
+
+      slider.scrollTo({
+        left: targetCard.offsetLeft - slider.offsetLeft,
+        behavior: 'smooth',
+      });
+    });
+  });
+</script>

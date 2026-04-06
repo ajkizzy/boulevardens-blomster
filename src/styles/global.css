@@ -18,14 +18,18 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    max-width: 100%;
+    overflow-x: clip;
   }
 
   body {
     @apply font-body text-surface-ink bg-surface;
+    max-width: 100%;
+    overflow-x: clip;
     background-image:
-      radial-gradient(circle at top left, rgba(144, 163, 132, 0.18), transparent 32%),
-      radial-gradient(circle at top right, rgba(117, 88, 80, 0.10), transparent 28%),
-      linear-gradient(180deg, rgba(250, 250, 245, 1) 0%, rgba(244, 244, 239, 0.72) 100%);
+      radial-gradient(circle at top left, rgba(144, 163, 132, 0.12), transparent 30%),
+      radial-gradient(circle at top right, rgba(117, 88, 80, 0.06), transparent 26%),
+      linear-gradient(180deg, rgba(250, 250, 245, 1) 0%, rgba(247, 247, 241, 0.96) 100%);
   }
 
   h1,
