@@ -1,7 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Hero from '@/components/Hero.astro';
-import ServiceSection from '@/components/ServiceSection.astro';
+import ServicesPage from '@/components/ServicesPage.astro';
 import { loadContent } from '@/lib/i18n';
 
 const locale = 'en';
@@ -9,47 +8,5 @@ const services = loadContent<any>(locale, 'services');
 ---
 
 <Layout title={services.heading} locale={locale}>
-  <Hero heading={services.heading} subheading={services.subheading} compact />
-
-  <nav class="sticky top-[5.5rem] z-40 px-4 sm:px-6 lg:px-8">
-    <div class="container-narrow mx-auto">
-      <div class="glass-panel rounded-[1.5rem] px-4 py-3">
-        <ul class="scrollbar-hide flex gap-2 overflow-x-auto py-1 sm:justify-center">
-          {services.sections.map((section: any) => (
-            <li>
-              <a href={`#${section.id}`}
-                 class="whitespace-nowrap rounded-full bg-surface-raised px-4 py-2 text-sm font-semibold text-surface-ink/68 transition-colors hover:text-primary-600">
-                {section.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="pt-6">
-    {services.sections.map((section: any, i: number) => (
-      <ServiceSection
-        id={section.id}
-        title={section.title}
-        text={section.text}
-        image={section.image}
-        reverse={i % 2 === 1}
-        holidayNote={section.holidayNote}
-        holidayNoteHeading={section.holidayNoteHeading}
-      />
-    ))}
-  </div>
+  <ServicesPage locale={locale} />
 </Layout>
-
-<style>
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-</style>

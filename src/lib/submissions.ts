@@ -67,6 +67,7 @@ export interface ContactRecord {
   createdAt: string;
   name: string;
   email: string;
+  subject: string;
   message: string;
   notifications: {
     ownerNotifiedAt?: string;
@@ -227,7 +228,7 @@ function orderLocaleText(locale: Locale) {
         totalLabel: 'Total incl. VAT',
         deliveryLabel: 'Delivery time',
         addressLabel: 'Delivery address',
-        contactNameLabel: 'Contact person',
+        orderContactNameLabel: 'Contact person',
         companyNameLabel: 'Company name',
         commentLabel: 'Comment',
         companyCodeLabel: 'Company code',
@@ -245,6 +246,10 @@ function orderLocaleText(locale: Locale) {
         contactAckHeading: 'Thank you for your message',
         contactAckBody:
           'We have received your enquiry and will get back to you as soon as possible.',
+        contactNameLabel: 'Name',
+        contactEmailLabel: 'Email',
+        contactSubjectLabel: 'Subject',
+        contactTimeLabel: 'Received at',
       }
     : {
         localeTag: 'da-DK',
@@ -269,7 +274,7 @@ function orderLocaleText(locale: Locale) {
         totalLabel: 'Total inkl. moms',
         deliveryLabel: 'Leveringstidspunkt',
         addressLabel: 'Leveringsadresse',
-        contactNameLabel: 'Kontaktperson',
+        orderContactNameLabel: 'Kontaktperson',
         companyNameLabel: 'Virksomhed',
         commentLabel: 'Kommentar',
         companyCodeLabel: 'Firmakode',
@@ -285,6 +290,10 @@ function orderLocaleText(locale: Locale) {
         contactAckHeading: 'Tak for din besked',
         contactAckBody:
           'Vi har modtaget din henvendelse og vender tilbage hurtigst muligt.',
+        contactNameLabel: 'Navn',
+        contactEmailLabel: 'Email',
+        contactSubjectLabel: 'Emne',
+        contactTimeLabel: 'Modtaget',
       };
 }
 
@@ -343,7 +352,7 @@ function renderOrderDetailsHtml(order: OrderRecord): string {
       <p><strong>${text.paymentLabel}:</strong> ${escapeHtml(order.paymentMethod)}</p>
       <p><strong>${text.addressLabel}:</strong> ${escapeHtml(order.customer.address)}</p>
       <p><strong>${text.deliveryLabel}:</strong> ${escapeHtml(order.customer.deliveryTime)}</p>
-      <p><strong>${text.contactNameLabel}:</strong> ${escapeHtml(order.customer.contactName)}</p>
+      <p><strong>${text.orderContactNameLabel}:</strong> ${escapeHtml(order.customer.contactName)}</p>
       <p><strong>${text.companyNameLabel}:</strong> ${escapeHtml(order.customer.companyName)}</p>
       <p><strong>${text.phoneLabel}:</strong> ${escapeHtml(order.customer.phone)}</p>
       <p><strong>${text.emailLabel}:</strong> ${escapeHtml(order.customer.email)}</p>
@@ -375,7 +384,7 @@ function renderOrderDetailsText(order: OrderRecord): string {
     `${text.paymentLabel}: ${order.paymentMethod}`,
     `${text.addressLabel}: ${order.customer.address}`,
     `${text.deliveryLabel}: ${order.customer.deliveryTime}`,
-    `${text.contactNameLabel}: ${order.customer.contactName}`,
+    `${text.orderContactNameLabel}: ${order.customer.contactName}`,
     `${text.companyNameLabel}: ${order.customer.companyName}`,
     `${text.phoneLabel}: ${order.customer.phone}`,
     `${text.emailLabel}: ${order.customer.email}`,
@@ -448,6 +457,7 @@ export function createContactRecord(input: {
   locale: Locale;
   name: string;
   email: string;
+  subject: string;
   message: string;
 }): ContactRecord {
   return {
@@ -456,6 +466,7 @@ export function createContactRecord(input: {
     createdAt: new Date().toISOString(),
     name: input.name,
     email: input.email,
+    subject: input.subject,
     message: input.message,
     notifications: {},
   };
@@ -561,9 +572,10 @@ export async function sendOwnerContactNotification(
     replyTo: record.email,
     text: [
       `ID: ${record.id}`,
-      `Navn: ${record.name}`,
-      `Email: ${record.email}`,
-      `Tidspunkt: ${record.createdAt}`,
+      `${text.contactNameLabel}: ${record.name}`,
+      `${text.contactEmailLabel}: ${record.email}`,
+      `${text.contactSubjectLabel}: ${record.subject}`,
+      `${text.contactTimeLabel}: ${record.createdAt}`,
       '',
       record.message,
     ].join('\n'),
@@ -573,9 +585,10 @@ export async function sendOwnerContactNotification(
           text.contactOwnerSubject,
         )}</h1>
         <p><strong>ID:</strong> ${escapeHtml(record.id)}</p>
-        <p><strong>Navn:</strong> ${escapeHtml(record.name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(record.email)}</p>
-        <p><strong>Tidspunkt:</strong> ${escapeHtml(record.createdAt)}</p>
+        <p><strong>${escapeHtml(text.contactNameLabel)}:</strong> ${escapeHtml(record.name)}</p>
+        <p><strong>${escapeHtml(text.contactEmailLabel)}:</strong> ${escapeHtml(record.email)}</p>
+        <p><strong>${escapeHtml(text.contactSubjectLabel)}:</strong> ${escapeHtml(record.subject)}</p>
+        <p><strong>${escapeHtml(text.contactTimeLabel)}:</strong> ${escapeHtml(record.createdAt)}</p>
         <div style="margin-top:16px; padding:16px; background:#f9fafb; border:1px solid #e5e7eb; white-space:pre-wrap;">${escapeHtml(
           record.message,
         )}</div>
@@ -603,6 +616,7 @@ export async function sendCustomerContactAcknowledgement(
       text.contactAckBody,
       '',
       `ID: ${record.id}`,
+      `${text.contactSubjectLabel}: ${record.subject}`,
       '',
       record.message,
     ].join('\n'),
@@ -613,6 +627,7 @@ export async function sendCustomerContactAcknowledgement(
         )}</h1>
         <p style="margin:0 0 16px 0;">${escapeHtml(text.contactAckBody)}</p>
         <p><strong>ID:</strong> ${escapeHtml(record.id)}</p>
+        <p><strong>${escapeHtml(text.contactSubjectLabel)}:</strong> ${escapeHtml(record.subject)}</p>
         <div style="margin-top:16px; padding:16px; background:#f9fafb; border:1px solid #e5e7eb; white-space:pre-wrap;">${escapeHtml(
           record.message,
         )}</div>

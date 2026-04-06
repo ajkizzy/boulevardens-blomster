@@ -1,0 +1,196 @@
+---
+import { getNavLinks, loadContent } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
+import ShowcasePlaceholder from '@/components/ShowcasePlaceholder.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const services = loadContent<any>(locale, 'services');
+const nav = getNavLinks(locale);
+const [bouquets, weddings, funerals, holidays, gifts] = services.sections;
+
+const text = locale === 'en'
+  ? {
+      badge: 'Crafted with care',
+      bouquetBullets: [
+        'Local delivery in Taastrup',
+        'Hand-tied bouquets for the day',
+        'Card greeting included',
+      ],
+      orderNow: 'Order now',
+      bookTalk: 'Book a consultation',
+      directContact: 'Contact us directly',
+      seeSelection: 'See selection',
+      farewellCards: ['Casket flowers', 'Wreaths', 'Sympathy bouquets'],
+      holidayCards: ['Mother’s Day', 'Valentine', 'Christmas', 'Easter'],
+      holidayIntro: 'We help set the tone for the year’s special days.',
+      giftSplit: ['Sweet treats', 'Host gifts'],
+    }
+  : {
+      badge: 'Skabt med passion',
+      bouquetBullets: [
+        'Lokal levering i Taastrup',
+        'Håndbundne buketter efter dagen',
+        'Personlig hilsen med i buketten',
+      ],
+      orderNow: 'Bestil nu',
+      bookTalk: 'Book konsultation',
+      directContact: 'Kontakt os direkte',
+      seeSelection: 'Se udvalg',
+      farewellCards: ['Kistepynt', 'Kranse', 'Bårebuketter'],
+      holidayCards: ['Mors Dag', 'Valentine', 'Jul', 'Påske'],
+      holidayIntro: 'Vi hjælper med at sætte stemningen omkring årets særlige dage.',
+      giftSplit: ['Søde sager', 'Værtindegaver'],
+    };
+
+const heroCopy = bouquets.text.split('\n\n')[0];
+const weddingCopy = weddings.text.split('\n\n').slice(0, 2);
+const funeralCopy = funerals.text.split('\n\n').slice(0, 2);
+const holidayCopy = holidays.text.split('\n\n')[0];
+const giftCopy = gifts.text.split('\n\n').slice(0, 2);
+---
+
+<section class="section-padding pt-8 sm:pt-12">
+  <div class="container-narrow mx-auto">
+    <header class="mx-auto max-w-3xl text-center">
+      <span class="inline-flex rounded-full bg-surface-mid px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-primary-600">
+        {text.badge}
+      </span>
+      <h1 class="mt-5 font-heading text-5xl tracking-[-0.04em] text-surface-ink sm:text-6xl">
+        {services.heading}
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-8 text-surface-ink/70 sm:text-lg">
+        {services.subheading}
+      </p>
+    </header>
+
+    <nav class="mt-8 border-y border-surface-ink/8 py-4">
+      <ul class="scrollbar-hide flex gap-5 overflow-x-auto text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-surface-ink/52 sm:justify-center">
+        {services.sections.map((section: any) => (
+          <li>
+            <a href={`#${section.id}`} class="whitespace-nowrap transition-colors hover:text-primary-600">
+              {section.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="mt-10 space-y-20 sm:space-y-24">
+      <section id={bouquets.id} class="scroll-mt-28 grid gap-8 lg:grid-cols-[1.02fr,0.98fr] lg:items-center">
+        <ShowcasePlaceholder title={bouquets.title} eyebrow={text.badge} tone="rose" size="landscape" />
+        <div>
+          <h2 class="font-heading text-4xl leading-tight text-surface-ink sm:text-[3.2rem]">{bouquets.title}</h2>
+          <p class="mt-5 text-base leading-8 text-surface-ink/72">
+            {heroCopy}
+          </p>
+          <ul class="mt-6 space-y-3">
+            {text.bouquetBullets.map((item) => (
+              <li class="flex items-start gap-3 text-sm text-surface-ink/72">
+                <span class="mt-1 inline-flex h-5 w-5 flex-none items-center justify-center rounded-full bg-primary-600/12 text-primary-600">
+                  <svg viewBox="0 0 20 20" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                    <path d="M5 10.2 8.1 13.3 15 6.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <a href={nav.order.href} class="btn-primary mt-8 !px-5 !py-3">
+            {text.orderNow}
+          </a>
+        </div>
+      </section>
+
+      <section id={weddings.id} class="scroll-mt-28 grid gap-8 lg:grid-cols-[0.92fr,1.08fr] lg:items-center">
+        <div>
+          <h2 class="font-heading text-4xl leading-tight text-surface-ink sm:text-[3rem]">{weddings.title}</h2>
+          <div class="mt-5 space-y-4 text-base leading-8 text-surface-ink/72">
+            {weddingCopy.map((paragraph: string) => <p>{paragraph}</p>)}
+          </div>
+          <a href={nav.contact.href} class="btn-secondary mt-8 !px-5 !py-3">
+            {text.bookTalk}
+          </a>
+        </div>
+        <ShowcasePlaceholder title={weddings.title} eyebrow={services.heading} tone="amber" size="wide" align="bottom-right" />
+      </section>
+
+      <section id={funerals.id} class="scroll-mt-28 text-center">
+        <h2 class="font-heading text-4xl leading-tight text-surface-ink sm:text-[3.1rem]">{funerals.title}</h2>
+        <p class="mx-auto mt-4 max-w-3xl text-base leading-8 text-surface-ink/72">
+          {funeralCopy[0]}
+        </p>
+        <div class="mx-auto mt-8 max-w-5xl">
+          <ShowcasePlaceholder title={funerals.title} eyebrow={locale === 'en' ? 'Respectful details' : 'Respektfulde detaljer'} tone="olive" size="wide" align="center" />
+        </div>
+        <p class="mx-auto mt-5 max-w-3xl text-sm leading-7 text-surface-ink/60">
+          {funeralCopy[1]}
+        </p>
+        <div class="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-3">
+          {text.farewellCards.map((item) => (
+            <div class="editorial-card px-5 py-4">
+              <p class="font-heading text-xl text-surface-ink">{item}</p>
+            </div>
+          ))}
+        </div>
+        <a href={nav.contact.href} class="mt-8 inline-flex text-sm font-semibold uppercase tracking-[0.16em] text-primary-600 transition-colors hover:text-primary-500">
+          {text.directContact}
+        </a>
+      </section>
+
+      <section id={holidays.id} class="scroll-mt-28">
+        <div class="grid gap-4 lg:grid-cols-[0.76fr,1.24fr] lg:items-end">
+          <div>
+            <h2 class="font-heading text-4xl leading-tight text-surface-ink sm:text-[3rem]">{holidays.title}</h2>
+            <p class="mt-4 max-w-lg text-base leading-8 text-surface-ink/72">
+              {holidayIntro}
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-[1.08fr,0.92fr]">
+          <ShowcasePlaceholder title={text.holidayCards[0]} eyebrow={holidays.title} tone="rose" size="portrait" />
+          <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-2">
+            <ShowcasePlaceholder title={text.holidayCards[1]} tone="stone" size="landscape" align="bottom-right" />
+            <ShowcasePlaceholder title={text.holidayCards[2]} tone="olive" size="square" />
+            <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="square" align="bottom-right" />
+            <div class="surface-panel flex items-center rounded-[1.8rem] px-6 py-8">
+              <p class="text-sm leading-7 text-surface-ink/68">{holidayCopy}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id={gifts.id} class="scroll-mt-28 grid gap-8 lg:grid-cols-[0.88fr,1.12fr] lg:items-center">
+        <div>
+          <h2 class="font-heading text-4xl leading-tight text-surface-ink sm:text-[3rem]">{gifts.title}</h2>
+          <div class="mt-5 space-y-4 text-base leading-8 text-surface-ink/72">
+            {giftCopy.map((paragraph: string) => <p>{paragraph}</p>)}
+          </div>
+          <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <ShowcasePlaceholder title={text.giftSplit[0]} tone="rose" size="square" />
+            <ShowcasePlaceholder title={text.giftSplit[1]} tone="amber" size="square" align="bottom-right" />
+          </div>
+          <a href={nav.contact.href} class="btn-primary mt-8 !px-5 !py-3">
+            {text.seeSelection}
+          </a>
+        </div>
+        <ShowcasePlaceholder title={gifts.title} eyebrow={locale === 'en' ? 'Put together with care' : 'Sammensat med omtanke'} tone="stone" size="portrait" align="bottom-right" />
+      </section>
+    </div>
+  </div>
+</section>
+
+<style>
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>

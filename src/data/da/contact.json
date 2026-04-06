@@ -1,17 +1,31 @@
 {
   "heading": "Kontakt os",
-  "subheading": "Vi ser frem til at høre fra dig.",
+  "subheading": "Lad os skabe noget smukt sammen. Uanset om det er til bryllup, hverdag eller firmaevents, er vi her for at hjælpe.",
+  "responseBadge": "Vi svarer altid indenfor 24 timer",
+  "visitHeading": "Besøg os",
+  "phoneHeading": "Telefon",
+  "emailHeading": "Email",
+  "mapButton": "Find os her",
   "form": {
+    "title": "Send os en besked",
+    "intro": "Vi glæder os til at høre om dine ønsker.",
     "name": "Navn",
     "email": "Email",
-    "message": "Meddelelse",
-    "submit": "Send",
+    "subject": "Emne",
+    "message": "Besked",
+    "submit": "Send besked",
     "namePlaceholder": "Dit fulde navn",
     "emailPlaceholder": "din@email.dk",
-    "messagePlaceholder": "Skriv din besked her...",
+    "messagePlaceholder": "Hvordan kan vi hjælpe dig?",
+    "subjectOptions": [
+      "Generel forespørgsel",
+      "Firma bestilling",
+      "Buketter og gaver",
+      "Bryllup",
+      "Begravelse"
+    ],
     "successHeading": "Tak for din besked",
     "successBody": "Vi har modtaget din henvendelse og sender en bekræftelse på email.",
     "error": "Der opstod en fejl. Prøv venligst igen."
-  },
-  "mapHeading": "Find os"
+  }
 }
