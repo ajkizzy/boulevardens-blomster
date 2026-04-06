@@ -1,9 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Hero from '@/components/Hero.astro';
-import SectionHeading from '@/components/SectionHeading.astro';
-import ServiceCard from '@/components/ServiceCard.astro';
-import OpeningHours from '@/components/OpeningHours.astro';
+import HomeLandingPage from '@/components/HomeLandingPage.astro';
 import { loadContent } from '@/lib/i18n';
 
 const locale = 'en';
@@ -12,74 +9,5 @@ const site = loadContent<any>(locale, 'site');
 ---
 
 <Layout title={home.hero.heading} locale={locale}>
-  <Hero
-    heading={home.hero.heading}
-    subheading={home.hero.subheading}
-    cta1={home.hero.cta1}
-    cta2={home.hero.cta2}
-  />
-
-  <section class="section-padding pt-6">
-    <div class="container-narrow mx-auto">
-      <div class="surface-panel px-6 py-8 sm:px-8 sm:py-10 lg:grid lg:grid-cols-[1.12fr,0.88fr] lg:items-start lg:gap-12 lg:px-10">
-        <div>
-          <SectionHeading heading={home.intro.heading} align="left" />
-          <div class="space-y-5 text-base leading-relaxed text-surface-ink/70">
-            {home.intro.text.split('\n\n').map((p: string) => <p>{p}</p>)}
-          </div>
-          {home.intro.deliveryNote && (
-            <div class="mt-8 rounded-[1.4rem] bg-surface-raised px-5 py-4 text-sm text-surface-ink/72 shadow-ambient">
-              <p class="font-semibold text-primary-600">{home.intro.deliveryNote}</p>
-            </div>
-          )}
-        </div>
-
-        <div class="mt-10 space-y-6 lg:mt-0">
-          <OpeningHours locale={locale} />
-          <div class="surface-panel p-6 sm:p-7">
-            <h3 class="font-heading text-3xl text-surface-ink">{site.footer.contactUs}</h3>
-            <div class="mt-5 space-y-3 text-sm text-surface-ink/68">
-              <p>
-                <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="font-semibold text-surface-ink transition-colors hover:text-primary-600">
-                  {site.phone}
-                </a>
-              </p>
-              <p class="min-w-0">
-                <a href={`mailto:${site.email}`} class="break-all font-semibold text-surface-ink transition-colors hover:text-primary-600 sm:break-words [overflow-wrap:anywhere]">
-                  {site.email}
-                </a>
-              </p>
-              <p>
-                {site.address.street}<br />
-                {site.address.zip} {site.address.city}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-padding pt-6 sm:pt-8 lg:pt-10">
-    <div class="container-narrow mx-auto">
-      <SectionHeading heading={home.serviceHighlights.heading} align="left" />
-      <p class="max-w-3xl text-base leading-relaxed text-surface-ink/68">
-        We make bouquets, flower gifts, and business arrangements for everyday use and special occasions.
-      </p>
-      <div class="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-3">
-        {home.serviceHighlights.items.map((item: any) => (
-          <ServiceCard
-            title={item.title}
-            description={item.description}
-            href={`/en/services#${item.anchor}`}
-          />
-        ))}
-      </div>
-      <div class="mt-8">
-        <a href="/en/company-orders" class="btn-primary !px-8 !py-3.5 !text-base">
-          {site.nav.order}
-        </a>
-      </div>
-    </div>
-  </section>
+  <HomeLandingPage locale={locale} home={home} site={site} />
 </Layout>
