@@ -82,7 +82,7 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
 
     <div class="mt-10 space-y-20 sm:space-y-24">
       <section id={bouquets.id} class="scroll-mt-28 grid gap-8 lg:grid-cols-[1.02fr,0.98fr] lg:items-center">
-        <ShowcasePlaceholder title={bouquets.title} eyebrow={text.badge} tone="rose" size="landscape" />
+        <ShowcasePlaceholder title={bouquets.title} eyebrow={text.badge} tone="rose" size="landscape" image="/images/forside-service-buketter.jpg" />
         <div>
           <h2 class="font-heading text-4xl leading-tight text-surface-ink sm:text-[3.2rem]">{bouquets.title}</h2>
           <p class="mt-5 text-base leading-8 text-surface-ink/72">
@@ -116,7 +116,22 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
             {text.bookTalk}
           </a>
         </div>
-        <ShowcasePlaceholder title={weddings.title} eyebrow={services.heading} tone="amber" size="wide" align="bottom-right" />
+        <div class="relative overflow-hidden rounded-[1.8rem] shadow-[0_24px_60px_rgba(26,28,25,0.1)] aspect-[16/8]">
+          <div class="bryllup-slideshow relative h-full w-full">
+            <img src="/images/bryllup2.jpg" alt="Bryllup 1" class="bryllup-slide absolute inset-0 h-full w-full object-cover opacity-100 transition-opacity duration-500" style="object-position: center 55%" />
+            <img src="/images/forside-s-bryllupper.jpg" alt="Bryllup 2" class="bryllup-slide absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500" style="object-position: center 55%" />
+            <img src="/images/bryllup1.jpg" alt="Bryllup 3" class="bryllup-slide absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500" style="object-position: center 55%" />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div class="absolute bottom-6 right-6 left-6 max-w-[16rem] rounded-[1.35rem] bg-black/25 px-4 py-2 shadow-[0_16px_40px_rgba(26,28,25,0.14)] backdrop-blur">
+            <p class="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-white mb-0">
+              {locale === 'en' ? 'Elegant entrance' : 'Elegant ankomst'}
+            </p>
+            <p class="font-heading text-2xl leading-tight text-white mt-0">
+              {weddings.title}
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id={funerals.id} class="scroll-mt-28 text-center">
@@ -124,8 +139,16 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
         <p class="mx-auto mt-4 max-w-3xl text-base leading-8 text-surface-ink/72">
           {funeralCopy[0]}
         </p>
-        <div class="mx-auto mt-8 max-w-5xl">
-          <ShowcasePlaceholder title={funerals.title} eyebrow={locale === 'en' ? 'Respectful details' : 'Respektfulde detaljer'} tone="olive" size="wide" align="center" />
+        <div class="mt-8 grid gap-4 lg:grid-cols-[0.5fr,2.08fr]">
+          <div class="grid gap-3 auto-rows-max">
+            <ShowcasePlaceholder title={locale === 'en' ? 'Wreaths' : 'Kranse'} image="/images/krans.jpg" backgroundPosition="center" size="portrait" />
+            <div class="max-w-[16rem]">
+              <ShowcasePlaceholder title={locale === 'en' ? 'Casket' : 'Kiste'} image="/images/kiste.png" backgroundPosition="center" size="landscape" />
+            </div>
+          </div>
+          <div>
+            <ShowcasePlaceholder title={funerals.title} eyebrow={locale === 'en' ? 'Respectful details' : 'Respektfulde detaljer'} tone="olive" size="wide" align="center" image="/images/forside-s-begravelse.jpg" backgroundPosition="center 35%" />
+          </div>
         </div>
         <p class="mx-auto mt-5 max-w-3xl text-sm leading-7 text-surface-ink/60">
           {funeralCopy[1]}
@@ -133,13 +156,15 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
         <div class="mx-auto mt-8 grid max-w-3xl gap-3 sm:grid-cols-3">
           {text.farewellCards.map((item) => (
             <div class="editorial-card rounded-[1.25rem] px-3 py-2.5 sm:px-4 sm:py-3">
-              <p class="font-heading text-[1.05rem] leading-tight text-surface-ink sm:text-lg">{item}</p>
+              <p class="font-heading text-[1.05rem] leading-tight text-surface-ink sm:text-lg text-center">{item}</p>
             </div>
           ))}
         </div>
-        <a href={nav.contact.href} class="mt-8 inline-flex text-sm font-semibold uppercase tracking-[0.16em] text-primary-600 transition-colors hover:text-primary-500">
+        <div class="flex justify-center mt-8">
+          <a href={nav.contact.href} class="inline-flex text-sm font-semibold uppercase tracking-[0.16em] text-primary-600 transition-colors hover:text-primary-500">
           {text.directContact}
         </a>
+        </div>
       </section>
 
       <section id={holidays.id} class="scroll-mt-28">
@@ -165,16 +190,16 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
           </button>
           <div id="holiday-slider" class="scrollbar-hide -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2">
             <div class="w-[84%] max-w-[21rem] flex-none snap-center">
-              <ShowcasePlaceholder title={text.holidayCards[0]} eyebrow={holidays.title} tone="rose" size="square" />
+              <ShowcasePlaceholder title={text.holidayCards[0]} eyebrow={holidays.title} tone="rose" size="square" image="/images/mors-dag.jpg" backgroundPosition="center 30%" />
             </div>
             <div class="w-[84%] max-w-[21rem] flex-none snap-center">
-              <ShowcasePlaceholder title={text.holidayCards[1]} tone="stone" size="square" />
+              <ShowcasePlaceholder title={text.holidayCards[1]} tone="stone" size="square" image="/images/valentine.jpg" backgroundPosition="center 45%" />
             </div>
             <div class="w-[84%] max-w-[21rem] flex-none snap-center">
-              <ShowcasePlaceholder title={text.holidayCards[2]} tone="olive" size="square" />
+              <ShowcasePlaceholder title={text.holidayCards[2]} tone="olive" size="square" image="/images/jul.jpg" backgroundPosition="center 75%" />
             </div>
             <div class="w-[84%] max-w-[21rem] flex-none snap-center">
-              <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="square" />
+              <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="square" image="/images/paske.jpg" backgroundPosition="center 30%" />
             </div>
           </div>
           <button
@@ -190,13 +215,13 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
         </div>
 
         <div class="mt-8 hidden gap-4 lg:grid lg:grid-cols-[1.05fr,1fr]">
-          <ShowcasePlaceholder title={text.holidayCards[0]} eyebrow={holidays.title} tone="rose" size="portrait" />
+          <ShowcasePlaceholder title={text.holidayCards[0]} eyebrow={holidays.title} tone="rose" size="portrait" image="/images/mors-dag.jpg" backgroundPosition="center 30%" />
           <div class="grid gap-4 sm:grid-cols-2">
             <div class="sm:col-span-2">
-              <ShowcasePlaceholder title={text.holidayCards[1]} tone="stone" size="landscape" />
+              <ShowcasePlaceholder title={text.holidayCards[1]} tone="stone" size="landscape" image="/images/valentine.jpg" backgroundPosition="center 45%" />
             </div>
-            <ShowcasePlaceholder title={text.holidayCards[2]} tone="olive" size="square" />
-            <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="square" />
+            <ShowcasePlaceholder title={text.holidayCards[2]} tone="olive" size="square" image="/images/jul.jpg" backgroundPosition="center 75%" />
+            <ShowcasePlaceholder title={text.holidayCards[3]} tone="amber" size="square" image="/images/paske.jpg" backgroundPosition="center 30%" />
           </div>
         </div>
       </section>
@@ -211,15 +236,15 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
             {locale === 'en' ? 'Put together with care' : 'Sammensat med omtanke'}
           </p>
           <div class="mt-8 grid gap-4 sm:grid-cols-2">
-            <ShowcasePlaceholder title={text.giftSplit[0]} tone="rose" size="square" />
-            <ShowcasePlaceholder title={text.giftSplit[1]} tone="amber" size="square" align="bottom-right" />
+            <ShowcasePlaceholder title={text.giftSplit[0]} tone="rose" size="square" image="/images/soede-sager.jpg" backgroundPosition="center 70%" zoom={1.45} />
+            <ShowcasePlaceholder title={text.giftSplit[1]} tone="amber" size="square" align="bottom-right" image="/images/gavekurve2.png" backgroundPosition="center 70%" />
           </div>
           <a href={nav.contact.href} class="btn-primary mt-8 !px-5 !py-3">
             {text.seeSelection}
           </a>
         </div>
         <div class="hidden sm:block">
-          <ShowcasePlaceholder title={gifts.title} eyebrow={locale === 'en' ? 'Put together with care' : 'Sammensat med omtanke'} tone="stone" size="portrait" align="bottom-right" />
+          <ShowcasePlaceholder title={gifts.title} eyebrow={locale === 'en' ? 'Put together with care' : 'Sammensat med omtanke'} tone="stone" size="portrait" align="bottom-right" image="/images/forside-s-gavekurve.jpg" backgroundPosition="center 70%" />
         </div>
       </section>
     </div>
@@ -287,4 +312,22 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
       });
     });
   });
+
+  // Bryllup slideshow
+  const slideshow = document.querySelector('.bryllup-slideshow');
+  if (slideshow) {
+    let currentSlide = 0;
+    const slides = slideshow.querySelectorAll('.bryllup-slide');
+    const totalSlides = slides.length;
+
+    setInterval(() => {
+      slides[currentSlide].classList.remove('opacity-100');
+      slides[currentSlide].classList.add('opacity-0');
+
+      currentSlide = (currentSlide + 1) % totalSlides;
+
+      slides[currentSlide].classList.remove('opacity-0');
+      slides[currentSlide].classList.add('opacity-100');
+    }, 4000);
+  }
 </script>

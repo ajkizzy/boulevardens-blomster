@@ -108,6 +108,14 @@ const contactStripCopy = isEnglish
       href: '/da/kontakt',
     };
 
+const serviceImages = [
+  '/images/forside-service-buketter.jpg',
+  '/images/forside-s-bryllupper.jpg',
+  '/images/forside-s-begravelse.jpg',
+  '/images/forside-s-højtider.jpg',
+  '/images/forside-s-gavekurve.jpg',
+];
+
 const serviceThemes = [
   {
     classes:
@@ -131,11 +139,34 @@ const serviceThemes = [
   },
 ];
 
-const serviceCards = home.serviceHighlights.items.map((item: any, index: number) => ({
-  ...item,
-  href: isEnglish ? `/en/services#${item.anchor}` : `/da/services#${item.anchor}`,
-  theme: serviceThemes[index % serviceThemes.length],
-}));
+const getBackgroundPosition = (imagePath: string) => {
+  if (imagePath.includes('højtider') || imagePath.includes('begravelse')) {
+    return 'center 30%';
+  }
+  if (imagePath.includes('gavekurve')) {
+    return 'center 70%';
+  }
+  return 'center';
+};
+
+const serviceCards = home.serviceHighlights.items.map((item: any, index: number) => {
+  const image = serviceImages[index % serviceImages.length];
+  return {
+    ...item,
+    href: isEnglish ? `/en/services#${item.anchor}` : `/da/services#${item.anchor}`,
+    theme: serviceThemes[index % serviceThemes.length],
+    image,
+    backgroundPosition: getBackgroundPosition(image),
+  };
+});
+
+const companyOrderCard = {
+  title: isEnglish ? 'Company Orders' : 'Firma Bestilling',
+  description: isEnglish ? 'Get flowers delivered for free within Taastrup Municipality' : 'Få blomster overleveret gratis indenfor Taastrup Kommune',
+  href: isEnglish ? '/en/company-orders' : '/da/firma-bestilling',
+  image: '/images/firma.jpg',
+  backgroundPosition: 'center 40%',
+};
 ---
 
 <section class="px-4 pb-1 pt-3 sm:px-6 lg:px-8">
@@ -158,20 +189,7 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
 
       <div class="home-hero-frame">
         <div class="home-hero-scene">
-          <div class="home-hero-wall"></div>
-          <div class="home-hero-table"></div>
-          <div class="home-hero-shadow"></div>
-          <div class="home-hero-vase"></div>
-          <div class="home-hero-stems"></div>
-          <div class="home-bloom home-bloom-a"></div>
-          <div class="home-bloom home-bloom-b"></div>
-          <div class="home-bloom home-bloom-c"></div>
-          <div class="home-bloom home-bloom-d"></div>
-          <div class="home-bloom home-bloom-e"></div>
-          <div class="home-leaf home-leaf-a"></div>
-          <div class="home-leaf home-leaf-b"></div>
-          <div class="home-leaf home-leaf-c"></div>
-          <div class="home-leaf home-leaf-d"></div>
+          <img src="/images/forside-hero.jpg" alt="Modern flowers" class="h-full w-full object-cover" />
         </div>
       </div>
     </div>
@@ -217,11 +235,10 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
   <div class="container-narrow mx-auto">
     <div class="surface-panel px-5 py-5 sm:px-8 sm:py-8 lg:grid lg:grid-cols-[0.9fr,1.1fr] lg:items-center lg:gap-10">
       <div class="home-story-visual">
-        <div class="home-story-background"></div>
-        <div class="home-story-overlay"></div>
+        <img src="/images/lidt-om-os.jpg" alt="About us" class="h-full w-full object-cover" />
         <div class="home-story-note">
-          <p class="font-heading text-lg leading-tight text-surface-raised">{storyCopy.note}</p>
-          <p class="mt-3 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-surface-raised/78">{storyCopy.noteMeta}</p>
+          <p class="font-heading text-lg leading-tight text-white">{storyCopy.note}</p>
+          <p class="mt-3 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/78">{storyCopy.noteMeta}</p>
         </div>
       </div>
 
@@ -257,20 +274,25 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
           href={item.href}
           class:list={[
             'service-showcase-card group relative flex min-h-[15rem] overflow-hidden rounded-[1.65rem] p-6 shadow-ambient transition-transform duration-300 hover:-translate-y-1',
-            item.theme.classes,
+            !item.image && item.theme.classes,
           ]}
+          style={item.image ? `background-image: url('${item.image}'); background-size: cover; background-position: ${item.backgroundPosition};` : undefined}
         >
-          <div class="service-showcase-glow"></div>
-          <div class:list={['service-showcase-ornament', index === 0 && 'service-showcase-ornament-large']}></div>
-          <div class="relative mt-auto max-w-[24ch]">
-            <p class:list={['text-[0.72rem] font-semibold uppercase tracking-[0.18em]', item.theme.classes.includes('text-white') ? 'text-white/72' : 'text-surface-ink/56']}>
-              {isEnglish ? 'Service' : 'Service'}
-            </p>
-            <h3 class="mt-3 font-heading text-[2rem] leading-[0.95]">{item.title}</h3>
-            <p class:list={['mt-3 text-sm leading-relaxed', item.theme.classes.includes('text-white') ? 'text-white/82' : 'text-surface-ink/70']}>
+          {item.image && (
+            <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/50"></div>
+          )}
+          {!item.image && (
+            <>
+              <div class="service-showcase-glow"></div>
+              <div class:list={['service-showcase-ornament', index === 0 && 'service-showcase-ornament-large']}></div>
+            </>
+          )}
+          <div class="relative z-10 mt-auto max-w-[24ch]">
+            <h3 class="font-heading text-[2rem] leading-[0.95] text-white">{item.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-white">
               {item.description}
             </p>
-            <span class:list={['mt-5 inline-flex items-center gap-2 text-sm font-semibold', item.theme.classes.includes('text-white') ? 'text-white' : 'text-primary-600']}>
+            <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">
               {isEnglish ? 'Explore' : 'Udforsk'}
               <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5l7 7-7 7" />
@@ -279,6 +301,26 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
           </div>
         </a>
       ))}
+
+      <a
+        href={companyOrderCard.href}
+        class="service-showcase-card group relative flex min-h-[15rem] overflow-hidden rounded-[1.65rem] p-6 shadow-ambient transition-transform duration-300 hover:-translate-y-1"
+        style={`background-image: url('${companyOrderCard.image}'); background-size: cover; background-position: ${companyOrderCard.backgroundPosition};`}
+      >
+        <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/50"></div>
+        <div class="relative z-10 mt-auto max-w-[24ch]">
+          <h3 class="font-heading text-[2rem] leading-[0.95] text-white">{companyOrderCard.title}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-white">
+            {companyOrderCard.description}
+          </p>
+          <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">
+            {isEnglish ? 'Order' : 'Bestil'}
+            <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 5l7 7-7 7" />
+            </svg>
+          </span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -359,7 +401,7 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
     border-radius: 2rem;
     background: #f1efe9;
     box-shadow: 0 24px 60px rgba(26, 28, 25, 0.12);
-    width: min(64vw, 19rem);
+    width: min(54.4vw, 16.15rem);
   }
 
   .home-hero-scene {
@@ -624,7 +666,7 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
 
     .home-hero-frame {
       top: 2.5rem;
-      width: min(56vw, 24rem);
+      width: min(47.6vw, 20.4rem);
     }
 
     .home-hero-scene {
@@ -649,7 +691,7 @@ const serviceCards = home.serviceHighlights.items.map((item: any, index: number)
       position: relative;
       top: auto;
       right: auto;
-      width: 100%;
+      width: 85%;
       max-width: 100%;
     }
 
