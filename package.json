@@ -16,5 +16,9 @@
     "nodemailer": "^8.0.4",
     "stripe": "^17.5.0",
     "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "heic2any": "^0.0.4",
+    "sharp": "^0.34.5"
   }
 }

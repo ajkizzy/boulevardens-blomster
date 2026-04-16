@@ -115,7 +115,7 @@ const uiText = isEnglish
 ---
 
 <Layout title={order.heading} locale={locale}>
-  <Hero heading={order.heading} subheading={order.intro} image="/images/firmabanner2.png" objectPosition="center 60%" compact />
+  <Hero heading={order.heading} subheading={order.intro} image="/images/firmabanner2.png" objectPosition="center 70%" compact />
 
   {(paymentSuccess || paymentCancelled) && (
     <div class="px-4 sm:px-6 lg:px-8">
@@ -160,7 +160,7 @@ const uiText = isEnglish
                   data-name={bouquet.name}
                   data-price={bouquet.price}
                 >
-                  <div class="relative mb-4 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-secondary-100 via-surface-raised to-primary-100">
+                  <div class="product-image-container relative mb-4 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-secondary-100 via-surface-raised to-primary-100 cursor-pointer transition-transform duration-300 hover:scale-105" data-product-id={bouquet.id}>
                     {getProductImage(bouquet.id) ? (
                       <img src={getProductImage(bouquet.id)!} alt={bouquet.name} class="absolute inset-0 h-full w-full object-cover" style={`object-position: ${getImageFocus(bouquet.id)}`} />
                     ) : (
@@ -576,6 +576,18 @@ const uiText = isEnglish
       });
     });
   }
+
+  document.querySelectorAll('.product-image-container').forEach((imageContainer) => {
+    const card = imageContainer.closest('.bouquet-card');
+    if (!card) return;
+
+    imageContainer.addEventListener('click', () => {
+      const qtyIncBtn = card.querySelector('.qty-inc');
+      if (qtyIncBtn) {
+        qtyIncBtn.click();
+      }
+    });
+  });
 
   document.querySelectorAll('.bouquet-card').forEach((card) => {
     const id = card.dataset.id;

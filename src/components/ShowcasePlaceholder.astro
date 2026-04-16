@@ -10,6 +10,7 @@ interface Props {
   size?: 'hero' | 'wide' | 'landscape' | 'portrait' | 'square';
   tone?: 'sage' | 'rose' | 'amber' | 'stone' | 'olive';
   align?: 'bottom-left' | 'bottom-right' | 'center';
+  titleSize?: string;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   size = 'landscape',
   tone = 'sage',
   align = 'bottom-left',
+  titleSize = 'text-2xl',
 } = Astro.props;
 
 const sizeClasses = {
@@ -89,7 +91,7 @@ const alignClasses = {
         </p>
       )}
       <p class:list={[
-        'font-heading text-2xl leading-tight',
+        `font-heading ${titleSize} leading-tight`,
         image ? 'text-white mt-0' : 'text-surface-ink mt-2'
       ]}>
         {title}
