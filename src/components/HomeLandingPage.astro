@@ -247,7 +247,7 @@ const companyOrderCard = {
         <h2 class="mt-5 max-w-[14ch] font-heading text-4xl leading-[0.98] tracking-[-0.03em] text-surface-ink sm:text-[3.3rem]">
           {storyCopy.heading}
         </h2>
-        <div class="mt-6 space-y-4 text-base leading-relaxed text-surface-ink/70">
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-surface-ink/70 home-story-text">
           {introParagraphs.map((paragraph) => <p>{paragraph}</p>)}
         </div>
         <a href={storyCopy.linkHref} class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-600">
@@ -642,8 +642,12 @@ const companyOrderCard = {
   }
 
   @media (max-width: 639px) {
+    .home-hero-frame {
+      background: transparent;
+    }
+
     .home-hero-scene {
-      min-height: 14.4rem;
+      min-height: auto;
     }
 
     .home-story-visual {
@@ -652,6 +656,81 @@ const companyOrderCard = {
 
     .home-story-note {
       max-width: 11rem;
+    }
+
+    .home-story-text p:nth-child(2) {
+      display: none;
+    }
+
+    section:nth-of-type(2) {
+      margin-top: -6rem;
+    }
+
+    section:nth-of-type(3) .surface-panel {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    section:nth-of-type(3) .home-story-visual {
+      order: 2;
+      margin-top: 1.5rem;
+    }
+
+    section:nth-of-type(3) > div > div > div:last-child {
+      order: 1;
+    }
+
+    section:nth-of-type(3) a {
+      order: 3;
+      margin-top: 1.5rem;
+    }
+
+    section:nth-of-type(1) .home-hero-copy h1 {
+      color: white;
+    }
+
+    section:nth-of-type(1) .home-hero-copy p {
+      color: white;
+    }
+
+    .home-hero-copy {
+      padding-top: 1rem !important;
+    }
+
+    section:nth-of-type(3) h2 {
+      margin-top: 0.5rem !important;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .home-hero-copy {
+      padding-top: 3rem !important;
+    }
+
+    section:nth-of-type(3) {
+      margin-top: -19rem !important;
+    }
+
+    section:nth-of-type(3) .surface-panel {
+      display: flex;
+      flex-direction: column;
+      padding-top: 1rem !important;
+    }
+
+    section:nth-of-type(3) .home-story-visual {
+      display: block !important;
+      order: 2;
+      margin-top: 1.5rem;
+      max-width: 50%;
+    }
+
+    section:nth-of-type(3) > div > div > div:last-child {
+      order: 1;
+    }
+
+    section:nth-of-type(3) a {
+      order: 3;
+      margin-top: 1.5rem;
     }
   }
 
@@ -670,11 +749,27 @@ const companyOrderCard = {
     }
 
     .home-hero-scene {
-      min-height: 36rem;
+      min-height: 24rem;
+    }
+
+    .home-hero-scene img {
+      object-position: center 20% !important;
+    }
+
+    .home-story-visual {
+      display: none;
+    }
+
+    section:nth-of-type(3) {
+      margin-top: -12rem;
     }
   }
 
   @media (min-width: 1024px) {
+    section:nth-of-type(3) {
+      margin-top: 0 !important;
+    }
+
     .home-hero-layout {
       display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
