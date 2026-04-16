@@ -18,6 +18,30 @@ const {
 } = Astro.props;
 
 const isEnglish = locale === 'en';
+
+const productImages: Record<string, string> = {
+  'bare-fordi': '/images/bare-fordi.jpg',
+  'velkommen-tilbage': '/images/velkommen-tilbage.jpg',
+  'tillykke': '/images/tillykke.jpg',
+  'kaerlighed': '/images/kaerlighed.jpg',
+  'saeson-kompakt': '/images/sasonens-blomster-kompakt.jpg',
+  'saeson-hojluftig': '/images/sasonens-blomster-luftig.jpg',
+};
+
+const getProductImage = (productId: string) => productImages[productId] || null;
+
+const getImageFocus = (productId: string) => {
+  const focusMap: Record<string, string> = {
+    'bare-fordi': 'center 40%',
+    'saeson-kompakt': 'center 30%',
+    'tillykke': 'center 62.5%',
+    'kaerlighed': 'center 40%',
+    'saeson-hojluftig': 'center 80%',
+    'velkommen-tilbage': 'center 70%',
+  };
+  return focusMap[productId] || 'center';
+};
+
 const deliveryTimeOptions = [
   '07:00',
   '07:15',
@@ -137,7 +161,11 @@ const uiText = isEnglish
                   data-price={bouquet.price}
                 >
                   <div class="relative mb-4 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-secondary-100 via-surface-raised to-primary-100">
-                    <span class="text-5xl opacity-30">💐</span>
+                    {getProductImage(bouquet.id) ? (
+                      <img src={getProductImage(bouquet.id)!} alt={bouquet.name} class="absolute inset-0 h-full w-full object-cover" style={`object-position: ${getImageFocus(bouquet.id)}`} />
+                    ) : (
+                      <span class="text-5xl opacity-30">💐</span>
+                    )}
                     <div class="qty-badge absolute right-3 top-3 hidden min-w-[28px] items-center justify-center rounded-full bg-primary-600 px-1.5 text-xs font-bold text-white shadow-ambient">
                       <span class="qty-badge-count">0</span>
                     </div>
