@@ -5,6 +5,7 @@ interface Props {
   cta1?: { label: string; href: string };
   cta2?: { label: string; href: string };
   image?: string;
+  objectPosition?: string;
   overlay?: boolean;
   compact?: boolean;
 }
@@ -15,6 +16,7 @@ const {
   cta1,
   cta2,
   image,
+  objectPosition,
   overlay = true,
   compact = false,
 } = Astro.props;
@@ -54,7 +56,7 @@ const heroText = isEnglish
     >
       {image && (
         <div class="absolute inset-0">
-          <img src={image} alt="" class="h-full w-full object-cover opacity-60 blur-sm" />
+          <img src={image} alt="" class="h-full w-full object-cover opacity-60 blur-sm" style={objectPosition ? `object-position: ${objectPosition}` : ''} />
         </div>
       )}
 
