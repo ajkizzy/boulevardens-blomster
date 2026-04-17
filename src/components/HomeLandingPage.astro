@@ -108,7 +108,7 @@ const contactStripCopy = isEnglish
       href: '/da/kontakt',
     };
 
-const heroSlideImages = [
+const heroSlideImagesRaw = [
   '/images/Kopi_af_IMG_1197.jpg',
   '/images/Kopi_af_IMG_1433.jpg',
   '/images/Kopi_af_IMG_1798.jpg',
@@ -120,6 +120,20 @@ const heroSlideImages = [
   '/images/Kopi_af_IMG_9371.jpg',
   '/images/Kopi_af_IMG_9389.jpg',
 ];
+
+const heroSlideImages = [
+  heroSlideImagesRaw[0],
+  heroSlideImagesRaw[8],
+  heroSlideImagesRaw[9],
+  ...heroSlideImagesRaw.slice(1, 8),
+];
+
+const getHeroImagePosition = (index: number) => {
+  if (index === 0) return 'center 45%';
+  if (index === 1) return 'center 75%';
+  if (index === 5) return 'center 50%';
+  return 'center 60%';
+};
 
 const serviceImages = [
   '/images/forside-service-buketter.jpg',
@@ -207,7 +221,7 @@ const companyOrderCard = {
               src={img}
               alt="Flowers"
               class="hero-slide absolute h-full w-full object-cover transition-opacity duration-1000"
-              style={`opacity: ${index === 0 ? '1' : '0'}; object-position: center 60%;`}
+              style={`opacity: ${index === 0 ? '1' : '0'}; object-position: ${getHeroImagePosition(index)};`}
               data-index={index}
             />
           ))}
@@ -830,6 +844,6 @@ const companyOrderCard = {
       });
       currentIndex = (currentIndex + 1) % slides.length;
       (slides[currentIndex] as HTMLElement).style.opacity = '1';
-    }, 4000);
+    }, 2000);
   }
 </script>
