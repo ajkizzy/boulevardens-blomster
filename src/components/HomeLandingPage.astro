@@ -108,6 +108,19 @@ const contactStripCopy = isEnglish
       href: '/da/kontakt',
     };
 
+const heroSlideImages = [
+  '/images/Kopi_af_IMG_1197.jpg',
+  '/images/Kopi_af_IMG_1433.jpg',
+  '/images/Kopi_af_IMG_1798.jpg',
+  '/images/Kopi_af_IMG_1939.jpg',
+  '/images/Kopi_af_IMG_2204.jpg',
+  '/images/Kopi_af_IMG_2530.jpg',
+  '/images/Kopi_af_IMG_8311.jpg',
+  '/images/Kopi_af_IMG_8869.jpg',
+  '/images/Kopi_af_IMG_9371.jpg',
+  '/images/Kopi_af_IMG_9389.jpg',
+];
+
 const serviceImages = [
   '/images/forside-service-buketter.jpg',
   '/images/forside-s-bryllupper.jpg',
@@ -188,8 +201,16 @@ const companyOrderCard = {
       </div>
 
       <div class="home-hero-frame">
-        <div class="home-hero-scene">
-          <img src="/images/forside-hero.jpg" alt="Modern flowers" class="h-full w-full object-cover" />
+        <div class="home-hero-scene" id="hero-slideshow">
+          {heroSlideImages.map((img, index) => (
+            <img
+              src={img}
+              alt="Flowers"
+              class="hero-slide absolute h-full w-full object-cover transition-opacity duration-1000"
+              style={`opacity: ${index === 0 ? '1' : '0'}`}
+              data-index={index}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -795,3 +816,20 @@ const companyOrderCard = {
     }
   }
 </style>
+
+<script>
+  const slideshow = document.getElementById('hero-slideshow');
+  const slides = slideshow?.querySelectorAll('.hero-slide');
+
+  if (slides && slides.length > 1) {
+    let currentIndex = 0;
+
+    setInterval(() => {
+      slides.forEach((slide) => {
+        (slide as HTMLElement).style.opacity = '0';
+      });
+      currentIndex = (currentIndex + 1) % slides.length;
+      (slides[currentIndex] as HTMLElement).style.opacity = '1';
+    }, 4000);
+  }
+</script>
