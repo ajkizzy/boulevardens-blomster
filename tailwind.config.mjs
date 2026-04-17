@@ -52,7 +52,7 @@ export default {
       fontFamily: {
         heading: ['"Noto Serif"', 'Georgia', 'serif'],
         body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-        display: ['"Grand Hotel"', 'cursive'],
+        display: ['"Allura"', 'cursive'],
       },
       boxShadow: {
         ambient: '0 12px 40px rgba(26, 28, 25, 0.06)',
