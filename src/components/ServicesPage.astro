@@ -257,12 +257,8 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
           <div class="mt-8 grid gap-4 sm:grid-cols-2 max-w-md gift-grid-mobile">
             <ShowcasePlaceholder title={text.giftSplit[0]} tone="rose" size="wide" image="/images/soede-sager.jpg" backgroundPosition="center 70%" zoom={1.45} titleSize="text-base" align="center" />
             <ShowcasePlaceholder title={text.giftSplit[1]} tone="amber" size="wide" align="center" image="/images/gavekurve2.png" backgroundPosition="center 70%" titleSize="text-base" />
-            <div class="lg:hidden">
-              <ShowcasePlaceholder title={locale === 'en' ? 'Cosmetics' : 'Kosmetik'} tone="stone" size="wide" align="center" image="/images/forside-s-gavekurve.jpg" backgroundPosition="center 70%" titleSize="text-base" />
-            </div>
-            <div class="lg:hidden">
-              <ShowcasePlaceholder title="Romantik" tone="rose" size="wide" align="center" image="/images/romantik.png" backgroundPosition="center" titleSize="text-base" />
-            </div>
+            <ShowcasePlaceholder title={locale === 'en' ? 'Cosmetics' : 'Kosmetik'} tone="stone" size="wide" align="center" image="/images/forside-s-gavekurve.jpg" backgroundPosition="center 70%" titleSize="text-base" />
+            <ShowcasePlaceholder title="Romantik" tone="rose" size="wide" align="center" image="/images/romantik.png" backgroundPosition="center" titleSize="text-base" />
           </div>
         </div>
       </section>
@@ -309,12 +305,8 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
 
   @media (min-width: 1024px) {
     .gift-grid-mobile {
-      max-width: 16rem;
+      max-width: 35rem;
       grid-template-columns: repeat(2, 1fr);
-    }
-
-    .gift-grid-mobile .lg\:hidden {
-      display: none !important;
     }
 
     .gift-grid-mobile > div:first-child {
