@@ -312,6 +312,14 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
       max-width: 16rem;
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .gift-grid-mobile .lg\:hidden {
+      display: none !important;
+    }
+
+    .gift-grid-mobile > div:first-child {
+      transform: translateY(-0.5rem);
+    }
   }
 
   .scrollbar-hide {
