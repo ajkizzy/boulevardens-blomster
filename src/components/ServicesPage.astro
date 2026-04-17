@@ -254,7 +254,7 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
           <p class="mt-8 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-primary-600 sm:hidden">
             {locale === 'en' ? 'Put together with care' : 'Sammensat med omtanke'}
           </p>
-          <div class="mt-8 grid gap-4 sm:grid-cols-2 max-w-md gift-grid-mobile">
+          <div class="mt-8 grid gap-4 sm:grid-cols-2 max-w-md gift-grid-mobile lg:grid-cols-4 lg:max-w-none">
             <ShowcasePlaceholder title={text.giftSplit[0]} tone="rose" size="wide" image="/images/soede-sager.jpg" backgroundPosition="center 70%" zoom={1.45} titleSize="text-base" align="center" />
             <ShowcasePlaceholder title={text.giftSplit[1]} tone="amber" size="wide" align="center" image="/images/gavekurve2.png" backgroundPosition="center 70%" titleSize="text-base" />
             <ShowcasePlaceholder title={locale === 'en' ? 'Cosmetics' : 'Kosmetik'} tone="stone" size="wide" align="center" image="/images/forside-s-gavekurve.jpg" backgroundPosition="center 70%" titleSize="text-base" />
@@ -305,8 +305,13 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
 
   @media (min-width: 1024px) {
     .gift-grid-mobile {
-      max-width: 35rem;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .gift-grid-mobile > div:nth-child(3),
+    .gift-grid-mobile > div:nth-child(4) {
+      grid-column: span 2;
     }
 
     .gift-grid-mobile > div:first-child {
