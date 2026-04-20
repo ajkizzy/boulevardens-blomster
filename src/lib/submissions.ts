@@ -312,23 +312,34 @@ function renderOrderSummaryHtml(order: OrderRecord): string {
   const text = orderLocaleText(order.locale);
 
   return `
-    <table style="width:100%; border-collapse:collapse; margin-top:16px;">
-      <thead>
-        <tr>
-          <th style="text-align:left; padding:8px 0; border-bottom:2px solid #d1d5db;">${text.productLabel}</th>
-          <th style="text-align:center; padding:8px 0; border-bottom:2px solid #d1d5db;">${text.quantityLabel}</th>
-          <th style="text-align:right; padding:8px 0; border-bottom:2px solid #d1d5db;">${text.unitPriceLabel}</th>
-          <th style="text-align:right; padding:8px 0; border-bottom:2px solid #d1d5db;">${text.lineTotalLabel}</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${renderOrderItemsHtml(order.items, order.locale)}
-      </tbody>
-    </table>
-    <div style="margin-top:16px; font-size:14px;">
-      <p style="margin:4px 0;"><strong>${text.subtotalLabel}:</strong> ${formatDkkFromOre(order.totals.subtotalExVatOre, text.localeTag)}</p>
-      <p style="margin:4px 0;"><strong>${text.vatLabel}:</strong> ${formatDkkFromOre(order.totals.vatOre, text.localeTag)}</p>
-      <p style="margin:4px 0;"><strong>${text.totalLabel}:</strong> ${formatDkkFromOre(order.totals.totalIncVatOre, text.localeTag)}</p>
+    <div style="margin:20px 0 0 0;">
+      <table style="width:100%; border-collapse:collapse;">
+        <thead>
+          <tr style="background-color:#526349;">
+            <th style="text-align:left; padding:10px 12px; color:#ffffff; font-weight:600; font-size:13px;">${text.productLabel}</th>
+            <th style="text-align:center; padding:10px 12px; color:#ffffff; font-weight:600; font-size:13px;">${text.quantityLabel}</th>
+            <th style="text-align:right; padding:10px 12px; color:#ffffff; font-weight:600; font-size:13px;">${text.unitPriceLabel}</th>
+            <th style="text-align:right; padding:10px 12px; color:#ffffff; font-weight:600; font-size:13px;">${text.lineTotalLabel}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${renderOrderItemsHtml(order.items, order.locale)}
+        </tbody>
+      </table>
+      <div style="margin-top:16px; padding:12px; background-color:#f9fafb; border-radius:6px;">
+        <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #e5e7eb;">
+          <span style="color:#6b7280;">${text.subtotalLabel}:</span>
+          <strong style="color:#1f2937;">${formatDkkFromOre(order.totals.subtotalExVatOre, text.localeTag)}</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #e5e7eb;">
+          <span style="color:#6b7280;">${text.vatLabel} (25%):</span>
+          <strong style="color:#1f2937;">${formatDkkFromOre(order.totals.vatOre, text.localeTag)}</strong>
+        </div>
+        <div style="display:flex; justify-content:space-between; padding:6px 0; margin-top:4px; border-top:2px solid #526349;">
+          <span style="color:#1f2937; font-weight:600; font-size:15px;">${text.totalLabel}:</span>
+          <strong style="color:#526349; font-size:15px;">${formatDkkFromOre(order.totals.totalIncVatOre, text.localeTag)}</strong>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -338,31 +349,80 @@ function renderOrderDetailsHtml(order: OrderRecord): string {
   const invoiceEmail = order.customer.invoiceEmail || order.customer.email;
 
   return `
-    <div style="margin-top:16px; font-size:14px; line-height:1.6;">
-      <p><strong>${text.customerOrderLabel}:</strong> ${escapeHtml(order.id)}</p>
-      <p><strong>${text.paymentLabel}:</strong> ${escapeHtml(order.paymentMethod)}</p>
-      <p><strong>${text.addressLabel}:</strong> ${escapeHtml(order.customer.address)}</p>
-      <p><strong>${text.deliveryLabel}:</strong> ${escapeHtml(order.customer.deliveryTime)}</p>
-      <p><strong>${text.contactNameLabel}:</strong> ${escapeHtml(order.customer.contactName)}</p>
-      <p><strong>${text.companyNameLabel}:</strong> ${escapeHtml(order.customer.companyName)}</p>
-      <p><strong>${text.phoneLabel}:</strong> ${escapeHtml(order.customer.phone)}</p>
-      <p><strong>${text.emailLabel}:</strong> ${escapeHtml(order.customer.email)}</p>
-      <p><strong>${text.invoiceEmailLabel}:</strong> ${escapeHtml(invoiceEmail)}</p>
+    <div style="margin:16px 0; background-color:#f9fafb; border-radius:8px; padding:16px; font-size:13px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div>
+          <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.customerOrderLabel}:</strong></p>
+          <p style="margin:0 0 12px 0; color:#1f2937;">${escapeHtml(order.id)}</p>
+
+          <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.paymentLabel}:</strong></p>
+          <p style="margin:0 0 12px 0; color:#1f2937;">${escapeHtml(order.paymentMethod)}</p>
+
+          <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.contactNameLabel}:</strong></p>
+          <p style="margin:0 0 12px 0; color:#1f2937;">${escapeHtml(order.customer.contactName)}</p>
+
+          <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.companyNameLabel}:</strong></p>
+          <p style="margin:0; color:#1f2937;">${escapeHtml(order.customer.companyName)}</p>
+        </div>
+        <div>
+          <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.addressLabel}:</strong></p>
+          <p style="margin:0 0 12px 0; color:#1f2937;">${escapeHtml(order.customer.address)}</p>
+
+          <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.deliveryLabel}:</strong></p>
+          <p style="margin:0 0 12px 0; color:#1f2937;">${escapeHtml(order.customer.deliveryTime)}</p>
+
+          <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.phoneLabel}:</strong></p>
+          <p style="margin:0 0 12px 0; color:#1f2937;">${escapeHtml(order.customer.phone)}</p>
+
+          <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.emailLabel}:</strong></p>
+          <p style="margin:0; color:#1f2937;">${escapeHtml(order.customer.email)}</p>
+        </div>
+      </div>
+      ${
+        invoiceEmail !== order.customer.email
+          ? `<div style="margin-top:12px; padding-top:12px; border-top:1px solid #e5e7eb;">
+               <p style="margin:0 0 4px 0; color:#6b7280;"><strong>${text.invoiceEmailLabel}:</strong></p>
+               <p style="margin:0; color:#1f2937;">${escapeHtml(invoiceEmail)}</p>
+             </div>`
+          : ''
+      }
       ${
         order.customer.companyCode
-          ? `<p><strong>${text.companyCodeLabel}:</strong> ${escapeHtml(order.customer.companyCode)}</p>`
+          ? `<div style="margin-top:8px;"><p style="margin:0 0 4px 0; color:#6b7280;"><strong>${text.companyCodeLabel}:</strong></p><p style="margin:0; color:#1f2937;">${escapeHtml(order.customer.companyCode)}</p></div>`
           : ''
       }
       ${
         order.customer.cardText
-          ? `<p><strong>${text.cardTextLabel}:</strong> ${escapeHtml(order.customer.cardText)}</p>`
+          ? `<div style="margin-top:8px; padding:8px; background-color:#ffffff; border-left:3px solid #526349; border-radius:4px;"><p style="margin:0 0 4px 0; color:#6b7280;"><strong>${text.cardTextLabel}:</strong></p><p style="margin:0; color:#1f2937; font-style:italic;">"${escapeHtml(order.customer.cardText)}"</p></div>`
           : ''
       }
       ${
         order.customer.comment
-          ? `<p><strong>${text.commentLabel}:</strong> ${escapeHtml(order.customer.comment)}</p>`
+          ? `<div style="margin-top:8px;"><p style="margin:0 0 4px 0; color:#6b7280;"><strong>${text.commentLabel}:</strong></p><p style="margin:0; color:#1f2937;">${escapeHtml(order.customer.comment)}</p></div>`
           : ''
       }
+    </div>
+  `;
+}
+
+function wrapEmailHtml(content: string, title: string): string {
+  return `
+    <div style="font-family:'Noto Serif', Georgia, serif; background-color:#f9fafb; padding:20px;">
+      <div style="max-width:680px; margin:0 auto; background-color:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 4px 6px rgba(0,0,0,0.07);">
+        <!-- Green header -->
+        <div style="background-color:#526349; padding:24px; text-align:center; border-bottom:2px solid #46553f;">
+          <h1 style="margin:0; font-size:28px; color:#ffffff; font-family:'Noto Serif', Georgia, serif; font-weight:600;">Boulevardens Blomster</h1>
+        </div>
+        <!-- Content -->
+        <div style="padding:24px; color:#1f2937; font-family:Arial,sans-serif; font-size:14px; line-height:1.6;">
+          ${content}
+        </div>
+        <!-- Footer -->
+        <div style="background-color:#f4f4ef; padding:16px 24px; border-top:1px solid #e5e7eb; font-size:12px; color:#6b7280; text-align:center;">
+          <p style="margin:0; padding:0;">Høje Taastrup Boulevard 55, 2630 Høje Taastrup | +45 40 20 30 40</p>
+          <p style="margin:4px 0 0 0; padding:0;">boulevardensblomster.dk</p>
+        </div>
+      </div>
     </div>
   `;
 }
@@ -475,19 +535,24 @@ export async function sendOwnerOrderNotification(
       ? text.ownerIntroInvoice
       : text.ownerIntroPaid;
 
+  const statusBadge = order.status === 'manual_invoice'
+    ? '<span style="display:inline-block; background-color:#fbbf24; color:#78350f; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:600; margin-bottom:12px;">FAKTURA</span>'
+    : '<span style="display:inline-block; background-color:#10b981; color:#ffffff; padding:4px 8px; border-radius:4px; font-size:11px; font-weight:600; margin-bottom:12px;">PAID</span>';
+
+  const emailContent = `
+    <h2 style="margin:0 0 12px 0; font-size:20px; color:#1f2937;">${escapeHtml(subjectBase)}</h2>
+    ${statusBadge}
+    <p style="margin:0 0 16px 0; color:#6b7280;">${escapeHtml(intro)}</p>
+    ${renderOrderDetailsHtml(order)}
+    ${renderOrderSummaryHtml(order)}
+  `;
+
   const sent = await sendMail({
     to: SHOP_NOTIFICATION_EMAIL,
     subject,
     replyTo: order.customer.email,
     text: `${intro}\n\n${renderOrderDetailsText(order)}`,
-    html: `
-      <div style="font-family:Arial,sans-serif; max-width:680px; margin:0 auto; color:#1f2937;">
-        <h1 style="font-size:24px; margin-bottom:8px;">${escapeHtml(subjectBase)}</h1>
-        <p style="margin:0 0 16px 0;">${escapeHtml(intro)}</p>
-        ${renderOrderDetailsHtml(order)}
-        ${renderOrderSummaryHtml(order)}
-      </div>
-    `,
+    html: wrapEmailHtml(emailContent, subjectBase),
   });
 
   if (sent) {
@@ -512,6 +577,23 @@ export async function sendCustomerOrderAcknowledgement(
     order.locale,
   )}`;
 
+  const emailContent = `
+    <h2 style="margin:0 0 12px 0; font-size:20px; color:#1f2937;">${escapeHtml(
+      isManualInvoice
+        ? text.customerInvoiceHeading
+        : text.customerPaidHeading,
+    )}</h2>
+    <p style="margin:0 0 16px 0; color:#6b7280; line-height:1.6;">${escapeHtml(body)}</p>
+    ${renderOrderDetailsHtml(order)}
+    ${renderOrderSummaryHtml(order)}
+    <div style="margin-top:20px; padding:12px; background-color:#f9fafb; border-radius:6px; text-align:center;">
+      <p style="margin:0 0 8px 0; color:#6b7280; font-size:12px;">View your order details:</p>
+      <a href="${orderPageUrl}" style="display:inline-block; background-color:#526349; color:#ffffff; padding:10px 20px; border-radius:6px; text-decoration:none; font-weight:600; font-size:13px;">${escapeHtml(
+        text.orderPageLabel,
+      )}</a>
+    </div>
+  `;
+
   const sent = await sendMail({
     to: order.customer.email,
     subject,
@@ -523,23 +605,7 @@ export async function sendCustomerOrderAcknowledgement(
       '',
       `${text.orderPageLabel}: ${orderPageUrl}`,
     ].join('\n'),
-    html: `
-      <div style="font-family:Arial,sans-serif; max-width:680px; margin:0 auto; color:#1f2937;">
-        <h1 style="font-size:24px; margin-bottom:8px;">${escapeHtml(
-          isManualInvoice
-            ? text.customerInvoiceHeading
-            : text.customerPaidHeading,
-        )}</h1>
-        <p style="margin:0 0 16px 0;">${escapeHtml(body)}</p>
-        ${renderOrderDetailsHtml(order)}
-        ${renderOrderSummaryHtml(order)}
-        <p style="margin-top:20px;">
-          <a href="${orderPageUrl}" style="color:#7c2d12;">${escapeHtml(
-            text.orderPageLabel,
-          )}</a>
-        </p>
-      </div>
-    `,
+    html: wrapEmailHtml(emailContent, isManualInvoice ? text.customerInvoiceHeading : text.customerPaidHeading),
   });
 
   if (sent) {

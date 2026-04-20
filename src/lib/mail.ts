@@ -59,14 +59,18 @@ export async function sendMail(message: MailMessage): Promise<boolean> {
     return false;
   }
 
-  await transporter.sendMail({
-    from: getFromAddress(),
-    to: message.to,
-    subject: message.subject,
-    text: message.text,
-    html: message.html,
-    replyTo: message.replyTo,
-  });
-
-  return true;
+  try {
+    await transporter.sendMail({
+      from: getFromAddress(),
+      to: message.to,
+      subject: message.subject,
+      text: message.text,
+      html: message.html,
+      replyTo: message.replyTo,
+    });
+    return true;
+  } catch (error) {
+    console.error(`Failed to send email "${message.subject}":`, error);
+    return false;
+  }
 }
