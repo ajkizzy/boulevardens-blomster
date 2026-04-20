@@ -5,6 +5,7 @@ import {
   DEFAULT_SITE_URL,
   SHOP_NOTIFICATION_EMAIL,
   SHOP_NAME,
+  SHOP_PHONE,
   formatDkkFromOre,
   getOrderPagePath,
 } from '@/lib/config';
@@ -419,7 +420,7 @@ function wrapEmailHtml(content: string, title: string): string {
         </div>
         <!-- Footer -->
         <div style="background-color:#f4f4ef; padding:16px 24px; border-top:1px solid #e5e7eb; font-size:12px; color:#6b7280; text-align:center;">
-          <p style="margin:0; padding:0;">Høje Taastrup Boulevard 55, 2630 Høje Taastrup | +45 40 20 30 40</p>
+          <p style="margin:0; padding:0;">Høje Taastrup Boulevard 55, 2630 Høje Taastrup | ${SHOP_PHONE}</p>
           <p style="margin:4px 0 0 0; padding:0;">boulevardensblomster.dk</p>
         </div>
       </div>

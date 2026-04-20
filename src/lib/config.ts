@@ -1,6 +1,7 @@
 import type { Locale } from '@/lib/i18n';
 
 export const SHOP_NAME = 'Boulevardens Blomster';
+export const SHOP_PHONE = '+45 61 51 74 00';
 export const SHOP_NOTIFICATION_EMAIL =
   import.meta.env.SHOP_NOTIFICATION_EMAIL ||
   'online-shop@boulevardensblomster.dk';
