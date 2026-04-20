@@ -72,7 +72,7 @@
     "paymentOptions": [
       { "id": "mobilepay", "label": "MobilePay" },
       { "id": "kort", "label": "Kortbetaling (Visa / Mastercard)" },
-      { "id": "faktura", "label": "Faktura (sendes på firma mail)" }
+      { "id": "faktura", "label": "Faktura/E-Faktura (eftersendes på mail)" }
     ],
     "invoiceEmailLabel": "Hvis Faktura er valgt, indsæt venligst firmaets email.",
     "submit": "Send bestilling",
