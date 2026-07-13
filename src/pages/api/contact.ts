@@ -1,10 +1,12 @@
 import type { APIRoute } from 'astro';
 import type { Locale } from '@/lib/i18n';
 import {
+  sendBrandedCustomerContactAcknowledgement,
+  sendBrandedOwnerContactNotification,
+} from '@/lib/contact-emails';
+import {
   createContactRecord,
   saveContactRecord,
-  sendCustomerContactAcknowledgement,
-  sendOwnerContactNotification,
 } from '@/lib/submissions';
 
 export const prerender = false;
@@ -62,8 +64,8 @@ export const POST: APIRoute = async ({ request }) => {
     await saveContactRecord(record);
 
     await Promise.allSettled([
-      sendOwnerContactNotification(record),
-      sendCustomerContactAcknowledgement(record),
+      sendBrandedOwnerContactNotification(record),
+      sendBrandedCustomerContactAcknowledgement(record),
     ]);
 
     await saveContactRecord(record);
