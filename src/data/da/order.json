@@ -8,14 +8,6 @@
   "contactPhone": "61517400",
   "bouquets": [
     {
-      "id": "betalingstest",
-      "name": "Betalingstest",
-      "description": "Midlertidigt testprodukt til kontrol af live betaling, webhook og ordremails. Fjernes efter testen.",
-      "price": 4,
-      "currency": "DKK",
-      "exVat": true
-    },
-    {
       "id": "bare-fordi",
       "name": "Bare fordi...",
       "description": "Spontan glæde med blomster sendt for at bringe smil og varme til en særlig person.",
