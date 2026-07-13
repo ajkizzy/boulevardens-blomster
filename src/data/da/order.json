@@ -1,7 +1,8 @@
 {
   "heading": "Firma Bestilling",
-  "intro": "Lad dine kollegaer og arbejdspladsen blomstre med blomster til både hverdag og særlige anledninger. Bestil lokalt hos Boulevardens Blomster, og gør det nemt at sende en venlig hilsen.",
-  "deliveryNote": "Gratis levering og blomsterkort med tekst gælder kun virksomheder og deres ansatte i Taastrup Kommune.",
+  "intro": "Glæd dine kollegaer og arbejdspladsen med blomster til både hverdag og særlige anledninger. Bestil lokalt, og gør det nemt at sende en venlig hilsen.",
+  "deliveryNote": "Gratis levering samt kort/kuvert hilsen til firmaer beliggende i Høje-Taastrup.",
+  "deliveryNoteDetails": "Bestil blomster med gratis levering inden for tidsrummet kl. 7.00 - 9.00. Der kan betales med kort, Mobilepay, faktura og E-faktura. OBS: Gælder kun firmaer",
   "deliveryNoteLabel": "OBS:",
   "contactNote": "Ved større bestillinger og andre henvendelser kan du kontakte os på:",
   "contactEmail": "kontakt@boulevardensblomster.dk",
@@ -9,17 +10,17 @@
   "bouquets": [
     {
       "id": "bare-fordi",
-      "name": "Bare fordi...",
-      "description": "Spontan glæde med blomster sendt for at bringe smil og varme til en særlig person.",
-      "price": 199,
+      "name": "Sæsonens blomster - højluftig",
+      "description": "En elegant og luftig buket sammensat af sæsonens smukkeste blomster.",
+      "price": 280,
       "currency": "DKK",
       "exVat": true
     },
     {
       "id": "velkommen-tilbage",
-      "name": "Velkommen tilbage!",
-      "description": "En varm velkomst med blomster for at fejre tilbagekomsten og sprede glæde i fællesskabet.",
-      "price": 299,
+      "name": "Sæsonens blomster - kompakt",
+      "description": "En elegant og kompakt buket sammensat af sæsonens smukkeste blomster.",
+      "price": 280,
       "currency": "DKK",
       "exVat": true
     },
@@ -27,31 +28,31 @@
       "id": "tillykke",
       "name": "Tillykke!",
       "description": "Fejr glade milepæle med en buket, der udtrykker lykke og begejstring.",
-      "price": 249,
+      "price": 280,
       "currency": "DKK",
       "exVat": true
     },
     {
       "id": "kaerlighed",
-      "name": "Kærlighed",
-      "description": "En varm og kærlig buket, der passer, når følelserne skal vises på en enkel og smuk måde.",
-      "price": 299,
+      "name": "Lyserød elegance",
+      "description": "Elegant buket i de flotteste lyserøde toner",
+      "price": 280,
       "currency": "DKK",
       "exVat": true
     },
     {
       "id": "saeson-kompakt",
-      "name": "Sæsonens blomster - kompakt",
-      "description": "Sæsonens farverige blomster samlet i en kompakt buket, der passer til mange anledninger.",
-      "price": 249,
+      "name": "Kærlighed",
+      "description": "En varm og kærlig buket, der passer, når følelserne vises på en enkel og smuk måde",
+      "price": 300,
       "currency": "DKK",
       "exVat": true
     },
     {
       "id": "saeson-hojluftig",
-      "name": "Sæsonens blomster - højluftig",
-      "description": "Sæsonens farverige blomster i en høj og luftig buket, der giver et let og indbydende udtryk.",
-      "price": 249,
+      "name": "Hvid harmoni",
+      "description": "En elegant buket i lyse og hvide nuancer",
+      "price": 280,
       "currency": "DKK",
       "exVat": true
     }
@@ -82,5 +83,5 @@
     "cancelledHeading": "Betalingen blev ikke gennemført",
     "cancelledBody": "Du kan gennemgå bestillingen igen og prøve betalingen på ny."
   },
-  "priceLabel": "kr ekskl. moms"
+  "priceLabel": "kr eks. moms"
 }

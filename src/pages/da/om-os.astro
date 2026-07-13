@@ -26,10 +26,13 @@ const about = loadContent<any>(locale, 'about');
   <section class="section-padding">
     <div class="container-narrow mx-auto">
       <div class="grid gap-8 lg:grid-cols-[0.92fr,1.08fr]">
-        <div class="surface-panel relative min-h-[360px] overflow-hidden p-6 sm:p-8">
-          <div class="relative h-full w-full">
-            <img src="/images/about-om-os.jpg" alt="Håndbundne buketter" class="absolute inset-0 h-full w-full rounded-[1.5rem] object-cover" />
-            <img src="/images/about-om-os-2.jpg" alt="Om os" class="absolute right-0 bottom-0 h-[70%] w-[65%] rounded-[1.5rem] object-cover shadow-lg" style="transform: translateX(8%)" />
+        <div class="surface-panel overflow-hidden p-5 sm:p-6">
+          <div class="about-story-visual">
+            <img src="/images/lidt-om-os.jpg" alt="Boulevardens Blomster" class="h-full w-full object-cover" />
+            <div class="about-story-note">
+              <p class="font-heading text-lg leading-tight text-white">Blomster bærer følelser. Vi hjælper dig med at gøre det personligt.</p>
+              <p class="mt-3 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white/78">Boulevardens Blomster</p>
+            </div>
           </div>
         </div>
 
@@ -63,3 +66,26 @@ const about = loadContent<any>(locale, 'about');
     </div>
   </section>
 </Layout>
+
+<style>
+  .about-story-visual {
+    position: relative;
+    min-height: 360px;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background: linear-gradient(135deg, #8a684d 0%, #6c4f39 100%);
+    box-shadow: 0 20px 50px rgba(26, 28, 25, 0.12);
+  }
+
+  .about-story-note {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    max-width: 14rem;
+    border-radius: 1.2rem;
+    background: rgba(139, 158, 119, 0.92);
+    padding: 1rem 1.1rem;
+    box-shadow: 0 16px 30px rgba(26, 28, 25, 0.16);
+  }
+</style>

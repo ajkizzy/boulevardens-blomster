@@ -16,17 +16,20 @@ const enPath = getPathForLocale(currentPath, locale, 'en');
 
 <header class="sticky top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8 relative">
   <div class="container-narrow mx-auto relative">
-    <img src="/test.png" alt="Decoration" class="absolute left-0 top-[47.5%] -translate-y-1/2 h-20 sm:h-24 w-auto -ml-10 sm:-ml-12 lg:-ml-12 scale-x-[-1]" />
-    <div class="absolute left-0 top-[47.5%] -translate-y-1/2 h-20 sm:h-24 w-auto -ml-10 sm:-ml-12 lg:-ml-12 z-50 rounded-tl-[3rem] overflow-hidden">
-      <img src="/test.png" alt="Decoration Front" class="h-20 sm:h-24 w-auto scale-x-[-1]" style="clip-path: polygon(0 0, 100% 0, 100% 60%, 0 60%)" />
-    </div>
+    <img
+      src="/images/header-red-rose.png"
+      alt=""
+      aria-hidden="true"
+      class="pointer-events-none absolute left-0 top-[49%] z-50 h-20 w-auto -translate-y-1/2 -rotate-[4deg] -ml-4 sm:h-24 sm:-ml-6 lg:-ml-7"
+    />
     <div class="glass-panel rounded-[1.75rem] px-5 py-4 sm:px-6 relative z-40" style="background-color: rgba(250, 250, 245, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px)">
       <div class="flex items-center justify-between gap-4">
-        <a href={nav.home.href} class="group min-w-0">
-          <span class="block text-xl font-display italic font-normal leading-[0.95] text-primary-700 transition-colors group-hover:text-primary-500 sm:flex sm:items-baseline sm:gap-[0.16em] sm:text-[2rem]">
-            <span class="block sm:inline">Boulevardens</span>
-            <span class="block sm:inline">Blomster</span>
-          </span>
+        <a href={nav.home.href} class="group flex min-w-0 items-center" aria-label={`${site.name} front page`}>
+          <img
+            src="/images/logo-jpeg.jpg"
+            alt={site.name}
+            class="h-11 w-auto max-w-[13rem] rounded-[0.35rem] object-contain transition-opacity group-hover:opacity-85 sm:h-14 sm:max-w-[17rem]"
+          />
         </a>
 
         <nav class="hidden items-center gap-7 lg:flex">

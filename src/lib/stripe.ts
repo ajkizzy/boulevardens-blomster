@@ -24,10 +24,10 @@ export function toGrossOre(priceExVatOre: number): number {
 
 // Product price map (prices in DKK ore excl. VAT)
 export const PRODUCTS: Record<string, { name: string; price: number }> = {
-  'bare-fordi': { name: 'Bare fordi...', price: 19900 },
-  'velkommen-tilbage': { name: 'Velkommen tilbage!', price: 29900 },
-  tillykke: { name: 'Tillykke!', price: 24900 },
-  kaerlighed: { name: 'Kaerlighed', price: 29900 },
-  'saeson-kompakt': { name: 'Saesonens blomster - kompakt', price: 24900 },
-  'saeson-hojluftig': { name: 'Saesonens blomster - hojluftig', price: 24900 },
+  'bare-fordi': { name: 'Saesonens blomster - hojluftig', price: 28000 },
+  'velkommen-tilbage': { name: 'Saesonens blomster - kompakt', price: 28000 },
+  tillykke: { name: 'Tillykke!', price: 28000 },
+  kaerlighed: { name: 'Lyserod elegance', price: 28000 },
+  'saeson-kompakt': { name: 'Kaerlighed', price: 30000 },
+  'saeson-hojluftig': { name: 'Hvid harmoni', price: 28000 },
 };

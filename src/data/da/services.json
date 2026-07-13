@@ -11,13 +11,15 @@
     {
       "id": "bryllup",
       "title": "Bryllup",
-      "text": "Et bryllup er en jublende begivenhed, der vil blive husket for evigt.\n\nVi står til rådighed for at gøre denne særlige lejlighed endnu mere mindeværdig med vores udvalg af smukke lykønskningsbuketter og elegante borddekorationer til både receptionen og middagen.\n\nVores langstilkede røde roser er perfekte til at ledsage morgengaven, og ikke mindst vores mest betydningsfulde blomst — brudebuketten. Lad os bidrage til at skabe uforglemmelige øjeblikke på jeres store dag.",
-      "image": "/images/bryllup.jpg"
+      "text": "Et bryllup er en jublende begivenhed, der vil blive husket for evigt.\n\nVi står til rådighed for at gøre denne særlige lejlighed endnu mere mindeværdig med vores udvalg af smukke brudebuketter og bildekorationer. Se flere eksempler på vores Instagram",
+      "image": "/images/bryllup.jpg",
+      "instagramLabel": "Instagram",
+      "instagramUrl": "https://www.instagram.com/boulevardens_blomster/"
     },
     {
       "id": "begravelse",
       "title": "Et Sidste Farvel",
-      "text": "At miste en kær person er altid en udfordrende oplevelse, og selvom blomster ikke kan ændre på sorgen, kan de bidrage til en smuk og respektfuld afsked.\n\nHos Boulevardens Blomster anser vi begravelsesarrangementer med særlig alvor, og vi stræber efter at gå langt for at sikre, at vores bårebuketter, kranse og buketter til gravsteder opfylder de højeste standarder, hvad angår kvalitet, pris og levering. Vi forstår vigtigheden af at skabe et betydningsfuldt og smukt farvel i en svær tid.",
+      "text": "Hos Boulevardens Blomster møder vi blomster til afsked med stor respekt, omsorg og omtanke. Vi forstår, at blomster i disse øjeblikke bærer en særlig betydning – de udtrykker følelser, minder og ord, som kan være svære at sætte ord på.\n\nVi skaber bårebuketter, kranse og personlige blomsterarrangementer med fokus på kvalitet, detaljer og et udtryk, der afspejler mennesket, der mindes. Vores ønske er at hjælpe med at skabe en smuk, værdig og betydningsfuld afsked – et sidste farvel, der kan bringe ro, nærvær og skønhed i en svær tid.",
       "image": "/images/begravelse.jpg"
     },
     {

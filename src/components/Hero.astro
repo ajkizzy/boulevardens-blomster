@@ -8,6 +8,9 @@ interface Props {
   objectPosition?: string;
   overlay?: boolean;
   compact?: boolean;
+  panelTitle?: string;
+  panelBody?: string;
+  panelNote?: string | null;
 }
 
 const {
@@ -19,6 +22,9 @@ const {
   objectPosition,
   overlay = true,
   compact = false,
+  panelTitle,
+  panelBody,
+  panelNote,
 } = Astro.props;
 const isEnglish = Astro.url.pathname.startsWith('/en');
 const heroText = isEnglish
@@ -38,6 +44,10 @@ const heroText = isEnglish
         'Bestil blomster til kolleger, kunder og hverdagens små og store øjeblikke uden bøvl.',
       panelNote: 'Lokal levering i Taastrup og hjælp til større firmabestillinger.',
     };
+const resolvedPanelTitle = panelTitle ?? heroText.panelTitle;
+const resolvedPanelBody = panelBody ?? heroText.panelBody;
+const resolvedPanelNote =
+  panelNote === null ? null : (panelNote ?? heroText.panelNote);
 ---
 
 <section
@@ -114,10 +124,12 @@ const heroText = isEnglish
               {heroText.panelLabel}
             </p>
             <p class:list={['mt-3 font-heading leading-tight text-surface-ink', compact ? 'text-[1.9rem]' : 'text-2xl']}>
-              {heroText.panelTitle}
+              {resolvedPanelTitle}
             </p>
-            <p class:list={['mt-3 leading-relaxed text-surface-ink/68', compact ? 'text-[0.95rem]' : 'text-sm']}>{heroText.panelBody}</p>
-            <p class="mt-4 text-xs font-semibold text-surface-ink/56">{heroText.panelNote}</p>
+            <p class:list={['mt-3 leading-relaxed text-surface-ink/68', compact ? 'text-[0.95rem]' : 'text-sm']}>{resolvedPanelBody}</p>
+            {resolvedPanelNote && (
+              <p class="mt-4 text-xs font-semibold text-surface-ink/56">{resolvedPanelNote}</p>
+            )}
           </div>
         </div>
       </div>

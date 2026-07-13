@@ -18,14 +18,15 @@ const {
 } = Astro.props;
 
 const isEnglish = locale === 'en';
+const contactHref = isEnglish ? '/en/contact' : '/da/kontakt';
 
 const productImages: Record<string, string> = {
-  'bare-fordi': '/images/bare-fordi.jpg',
-  'velkommen-tilbage': '/images/velkommen-tilbage.jpg',
-  'tillykke': '/images/tillykke.jpg',
+  'bare-fordi': '/images/firma.jpg',
+  'velkommen-tilbage': '',
+  'tillykke': '/images/Kopi_af_IMG_1798.jpg',
   'kaerlighed': '/images/kaerlighed.jpg',
-  'saeson-kompakt': '/images/sasonens-blomster-kompakt.jpg',
-  'saeson-hojluftig': '/images/sasonens-blomster-luftig.jpg',
+  'saeson-kompakt': '',
+  'saeson-hojluftig': '/images/bare-fordi.jpg',
 };
 
 const getProductImage = (productId: string) => productImages[productId] || null;
@@ -36,8 +37,8 @@ const getImageFocus = (productId: string) => {
     'saeson-kompakt': 'center 30%',
     'tillykke': 'center 62.5%',
     'kaerlighed': 'center 40%',
-    'saeson-hojluftig': 'center 80%',
-    'velkommen-tilbage': 'center 70%',
+    'saeson-hojluftig': 'center 45%',
+    'velkommen-tilbage': 'center 55%',
   };
   return focusMap[productId] || 'center';
 };
@@ -115,7 +116,16 @@ const uiText = isEnglish
 ---
 
 <Layout title={order.heading} locale={locale}>
-  <Hero heading={order.heading} subheading={order.intro} image="/images/firmabanner2.png" objectPosition="center 70%" compact />
+  <Hero
+    heading={order.heading}
+    subheading={order.intro}
+    image="/images/firmabanner2.png"
+    objectPosition="center 70%"
+    compact
+    panelTitle={order.deliveryNote}
+    panelBody={order.deliveryNoteDetails}
+    panelNote={null}
+  />
 
   {(paymentSuccess || paymentCancelled) && (
     <div class="px-4 sm:px-6 lg:px-8">
@@ -142,8 +152,8 @@ const uiText = isEnglish
   <section class="section-padding pt-4">
     <div class="container-narrow mx-auto px-4 sm:px-6 lg:px-8">
       <div id="order-flow" class="grid min-w-0 gap-8 lg:grid-cols-[1.18fr,0.82fr] lg:items-start">
-        <div class="min-w-0 space-y-6">
-          <section class="surface-panel px-6 py-6 sm:px-8 sm:py-8">
+        <div class="order-left-column min-w-0 space-y-6">
+          <section class="order-products-panel surface-panel px-6 py-6 sm:px-8 sm:py-8">
             <div class="step-head">
               <span class="step-number">1</span>
               <div>
@@ -164,7 +174,9 @@ const uiText = isEnglish
                     {getProductImage(bouquet.id) ? (
                       <img src={getProductImage(bouquet.id)!} alt={bouquet.name} class="absolute inset-0 h-full w-full object-cover" style={`object-position: ${getImageFocus(bouquet.id)}`} />
                     ) : (
-                      <span class="text-5xl opacity-30">💐</span>
+                      <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-surface-mid via-surface-raised to-primary-100 px-6 text-center">
+                        <span class="font-heading text-2xl leading-tight text-surface-ink/58">Billede kommer snart</span>
+                      </div>
                     )}
                     <div class="qty-badge absolute right-3 top-3 hidden min-w-[28px] items-center justify-center rounded-full bg-primary-600 px-1.5 text-xs font-bold text-white shadow-ambient">
                       <span class="qty-badge-count">0</span>
@@ -200,7 +212,7 @@ const uiText = isEnglish
             </div>
           </section>
 
-          <form id="order-form" class="space-y-6">
+          <form id="order-form" class="order-form-panel hidden space-y-6">
             <section class="surface-panel px-6 py-6 sm:px-8 sm:py-8">
               <div class="step-head">
                 <span class="step-number">2</span>
@@ -289,11 +301,21 @@ const uiText = isEnglish
                 </div>
               </div>
             </section>
+
+            <div class="surface-panel px-6 py-6 sm:px-8">
+              <button type="submit" form="order-form" id="checkout-btn" class="btn-primary w-full !py-3.5 !text-sm flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                {uiText.submitLabel}
+              </button>
+              <p class="mt-3 text-center text-xs text-surface-ink/42">{order.form.confirmationNote}</p>
+            </div>
           </form>
         </div>
 
-        <aside class="min-w-0 space-y-4 lg:sticky lg:top-24">
-          <div id="cart-panel" class="surface-panel overflow-hidden px-6 py-6">
+        <aside class="order-sidebar min-w-0 space-y-4 lg:sticky lg:top-24">
+          <div id="cart-panel" class="order-cart-panel surface-panel overflow-hidden px-6 py-6">
             <div>
               <h3 class="font-heading text-3xl text-surface-ink">{uiText.cartHeading}</h3>
               <span id="cart-item-count" class="mt-2 block text-sm text-surface-ink/54">0 {uiText.cartItemPlural}</span>
@@ -320,19 +342,12 @@ const uiText = isEnglish
                 </div>
               </div>
 
-              <button type="submit" form="order-form" id="checkout-btn" class="btn-primary mt-5 w-full !py-3.5 !text-sm flex items-center justify-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                {uiText.submitLabel}
-              </button>
-              <p class="mt-3 text-center text-xs text-surface-ink/42">{order.form.confirmationNote}</p>
             </div>
           </div>
 
-          <div class="surface-panel p-5 text-sm text-surface-ink/72">
+          <div class="order-help-panel surface-panel p-5 text-sm text-surface-ink/72">
             <p class="mb-1 font-medium text-primary-600">{uiText.largeOrdersHeading}</p>
-            <p>{order.contactNote} <a href={`mailto:${order.contactEmail}`} class="break-all underline hover:no-underline sm:break-words [overflow-wrap:anywhere]">{order.contactEmail}</a> {isEnglish ? 'or' : 'eller'} <a href={`tel:${order.contactPhone}`} class="underline hover:no-underline">{order.contactPhone}</a></p>
+            <p>{order.contactNote} <a href={contactHref} class="underline hover:no-underline">{isEnglish ? 'Contact' : 'Kontakt'}</a> {isEnglish ? 'or' : 'eller'} <a href={`tel:${order.contactPhone}`} class="underline hover:no-underline">{order.contactPhone}</a></p>
           </div>
         </aside>
       </div>
@@ -357,6 +372,59 @@ const uiText = isEnglish
     background: #ffffff;
     border-radius: 1.5rem;
     box-shadow: 0 12px 40px rgba(26, 28, 25, 0.06);
+  }
+
+  .order-left-column {
+    display: contents;
+  }
+
+  .order-products-panel {
+    order: 1;
+  }
+
+  .order-sidebar {
+    display: contents;
+  }
+
+  .order-cart-panel {
+    order: 2;
+  }
+
+  .order-form-panel {
+    order: 3;
+  }
+
+  .order-help-panel {
+    order: 4;
+  }
+
+  @media (min-width: 1024px) {
+    .order-products-panel {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+    }
+
+    .order-cart-panel {
+      grid-column: 2;
+      grid-row: 1;
+      position: sticky;
+      top: 6rem;
+      z-index: 10;
+    }
+
+    .order-form-panel {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .order-help-panel {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    #order-flow.has-order-items .order-help-panel {
+      grid-row: 3;
+    }
   }
 
   .step-head {
@@ -506,6 +574,8 @@ const uiText = isEnglish
     document.getElementById('cart-empty')?.classList.toggle('hidden', hasItems);
     document.getElementById('cart-items')?.classList.toggle('hidden', !hasItems);
     document.getElementById('mobile-cart-bar')?.classList.toggle('hidden', !hasItems);
+    document.getElementById('order-form')?.classList.toggle('hidden', !hasItems);
+    document.getElementById('order-flow')?.classList.toggle('has-order-items', hasItems);
 
     const countLabel = `${totalQty} ${totalQty === 1 ? uiText.cartItemSingular : uiText.cartItemPlural}`;
     const itemCount = document.getElementById('cart-item-count');
