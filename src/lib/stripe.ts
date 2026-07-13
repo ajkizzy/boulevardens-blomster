@@ -30,5 +30,4 @@ export const PRODUCTS: Record<string, { name: string; price: number }> = {
   kaerlighed: { name: 'Kaerlighed', price: 29900 },
   'saeson-kompakt': { name: 'Saesonens blomster - kompakt', price: 24900 },
   'saeson-hojluftig': { name: 'Saesonens blomster - hojluftig', price: 24900 },
-  'betalingstest': { name: 'Betalingstest', price: 400 },
 };
