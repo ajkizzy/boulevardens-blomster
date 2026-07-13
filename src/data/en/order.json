@@ -8,6 +8,14 @@
   "contactPhone": "61517400",
   "bouquets": [
     {
+      "id": "betalingstest",
+      "name": "Payment test",
+      "description": "Temporary test product for verifying live payment, webhook delivery and order emails. It will be removed after testing.",
+      "price": 4,
+      "currency": "DKK",
+      "exVat": true
+    },
+    {
       "id": "bare-fordi",
       "name": "Just Because...",
       "description": "A spontaneous bouquet sent simply to bring a smile and some warmth to someone special.",
