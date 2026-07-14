@@ -116,3 +116,35 @@
     background: linear-gradient(90deg, rgba(82, 99, 73, 0.6), rgba(82, 99, 73, 0));
   }
 }
+
+/* Keep the mobile flower slideshow crisp while guaranteeing readable dark hero text. */
+@media (max-width: 639px) {
+  .home-hero-layout::after {
+    background: transparent !important;
+  }
+
+  .home-hero-copy {
+    background: transparent !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+
+  .home-hero-scene {
+    background: transparent !important;
+  }
+
+  .home-hero-scene::before {
+    background: linear-gradient(
+      90deg,
+      rgba(250, 250, 245, 0.96) 0%,
+      rgba(250, 250, 245, 0.88) 34%,
+      rgba(250, 250, 245, 0.48) 62%,
+      rgba(250, 250, 245, 0.08) 100%
+    ) !important;
+  }
+
+  .hero-slide {
+    filter: none !important;
+  }
+}
