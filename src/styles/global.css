@@ -147,4 +147,8 @@
   .hero-slide {
     filter: none !important;
   }
+
+  section:nth-of-type(1) .home-hero-copy p {
+    color: #526349 !important;
+  }
 }
