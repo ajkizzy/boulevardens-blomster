@@ -48,6 +48,23 @@ const alignClasses = {
   'bottom-right': 'items-end justify-end',
   center: 'items-center justify-center',
 };
+
+const titlesWithoutCaption = new Set([
+  'Mors Dag',
+  'Mother’s Day',
+  "Mother's Day",
+  'Valentine',
+  'Jul',
+  'Christmas',
+  'Påske',
+  'Easter',
+  'Søde sager',
+  'Sweet treats',
+  'Luksus varer',
+  'Gift baskets',
+]);
+
+const showCaption = !titlesWithoutCaption.has(title);
 ---
 
 <div class:list={[
@@ -77,33 +94,35 @@ const alignClasses = {
     </div>
   )}
 
-  <div class:list={['relative flex h-full p-6 sm:p-8', alignClasses[align]]}>
-    <div class:list={[
-      'max-w-[14rem] rounded-[1.35rem] px-4 shadow-[0_16px_40px_rgba(26,28,25,0.14)] backdrop-blur',
-      image ? 'bg-black/25 py-1' : 'bg-surface-raised/88 py-3'
-    ]}>
-      {eyebrow && (
-        <p class:list={[
-          'text-[0.68rem] font-semibold uppercase tracking-[0.2em]',
-          image ? 'text-white mb-0' : 'text-primary-600 mb-0'
-        ]}>
-          {eyebrow}
-        </p>
-      )}
-      <p class:list={[
-        `font-heading ${titleSize} leading-tight`,
-        image ? 'text-white mt-0' : 'text-surface-ink mt-2'
+  {showCaption && (
+    <div class:list={['relative flex h-full p-6 sm:p-8', alignClasses[align]]}>
+      <div class:list={[
+        'max-w-[14rem] rounded-[1.35rem] px-4 shadow-[0_16px_40px_rgba(26,28,25,0.14)] backdrop-blur',
+        image ? 'bg-black/25 py-1' : 'bg-surface-raised/88 py-3'
       ]}>
-        {title}
-      </p>
-      {note && (
+        {eyebrow && (
+          <p class:list={[
+            'text-[0.68rem] font-semibold uppercase tracking-[0.2em]',
+            image ? 'text-white mb-0' : 'text-primary-600 mb-0'
+          ]}>
+            {eyebrow}
+          </p>
+        )}
         <p class:list={[
-          'text-sm leading-relaxed',
-          image ? 'text-white/82 mt-0' : 'text-surface-ink/66 mt-2'
+          `font-heading ${titleSize} leading-tight`,
+          image ? 'text-white mt-0' : 'text-surface-ink mt-2'
         ]}>
-          {note}
+          {title}
         </p>
-      )}
+        {note && (
+          <p class:list={[
+            'text-sm leading-relaxed',
+            image ? 'text-white/82 mt-0' : 'text-surface-ink/66 mt-2'
+          ]}>
+            {note}
+          </p>
+        )}
+      </div>
     </div>
-  </div>
+  )}
 </div>
