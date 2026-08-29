@@ -360,10 +360,14 @@ function renderOrderDetailsHtml(order: OrderRecord): string {
           <p style="margin:0 0 12px 0; color:#1f2937;">${escapeHtml(order.paymentMethod)}</p>
 
           <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.contactNameLabel}:</strong></p>
-          <p style="margin:0 0 12px 0; color:#1f2937;">${escapeHtml(order.customer.contactName)}</p>
-
+          <p style="margin:0${order.customer.companyName ? ' 0 12px 0' : ''}; color:#1f2937;">${escapeHtml(order.customer.contactName)}</p>
+          ${
+            order.customer.companyName
+              ? `
           <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.companyNameLabel}:</strong></p>
-          <p style="margin:0; color:#1f2937;">${escapeHtml(order.customer.companyName)}</p>
+          <p style="margin:0; color:#1f2937;">${escapeHtml(order.customer.companyName)}</p>`
+              : ''
+          }
         </div>
         <div>
           <p style="margin:0 0 8px 0; color:#6b7280;"><strong>${text.addressLabel}:</strong></p>
@@ -437,7 +441,9 @@ function renderOrderDetailsText(order: OrderRecord): string {
     `${text.addressLabel}: ${order.customer.address}`,
     `${text.deliveryLabel}: ${order.customer.deliveryTime}`,
     `${text.contactNameLabel}: ${order.customer.contactName}`,
-    `${text.companyNameLabel}: ${order.customer.companyName}`,
+    order.customer.companyName
+      ? `${text.companyNameLabel}: ${order.customer.companyName}`
+      : '',
     `${text.phoneLabel}: ${order.customer.phone}`,
     `${text.emailLabel}: ${order.customer.email}`,
     `${text.invoiceEmailLabel}: ${order.customer.invoiceEmail || order.customer.email}`,

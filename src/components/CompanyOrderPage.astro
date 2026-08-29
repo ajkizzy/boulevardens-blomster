@@ -269,8 +269,8 @@ const uiText = isEnglish
                   <input type="text" name="contactName" required class="input-field order-input" placeholder={isEnglish ? 'Full name' : 'Fulde navn'} />
                 </div>
                 <div>
-                  <label class="label-text">{order.form.companyNameLabel || (isEnglish ? 'Company name' : 'Virksomhedens navn')} *</label>
-                  <input type="text" name="companyName" required class="input-field order-input" placeholder={isEnglish ? 'Company name' : 'Virksomhedens navn'} />
+                  <label class="label-text">{order.form.companyNameLabel || (isEnglish ? 'Company name' : 'Virksomhedens navn')}</label>
+                  <input type="text" name="companyName" class="input-field order-input" placeholder={isEnglish ? 'Company name' : 'Virksomhedens navn'} />
                 </div>
                 <div>
                   <label class="label-text">{order.form.phoneLabel} *</label>

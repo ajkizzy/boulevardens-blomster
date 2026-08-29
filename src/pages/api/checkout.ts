@@ -204,7 +204,6 @@ export const POST: APIRoute = async ({ request }) => {
       !customer.address ||
       !customer.deliveryTime ||
       !customer.contactName ||
-      !customer.companyName ||
       !customer.phone ||
       !customer.email ||
       !payment
