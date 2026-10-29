@@ -68,6 +68,10 @@ const weddingParagraphs = weddingCopy.map((paragraph: string) => {
   };
 });
 const funeralCopy = funerals.text.split('\n\n').slice(0, 2);
+const farewellImages = locale === 'da'
+  ? { wreath: '/images/farewell-roseform.png', casket: '/images/farewell-kistepynt.jpg', main: '/images/farewell-main-wreath.jpg' }
+  : { wreath: '/images/krans.jpg', casket: '/images/kiste.png', main: '/images/forside-s-begravelse.jpg' };
+const farewellFit = locale === 'da' ? 'contain' : 'cover';
 const giftCopy = gifts.text.split('\n\n').slice(0, 2);
 ---
 
@@ -197,14 +201,14 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
         </p>
         <div class="mt-8 grid gap-4 lg:grid-cols-[0.5fr,2.08fr] funeral-grid-desktop">
           <div class="grid gap-3 auto-rows-max">
-            <ShowcasePlaceholder title={locale === 'en' ? 'Wreaths' : 'Kranse'} image="/images/krans.jpg" backgroundPosition="center" size="portrait" />
+            <ShowcasePlaceholder title={locale === 'en' ? 'Wreaths' : 'Kranse'} image={farewellImages.wreath} imageFit={farewellFit} backgroundPosition="center" size="portrait" />
             <div class="max-w-[16rem]">
-              <ShowcasePlaceholder title={locale === 'en' ? 'Casket' : 'Kiste'} image="/images/kiste.png" backgroundPosition="center" size="landscape" />
+              <ShowcasePlaceholder title={locale === 'en' ? 'Casket' : 'Kiste'} image={farewellImages.casket} imageFit={farewellFit} backgroundPosition="center" size="landscape" />
             </div>
           </div>
           <div>
             <div class="relative aspect-[16/8] overflow-hidden rounded-[1.8rem] shadow-[0_24px_60px_rgba(26,28,25,0.1)]">
-              <img src="/images/forside-s-begravelse.jpg" alt={funerals.title} class="h-full w-full object-cover" style="object-position: center 35%" />
+              <img src={farewellImages.main} alt={funerals.title} class="h-full w-full" style={`object-fit: ${farewellFit}; object-position: ${locale === 'da' ? 'center' : 'center 35%'}`} />
             </div>
           </div>
         </div>
@@ -212,9 +216,9 @@ const giftCopy = gifts.text.split('\n\n').slice(0, 2);
         <div class="funeral-slideshow-tablet hidden mt-8">
           <div class="relative overflow-hidden rounded-[1.8rem] shadow-[0_24px_60px_rgba(26,28,25,0.1)] aspect-[16/10]">
             <div class="funeral-slideshow relative h-full w-full">
-              <img src="/images/forside-s-begravelse.jpg" alt="Et Sidste Farvel" class="funeral-slide absolute inset-0 h-full w-full object-cover opacity-100 transition-opacity duration-500" style="object-position: center 35%" />
-              <img src="/images/krans.jpg" alt="Kranse" class="funeral-slide absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500" />
-              <img src="/images/kiste.png" alt="Kiste" class="funeral-slide absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500" />
+              <img src={farewellImages.main} alt="Et Sidste Farvel" class="funeral-slide absolute inset-0 h-full w-full opacity-100 transition-opacity duration-500" style={`object-fit: ${farewellFit}; object-position: ${locale === 'da' ? 'center' : 'center 35%'}`} />
+              <img src={farewellImages.wreath} alt="Kranse" class="funeral-slide absolute inset-0 h-full w-full opacity-0 transition-opacity duration-500" style={`object-fit: ${farewellFit}; object-position: center`} />
+              <img src={farewellImages.casket} alt="Kiste" class="funeral-slide absolute inset-0 h-full w-full opacity-0 transition-opacity duration-500" style={`object-fit: ${farewellFit}; object-position: center`} />
             </div>
           </div>
         </div>

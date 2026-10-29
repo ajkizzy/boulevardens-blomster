@@ -4,6 +4,7 @@ import type { Locale } from '@/lib/i18n';
 import { getOrderPagePath, getRequestOrigin } from '@/lib/config';
 import {
   serializeOrderItemsForMetadata,
+  normalizeBouquetStyle,
   createOrderRecord,
   saveOrderRecord,
   sendCustomerOrderAcknowledgement,
@@ -20,6 +21,7 @@ const ONLINE_PAYMENT_KEYWORDS = ['mobilepay', 'kort', 'card'];
 interface CheckoutRequestLineItem {
   id: string;
   qty: number;
+  style?: unknown;
 }
 
 interface CheckoutRequestBody {
@@ -120,6 +122,7 @@ function buildValidatedItems(
     items.push({
       id: item.id,
       name: catalogEntry.name,
+      style: normalizeBouquetStyle(item.id, item.style),
       qty,
       unitPriceExVatOre,
       unitPriceIncVatOre,

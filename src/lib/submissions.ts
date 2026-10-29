@@ -14,6 +14,7 @@ import { readJsonRecord, saveJsonRecord } from '@/lib/storage';
 import { PRODUCTS, toGrossOre } from '@/lib/stripe';
 
 export interface OrderRecordItem {
+  style?: 'neutral' | 'feminine';
   id: string;
   name: string;
   qty: number;
@@ -92,8 +93,13 @@ function buildTotalsFromItems(items: OrderRecordItem[]) {
   };
 }
 
+export function normalizeBouquetStyle(id: string, value: unknown): OrderRecordItem['style'] {
+  if (!['bare-fordi', 'velkommen-tilbage'].includes(id)) return undefined;
+  return value === 'feminine' ? 'feminine' : 'neutral';
+}
+
 export function serializeOrderItemsForMetadata(items: OrderRecordItem[]): string {
-  return items.map((item) => `${item.id}:${item.qty}`).join('|');
+  return items.map((item) => `${item.id}:${item.qty}${item.style ? `:${item.style}` : ''}`).join('|');
 }
 
 function deserializeOrderItemsFromMetadata(value: string): OrderRecordItem[] {
@@ -102,7 +108,7 @@ function deserializeOrderItemsFromMetadata(value: string): OrderRecordItem[] {
     .map((entry) => entry.trim())
     .filter(Boolean)
     .flatMap((entry) => {
-      const [id, qtyValue] = entry.split(':');
+      const [id, qtyValue, styleValue] = entry.split(':');
       const qty = Number(qtyValue);
       const product = PRODUCTS[id];
 
@@ -117,6 +123,7 @@ function deserializeOrderItemsFromMetadata(value: string): OrderRecordItem[] {
         {
           id,
           name: product.name,
+          style: normalizeBouquetStyle(id, styleValue),
           qty,
           unitPriceExVatOre,
           unitPriceIncVatOre,
@@ -299,7 +306,7 @@ function renderOrderItemsHtml(
     .map(
       (item) => `
         <tr>
-          <td style="padding:8px 0; border-bottom:1px solid #e5e7eb;">${escapeHtml(item.name)}</td>
+          <td style="padding:8px 0; border-bottom:1px solid #e5e7eb;">${escapeHtml(item.name)}${item.style ? `<br />Stil: ${item.style === 'feminine' ? 'Feminin' : 'Neutral'}` : ''}</td>
           <td style="padding:8px 0; border-bottom:1px solid #e5e7eb; text-align:center;">${item.qty}</td>
           <td style="padding:8px 0; border-bottom:1px solid #e5e7eb; text-align:right;">${formatDkkFromOre(item.unitPriceExVatOre, text.localeTag)}</td>
           <td style="padding:8px 0; border-bottom:1px solid #e5e7eb; text-align:right;">${formatDkkFromOre(item.lineTotalExVatOre, text.localeTag)}</td>
@@ -467,7 +474,7 @@ function renderOrderDetailsText(order: OrderRecord): string {
     '',
     ...order.items.map(
       (item) =>
-        `${item.qty} x ${item.name} (${formatDkkFromOre(item.unitPriceExVatOre, text.localeTag)} ex VAT) = ${formatDkkFromOre(item.lineTotalExVatOre, text.localeTag)}`,
+        `${item.qty} x ${item.name}${item.style ? ` (Stil: ${item.style === 'feminine' ? 'Feminin' : 'Neutral'})` : ''} (${formatDkkFromOre(item.unitPriceExVatOre, text.localeTag)} ex VAT) = ${formatDkkFromOre(item.lineTotalExVatOre, text.localeTag)}`,
     ),
   ]
     .filter(Boolean)

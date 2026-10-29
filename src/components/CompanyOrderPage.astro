@@ -22,14 +22,16 @@ const contactHref = isEnglish ? '/en/contact' : '/da/kontakt';
 
 const productImages: Record<string, string> = {
   'bare-fordi': '/images/firma.jpg',
-  'velkommen-tilbage': '',
+  'velkommen-tilbage': isEnglish ? '' : '/images/sbkompakt.png',
   'tillykke': '/images/Kopi_af_IMG_1798.jpg',
   'kaerlighed': '/images/kaerlighed.jpg',
-  'saeson-kompakt': '',
+  'saeson-kompakt': isEnglish ? '' : '/images/redroses.png',
   'saeson-hojluftig': '/images/bare-fordi.jpg',
 };
 
 const getProductImage = (productId: string) => productImages[productId] || null;
+const showFullImage = (productId: string) =>
+  !isEnglish && ['velkommen-tilbage', 'saeson-kompakt'].includes(productId);
 
 const getImageFocus = (productId: string) => {
   const focusMap: Record<string, string> = {
@@ -171,8 +173,24 @@ const uiText = isEnglish
                   data-price={bouquet.price}
                 >
                   <div class="product-image-container relative mb-4 flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-secondary-100 via-surface-raised to-primary-100 cursor-pointer transition-transform duration-300 hover:scale-105" data-product-id={bouquet.id}>
+                    {showFullImage(bouquet.id) && (
+                      <img
+                        src={getProductImage(bouquet.id)!}
+                        alt=""
+                        aria-hidden="true"
+                        class="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover object-center blur-xl"
+                      />
+                    )}
                     {getProductImage(bouquet.id) ? (
-                      <img src={getProductImage(bouquet.id)!} alt={bouquet.name} class="absolute inset-0 h-full w-full object-cover" style={`object-position: ${getImageFocus(bouquet.id)}`} />
+                      <img
+                        src={getProductImage(bouquet.id)!}
+                        alt={bouquet.name}
+                        class:list={[
+                          'absolute inset-0 h-full w-full',
+                          showFullImage(bouquet.id) ? 'object-contain' : 'object-cover',
+                        ]}
+                        style={`object-position: ${showFullImage(bouquet.id) ? 'center center' : getImageFocus(bouquet.id)}`}
+                      />
                     ) : (
                       <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-surface-mid via-surface-raised to-primary-100 px-6 text-center">
                         <span class="font-heading text-2xl leading-tight text-surface-ink/58">Billede kommer snart</span>
@@ -185,10 +203,21 @@ const uiText = isEnglish
                   <h3 class="font-heading text-2xl text-surface-ink">{bouquet.name}</h3>
                   <p class="mt-2 line-clamp-2 text-xs leading-relaxed text-surface-ink/58">{bouquet.description}</p>
                   <div class="mt-4 flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <p class="min-w-0 text-sm font-semibold text-primary-600">
+                    <div class="min-w-0">
+                    <p class="text-sm font-semibold text-primary-600">
                       {bouquet.price},00
                       <span class="text-xs font-normal text-surface-ink/46">{order.priceLabel}</span>
                     </p>
+                    {!isEnglish && ['bare-fordi', 'velkommen-tilbage'].includes(bouquet.id) && (
+                      <label class="mt-2 block text-xs text-surface-ink/58">
+                        <span class="mb-1 block">Stil</span>
+                        <select class="bouquet-style input-field min-h-0 !w-auto max-w-full !rounded-lg !px-3 !py-1.5 text-sm" data-style-id={bouquet.id}>
+                          <option value="neutral" selected>Neutral</option>
+                          <option value="feminine">Feminin</option>
+                        </select>
+                      </label>
+                    )}
+                    </div>
                     <div class="flex w-full flex-shrink-0 items-center justify-end gap-1 sm:w-[7rem]">
                       <button
                         type="button"
@@ -499,6 +528,7 @@ const uiText = isEnglish
       const snapshot = Array.from(cart.values()).map((item) => ({
         id: item.id,
         qty: item.qty,
+        style: item.style,
       }));
 
       if (snapshot.length === 0) {
@@ -530,7 +560,9 @@ const uiText = isEnglish
       return;
     }
 
-    cart.set(id, { id, name, price, qty: nextQty });
+    const styleSelect = document.querySelector(`.bouquet-style[data-style-id="${id}"]`);
+    const style = styleSelect ? (styleSelect.value === 'feminine' ? 'feminine' : 'neutral') : undefined;
+    cart.set(id, { id, name, price, qty: nextQty, style });
     saveCartState();
   }
 
@@ -603,6 +635,7 @@ const uiText = isEnglish
           <div class="flex items-center justify-between gap-2 rounded-[1rem] bg-surface-raised px-3 py-2 text-sm">
             <div class="min-w-0 flex-1">
               <p class="truncate font-medium text-surface-ink">${item.name}</p>
+              ${item.style ? `<p class="text-xs text-surface-ink/44">Stil: ${item.style === 'feminine' ? 'Feminin' : 'Neutral'}</p>` : ''}
               <p class="text-xs text-surface-ink/44">${item.qty} × ${formatPrice(item.price)}</p>
             </div>
             <div class="flex flex-shrink-0 items-center gap-1">
@@ -681,6 +714,16 @@ const uiText = isEnglish
     });
   });
 
+  document.querySelectorAll('.bouquet-style').forEach((select) => {
+    select.addEventListener('change', () => {
+      const item = cart.get(select.dataset.styleId);
+      if (!item) return;
+      item.style = select.value === 'feminine' ? 'feminine' : 'neutral';
+      saveCartState();
+      renderCart();
+    });
+  });
+
   if (paymentSuccess) {
     clearCartState();
   } else {
@@ -702,11 +745,15 @@ const uiText = isEnglish
           return;
         }
 
+        const styleSelect = card.querySelector('.bouquet-style');
+        const style = styleSelect ? (storedItem.style === 'feminine' ? 'feminine' : 'neutral') : undefined;
+        if (styleSelect) styleSelect.value = style;
         cart.set(storedItem.id, {
           id: storedItem.id,
           name,
           price,
           qty,
+          style,
         });
         syncCardUI(storedItem.id);
       });
@@ -786,6 +833,7 @@ const uiText = isEnglish
         lineItems: items.map((item) => ({
           id: item.id,
           qty: item.qty,
+          style: item.style,
         })),
       };
 
