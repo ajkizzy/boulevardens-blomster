@@ -11,98 +11,106 @@ const site = loadContent<any>(locale, 'site');
   <Hero heading="Handelsbetingelser" compact />
 
   <section class="section-padding">
-    <div class="container-narrow mx-auto max-w-4xl space-y-10">
-      <div class="surface-panel p-6 sm:p-8 text-sm leading-7 text-surface-ink/72">
-        <p>
-          Disse handelsbetingelser gælder for bestillinger afgivet via Boulevardens
-          Blomsters website. Teksten er en praktisk baseline til webshoppen og bor
-          gennemgaas med virksomhedens rådgiver, inden siden går endeligt i drift.
-        </p>
+    <div class="container-narrow mx-auto max-w-4xl space-y-10 text-base leading-7 text-surface-ink/72">
+      <div class="surface-panel space-y-3 p-6 sm:p-8">
+        <p><strong>Gældende fra 29. oktober 2026</strong></p>
+        <p>Velkommen til Boulevardens Blomster. Vi ønsker at gøre det trygt, nemt og overskueligt at bestille blomster og gaver hos os. Her kan du læse vores handelsbetingelser, som gælder ved køb og bestilling hos Boulevardens Blomster.</p>
       </div>
 
-      <div class="space-y-3">
-        <h2 class="font-heading text-3xl text-surface-ink">Virksomhedsoplysninger</h2>
-        <p>{site.name}</p>
-        <p>{site.address.street}, {site.address.zip} {site.address.city}</p>
-        <p>CVR: {site.cvr}</p>
-        <p>Email: {site.email}</p>
-        <p>Telefon: {site.phone}</p>
-      </div>
+      <section class="space-y-3" aria-labelledby="terms-1">
+        <h2 id="terms-1" class="font-heading text-3xl text-surface-ink">1. Virksomhedsoplysninger</h2>
+        <p><strong>Virksomhed:</strong> Oasens Blomster ApS ({site.name})<br />
+          <strong>CVR:</strong> {site.cvr}<br />
+          <strong>Adresse:</strong> {site.address.street}, {site.address.zip} Taastrup<br />
+          <strong>Telefon:</strong> {site.phone}<br />
+          <strong>E-mail:</strong> {site.email}<br />
+          <strong>Hjemmeside:</strong> www.boulevardensblomster.dk</p>
+      </section>
 
-      <div class="space-y-3">
-        <h2 class="font-heading text-3xl text-surface-ink">Priser og betaling</h2>
-        <p>
-          Alle priser på firma-bestillingssiden vises i DKK ekskl. moms. Moms
-          tilføjes ved checkout og fremgår af den samlede pris, inden betalingen
-          gennemføres.
-        </p>
-        <p>
-          Online betalinger gennemføres via Stripe med de betalingsmetoder, der er
-          tilgængelige på checkouttidspunktet, herunder kort og MobilePay.
-        </p>
-        <p>
-          Hvis du vælger <strong>Faktura</strong>, modtager Boulevardens Blomster
-          bestillingen med det samme og sender faktura manuelt efterfølgende.
-        </p>
-      </div>
+      <section class="space-y-3" aria-labelledby="terms-2">
+        <h2 id="terms-2" class="font-heading text-3xl text-surface-ink">2. Bestilling og ordrebekræftelse</h2>
+        <p>Du kan bestille blomster, buketter, dekorationer og gaveartikler gennem vores tilgængelige bestillingskanaler, herunder i butikken, på hjemmesiden og efter aftale via telefon eller elektronisk henvendelse.</p>
+        <p>Ved bestilling bedes du oplyse korrekte kontaktoplysninger, ønsket leverings- eller afhentningsdato samt eventuelle særlige ønsker.</p>
+        <p>En bestilling er accepteret, når den er bekræftet af Boulevardens Blomster. En automatisk kvittering for modtagelse af en forespørgsel er ikke nødvendigvis en endelig ordrebekræftelse.</p>
+      </section>
 
-      <div class="space-y-3">
-        <h2 class="font-heading text-3xl text-surface-ink">Ordrebekræftelse</h2>
-        <p>
-          Når du sender en bestilling via websitet, modtager du en automatisk
-          kvittering på email. For online betalinger anses ordren som gennemført,
-          når betalingen er godkendt. For fakturaordrer anses ordren som modtaget,
-          når Boulevardens Blomster har sendt en kvittering og efterfølgende
-          udsteder faktura manuelt.
-        </p>
-      </div>
+      <section class="space-y-3" aria-labelledby="terms-3">
+        <h2 id="terms-3" class="font-heading text-3xl text-surface-ink">3. Priser og betaling</h2>
+        <p>Alle priser til private kunder er angivet i danske kroner (DKK) inklusive moms.</p>
+        <p>Eventuelle leveringsomkostninger og øvrige tillæg oplyses, inden kunden accepterer en bindende bestilling.</p>
+        <p>Vi accepterer de betalingsformer, der oplyses ved købet. Betaling og eventuel reservation eller hævning af beløbet sker efter de vilkår, kunden får oplyst ved bestilling, og i overensstemmelse med gældende lovgivning.</p>
+      </section>
 
-      <div class="space-y-3">
-        <h2 class="font-heading text-3xl text-surface-ink">Levering</h2>
-        <p>
-          Levering sker efter de oplysninger, du indtaster i bestillingen. Kunden
-          er ansvarlig for, at adresse, kontaktoplysninger og ønsket
-          leveringstidspunkt er korrekte.
-        </p>
-        <p>
-          Gratis levering og blomsterkort med tekst gælder kun for virksomheder og
-          ansatte i Taastrup kommune inden for det tidsrum, der er oplyst på
-          bestillingssiden.
-        </p>
-      </div>
+      <section class="space-y-3" aria-labelledby="terms-4">
+        <h2 id="terms-4" class="font-heading text-3xl text-surface-ink">4. Blomster og sæsonvariationer</h2>
+        <p>Blomster er naturprodukter, og deres farver, former, størrelser og tilgængelighed kan variere efter sæson og leverance.</p>
+        <p>Billeder på hjemmesiden er vejledende. Hvis en bestemt blomst eller farve ikke er tilgængelig, kan vi erstatte den med et passende alternativ af tilsvarende kvalitet og værdi, når dette er i overensstemmelse med den indgåede aftale. Vi bestræber os altid på at bevare bukettens overordnede udtryk.</p>
+        <p>Ved væsentlige ændringer kontakter vi kunden for at aftale en løsning.</p>
+      </section>
 
-      <div class="space-y-3">
-        <h2 class="font-heading text-3xl text-surface-ink">Fortrydelse og reklamation</h2>
-        <p>
-          Blomster er letfordærvelige varer, og mange bestillinger bindes eller
-          sammensættes til en konkret anledning. Derfor kan der som udgangspunkt
-          ikke forventes almindelig 14 dages fortrydelsesret på disse leverancer.
-        </p>
-        <p>
-          Hvis der er fejl i leveringen, beder vi dig kontakte Boulevardens
-          Blomster hurtigst muligt på {site.email} eller {site.phone}, så sagen kan
-          vurderes konkret.
-        </p>
-      </div>
+      <section class="space-y-3" aria-labelledby="terms-5">
+        <h2 id="terms-5" class="font-heading text-3xl text-surface-ink">5. Afhentning og levering</h2>
+        <p>Afhentning sker på den aftalte dato og inden for de oplyste afhentningstider.</p>
+        <p>Ved levering er kunden ansvarlig for at oplyse korrekt leveringsadresse, modtagerens navn og relevante adgangsoplysninger.</p>
+        <p>Hvis modtageren ikke er til stede, forsøger vi at kontakte kunden eller modtageren for at finde en passende løsning. Blomster efterlades kun, hvor det vurderes forsvarligt og er i overensstemmelse med den aftalte levering.</p>
+        <p>Hvis en levering ikke kan gennemføres på grund af mangelfulde oplysninger eller manglende adgang, kan en ny levering medføre et ekstra gebyr, som oplyses og aftales på forhånd.</p>
+        <p>Vi bestræber os på at levere på det aftalte tidspunkt. Ved forsinkelser eller problemer kontakter vi kunden hurtigst muligt. Kundens lovbestemte rettigheder ved forsinkelse gælder fortsat.</p>
+      </section>
 
-      <div class="space-y-3">
-        <h2 class="font-heading text-3xl text-surface-ink">Ansvar</h2>
-        <p>
-          Boulevardens Blomster kan ikke holdes ansvarlig for forsinkelser eller
-          manglende levering, hvis det skyldes ukorrekte oplysninger fra kunden,
-          forhold hos modtageren eller forhold uden for virksomhedens rimelige
-          kontrol.
-        </p>
-      </div>
+      <section class="space-y-3" aria-labelledby="terms-6">
+        <h2 id="terms-6" class="font-heading text-3xl text-surface-ink">6. Ændring og afbestilling</h2>
+        <p>Ønsker du at ændre eller afbestille en bestilling, bedes du kontakte os hurtigst muligt.</p>
+        <p class="border-l-4 border-primary-600 bg-primary-50 p-4 text-surface-ink sm:p-5"><strong>Ved blomsterbestillinger over 500 kr. kan Boulevardens Blomster opkræve op til 50 % af ordreværdien, hvis bestillingen afbestilles mindre end 48 timer før aftalt levering eller afhentning, og blomsterne allerede er bestilt, indkøbt eller arbejdet med fremstillingen er påbegyndt.</strong></p>
+        <p>Et eventuelt afbestillingsbeløb afhænger af vores faktiske tab og kan højst udgøre 50 % af ordreværdien.</p>
+        <p>Hvis kunden allerede har betalt, kan et berettiget afbestillingsbeløb modregnes i tilbagebetalingen.</p>
+        <p>Bestemmelsen gælder kun i det omfang, den er forenelig med kundens lovbestemte rettigheder, herunder eventuel fortrydelsesret.</p>
+        <p>Ved større arrangementer, herunder bryllupper, begravelser og firmaevents, kan der aftales særlige afbestillingsvilkår, som oplyses ved bestillingen.</p>
+      </section>
 
-      <div class="space-y-3">
-        <h2 class="font-heading text-3xl text-surface-ink">Persondata</h2>
-        <p>
-          Oplysninger, som afgives i forbindelse med kontaktformularer og
-          bestillinger, behandles i overensstemmelse med virksomhedens
-          privatlivspolitik.
-        </p>
-      </div>
+      <section class="space-y-3" aria-labelledby="terms-7">
+        <h2 id="terms-7" class="font-heading text-3xl text-surface-ink">7. Fortrydelsesret</h2>
+        <p>Ved fjernsalg har private kunder som udgangspunkt 14 dages fortrydelsesret.</p>
+        <p><strong>Friske blomster og andre varer, som må antages at blive forringet eller forældet hurtigt, er undtaget fra den lovbestemte fortrydelsesret.</strong></p>
+        <p>Varer, der fremstilles efter kundens individuelle specifikationer eller får et tydeligt personligt præg, kan ligeledes være undtaget fra fortrydelsesretten.</p>
+        <p>For øvrige varer, som ikke er omfattet af en lovbestemt undtagelse, gælder den almindelige 14-dages fortrydelsesret ved fjernsalg. Fristen regnes som udgangspunkt fra modtagelsen.</p>
+        <p>For at benytte fortrydelsesretten skal kunden give os en tydelig meddelelse inden fristens udløb. Kunden har derefter som udgangspunkt 14 dage til at returnere varen.</p>
+        <p>Tilbagebetaling sker efter gældende regler og omfatter de beløb, kunden har krav på at få tilbage. Kunden betaler de direkte returudgifter, hvis dette er oplyst korrekt inden købet.</p>
+        <p>Ved køb i den fysiske butik er der ikke automatisk lovbestemt fortrydelsesret, medmindre andet er aftalt.</p>
+      </section>
+
+      <section class="space-y-3" aria-labelledby="terms-8">
+        <h2 id="terms-8" class="font-heading text-3xl text-surface-ink">8. Reklamation</h2>
+        <p>Vi gør os umage for at levere friske blomster og produkter af høj kvalitet.</p>
+        <p>Hvis du oplever fejl eller mangler ved din bestilling, bedes du kontakte os hurtigst muligt på {site.email} eller telefon {site.phone}.</p>
+        <p>Ved reklamation over friske blomster anbefaler vi, at du kontakter os snarest efter modtagelsen og gerne vedhæfter billeder, så vi kan vurdere forholdene.</p>
+        <p>Købelovens regler om mangler og reklamation gælder. For varer gælder som udgangspunkt en reklamationsfrist på to år, men vurderingen af en konkret mangel tager hensyn til varens art og naturlige holdbarhed.</p>
+        <p>Ved en berettiget reklamation tilbyder vi en løsning efter gældende lovgivning, eksempelvis omlevering, et passende prisafslag eller tilbagebetaling.</p>
+      </section>
+
+      <section class="space-y-3" aria-labelledby="terms-9">
+        <h2 id="terms-9" class="font-heading text-3xl text-surface-ink">9. Pleje og holdbarhed</h2>
+        <p>Blomsters holdbarhed afhænger blandt andet af temperatur, placering, vandkvalitet og korrekt pleje.</p>
+        <p>Vi anbefaler, at blomster placeres køligt, væk fra direkte sollys og varmekilder, og at vandet udskiftes regelmæssigt.</p>
+        <p>Naturlig aldring og almindelig visning er ikke i sig selv en mangel. Dette begrænser ikke kundens rettigheder, hvis blomsterne var mangelfulde ved leveringen.</p>
+      </section>
+
+      <section class="space-y-3" aria-labelledby="terms-10">
+        <h2 id="terms-10" class="font-heading text-3xl text-surface-ink">10. Personoplysninger</h2>
+        <p>Vi behandler de personoplysninger, der er nødvendige for at håndtere bestillinger, betaling, levering og kundeservice.</p>
+        <p>Du kan læse mere om behandlingen af personoplysninger og dine rettigheder i vores privatlivspolitik på hjemmesiden.</p>
+      </section>
+
+      <section class="space-y-3" aria-labelledby="terms-11">
+        <h2 id="terms-11" class="font-heading text-3xl text-surface-ink">11. Klager og kontakt</h2>
+        <p>Hvis du ikke er tilfreds med en bestilling, opfordrer vi dig til først at kontakte os, så vi kan forsøge at finde en løsning.</p>
+        <p>Hvis vi ikke kan nå til enighed, kan du undersøge mulighederne for at indgive en forbrugerklage gennem Nævnenes Hus på www.naevneneshus.dk, hvis betingelserne for klagebehandling er opfyldt.</p>
+      </section>
+
+      <section class="space-y-3" aria-labelledby="terms-12">
+        <h2 id="terms-12" class="font-heading text-3xl text-surface-ink">12. Gældende lovgivning</h2>
+        <p>Handelsbetingelserne er underlagt dansk ret. Intet i disse betingelser begrænser de rettigheder, som forbrugere har efter ufravigelig dansk forbrugerlovgivning.</p>
+        <p>Vi forbeholder os retten til at opdatere handelsbetingelserne. For allerede indgåede aftaler gælder de vilkår, som var en del af aftalen ved bestillingen.</p>
+      </section>
     </div>
   </section>
 </Layout>
